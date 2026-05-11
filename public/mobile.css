@@ -157,6 +157,26 @@ body {
   .stats-strip__item:nth-child(n+3) {
     border-top: 1px solid var(--border);
   }
+
+  .stats-strip__num {
+    font-size: clamp(28px, 8vw, 40px) !important;
+    display: inline-block;
+    min-width: 2ch;
+    transform: none !important;
+    will-change: contents !important;
+  }
+
+  .stats-strip__val {
+    gap: 4px;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer__logo-wrap h1 {
+    font-size: clamp(56px, 22vw, 80px) !important;
+    line-height: 0.9 !important;
+    transform: none !important;
+  }
 }
 
 /* ── 7. PAIN GRID MOBILE ───────────────────────────── */
