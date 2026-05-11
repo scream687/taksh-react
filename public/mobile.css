@@ -1,0 +1,503 @@
+/* ═══════════════════════════════════════════════════
+   Taksh Mobile Optimizations
+   ═══════════════════════════════════════════════════ */
+
+/* ── 1. PREVENT HORIZONTAL OVERFLOW ───────────────── */
+html {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+body {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+/* ── 2. HIDE CURSOR ON TOUCH DEVICES ──────────────── */
+@media (hover: none), (pointer: coarse) {
+  #cursor,
+  .cursor {
+    display: none !important;
+  }
+
+  * {
+    cursor: auto !important;
+  }
+}
+
+/* ── 3. REDUCE ANIMATIONS ON MOBILE ───────────────── */
+@media (max-width: 768px) {
+  /* Hide heavy effects */
+  .ambient-mesh {
+    display: none !important;
+  }
+
+  .streak {
+    display: none !important;
+  }
+
+  .orb {
+    display: none !important;
+  }
+
+  /* Reduce liquid blob intensity */
+  .liquid-bg__blob {
+    opacity: 0.06 !important;
+    filter: blur(60px) !important;
+  }
+
+  /* Faster marquee */
+  .marquee__track {
+    animation-duration: 20s !important;
+  }
+
+  .marquee {
+    animation-duration: 20s !important;
+  }
+
+  .project-marquee__track {
+    animation-duration: 20s !important;
+  }
+
+  /* Reduce preloader bar animation */
+  .preloader__bar::after {
+    animation-duration: 0.8s !important;
+  }
+
+  /* Disable magnetic on mobile */
+  .magnetic {
+    transform: none !important;
+  }
+}
+
+/* ── 4. HERO MOBILE ────────────────────────────────── */
+@media (max-width: 768px) {
+  .hero {
+    padding-top: 100px;
+    padding-bottom: 60px;
+  }
+
+  .hero__title {
+    font-size: clamp(40px, 12vw, 80px) !important;
+    line-height: 1.05 !important;
+  }
+
+  .hero__meta {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+
+  .hero__meta-item {
+    padding: 0;
+  }
+
+  .hero__statement {
+    font-size: 16px !important;
+    line-height: 1.6;
+  }
+
+  .hero__cta {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .hero__cta .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* Very small screens */
+@media (max-width: 360px) {
+  .hero__title {
+    font-size: 36px !important;
+  }
+
+  .hero__meta {
+    gap: 12px;
+  }
+}
+
+/* ── 5. NAV MOBILE ─────────────────────────────────── */
+@media (max-width: 768px) {
+  .nav__inner {
+    padding: 0 20px;
+  }
+
+  .nav__links {
+    display: none; /* TODO: Add mobile hamburger menu */
+  }
+
+  .nav__cta {
+    padding: 10px 16px;
+    font-size: 13px;
+  }
+}
+
+/* ── 6. STATS STRIP MOBILE ─────────────────────────── */
+@media (max-width: 720px) {
+  .stats-strip__inner {
+    flex-wrap: wrap;
+    gap: 0;
+  }
+
+  .stats-strip__item {
+    flex: 0 0 50%;
+    padding: 24px 0;
+  }
+
+  .stats-strip__item:nth-child(2n) {
+    padding-left: 24px;
+    border-left: 1px solid var(--border);
+    margin-left: 0;
+  }
+
+  .stats-strip__item:nth-child(n+3) {
+    border-top: 1px solid var(--border);
+  }
+}
+
+/* ── 7. PAIN GRID MOBILE ───────────────────────────── */
+@media (max-width: 768px) {
+  .pain__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pain__item {
+    padding: 32px 24px;
+  }
+
+  .pain__title {
+    font-size: 20px;
+  }
+
+  .pain__desc {
+    font-size: 14px;
+  }
+}
+
+/* ── 8. SERVICES MOBILE ────────────────────────────── */
+@media (max-width: 768px) {
+  .services {
+    flex-direction: column;
+    gap: 1px;
+  }
+
+  .service {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100% !important;
+    padding: 28px 24px !important;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .service__num {
+    font-size: 11px;
+  }
+
+  .service__name {
+    font-size: 18px;
+    flex: 1;
+  }
+
+  .service__desc {
+    font-size: 14px;
+    width: 100%;
+  }
+
+  .service__arrow {
+    position: absolute;
+    right: 24px;
+    top: 28px;
+  }
+}
+
+/* ── 9. PROCESS MOBILE ─────────────────────────────── */
+@media (max-width: 880px) {
+  .proc-rail {
+    display: none !important;
+  }
+
+  .process-wrapper {
+    padding: 0;
+  }
+
+  .process {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 32px 16px !important;
+  }
+
+  .process__step {
+    padding-top: 0 !important;
+  }
+
+  .proc-body {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .process__week {
+    font-size: 10px;
+  }
+
+  .process__name {
+    font-size: 16px;
+  }
+
+  .process__desc {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 560px) {
+  .process {
+    grid-template-columns: 1fr !important;
+    gap: 28px !important;
+  }
+
+  .proc-node {
+    margin-bottom: 16px;
+  }
+}
+
+/* ── 10. PRINCIPLES MOBILE ─────────────────────────── */
+@media (max-width: 768px) {
+  .principles {
+    grid-template-columns: 1fr;
+  }
+
+  .principle {
+    padding: 32px 24px;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 16px;
+  }
+
+  .principle__num {
+    font-size: 11px;
+    grid-row: 1 / 3;
+    align-self: center;
+  }
+
+  .principle__name {
+    font-size: 18px;
+  }
+
+  .principle__not {
+    font-size: 14px;
+    color: var(--muted);
+  }
+
+  .principle__desc {
+    grid-column: 2;
+    font-size: 14px;
+  }
+}
+
+/* ── 11. INDUSTRIES MOBILE ─────────────────────────── */
+@media (max-width: 768px) {
+  .industries {
+    flex-direction: column;
+  }
+
+  .industry {
+    padding: 28px 24px;
+  }
+
+  .industry__name {
+    font-size: 20px;
+  }
+
+  .industry__desc {
+    font-size: 14px;
+  }
+}
+
+/* ── 12. FAQ MOBILE ─────────────────────────────────── */
+@media (max-width: 768px) {
+  .faq__q {
+    font-size: 15px;
+    padding: 20px 0;
+    align-items: center;
+  }
+
+  .faq__a-text {
+    font-size: 14px;
+    line-height: 1.6;
+    padding-bottom: 24px;
+  }
+
+  .faq__plus {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+/* ── 13. CONTACT CTA MOBILE ──────────────────────────── */
+@media (max-width: 768px) {
+  .contact-cta__row {
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .contact-cta__details {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .contact-cta__btn {
+    width: 100%;
+    justify-content: center;
+    padding: 16px 32px;
+    font-size: 15px;
+  }
+
+  .contact-cta__title {
+    font-size: clamp(28px, 8vw, 48px) !important;
+  }
+}
+
+/* ── 14. FOOTER MOBILE ─────────────────────────────── */
+@media (max-width: 768px) {
+  .footer__top {
+    padding: 48px 0;
+  }
+
+  .footer__cta {
+    font-size: clamp(28px, 8vw, 48px) !important;
+    line-height: 1.1;
+  }
+
+  .footer__top > div:last-child {
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+
+  .footer__col {
+    min-width: unset;
+  }
+
+  .footer__huge {
+    padding: 40px 0;
+  }
+
+  .footer__info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer__logo-wrap h1 {
+    font-size: clamp(56px, 22vw, 80px) !important;
+    line-height: 0.9 !important;
+  }
+}
+
+@media (max-width: 360px) {
+  .footer__logo-wrap h1 {
+    font-size: clamp(48px, 24vw, 60px) !important;
+  }
+
+  .footer__top > div:last-child {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+}
+
+/* ── 15. SECTION MOBILE ─────────────────────────────── */
+@media (max-width: 768px) {
+  .section {
+    padding: 64px 0;
+  }
+
+  .section__head {
+    margin-bottom: 40px;
+  }
+
+  .section__title {
+    font-size: clamp(28px, 8vw, 48px) !important;
+    line-height: 1.1;
+  }
+
+  .section--void {
+    padding: 64px 0;
+  }
+}
+
+/* ── 16. TOUCH TARGET SIZES ─────────────────────────── */
+@media (max-width: 768px) {
+  a,
+  button {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .service {
+    min-height: unset;
+    position: relative;
+  }
+
+  .faq__q {
+    cursor: pointer;
+  }
+
+  .btn {
+    padding: 14px 24px;
+  }
+}
+
+/* ── 17. MARQUEE MOBILE ─────────────────────────────── */
+@media (max-width: 768px) {
+  .marquee span {
+    font-size: 12px;
+  }
+
+  .project-marquee__item {
+    font-size: 14px;
+    padding: 0 24px;
+  }
+}
+
+/* ── 18. DRAWER MOBILE ─────────────────────────────── */
+@media (max-width: 768px) {
+  .drawer {
+    width: 100vw;
+    padding: 48px 24px 24px;
+  }
+
+  .drawer__title {
+    font-size: 28px;
+  }
+}
+
+/* ── 19. PREFERS REDUCED MOTION ─────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ── 20. SAFE AREA INSETS (iPhone notch) ───────────── */
+@supports (padding: env(safe-area-inset-bottom)) {
+  .footer {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  .nav {
+    padding-top: env(safe-area-inset-top);
+  }
+}
