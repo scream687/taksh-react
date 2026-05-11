@@ -6,11 +6,7 @@ import { motion, useInView } from 'framer-motion'
 // Logo Component
 function Logo({ className = "" }: { className?: string }) {
   return (
-    <svg className={className} viewBox="0 0 280 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <text x="0" y="45" fontFamily="Inter" fontSize="42" fontWeight="700" fill="#1A1A1A">taksh</text>
-      <circle cx="265" cy="30" r="18" stroke="#2D5BE3" strokeWidth="2" fill="none"/>
-      <text x="265" y="36" fontFamily="Inter" fontSize="16" fontWeight="600" fill="#2D5BE3" textAnchor="middle">T</text>
-    </svg>
+    <img src="/logo-wordmark.png" alt="Taksh" className={className} style={{ height: 28, width: 'auto', display: 'block' }} />
   )
 }
 
@@ -94,7 +90,7 @@ function Nav() {
       <div className="absolute inset-0 bg-[#F5F5F3]/40 backdrop-blur-[12px] saturate-[180%] -z-10 border-b border-[#1A1A1A]/5 transition-all" />
       <div className="max-w-[1480px] mx-auto px-5 lg:px-14 flex items-center justify-between h-[76px]">
         <a href="#" className="flex items-center">
-          <Logo className="h-7" />
+          <img src="/logo-wordmark.png" alt="Taksh" style={{ height: 28, width: 'auto', display: 'block' }} />
         </a>
         <div className="hidden md:flex items-center gap-10">
           <a href="#services" className="relative text-sm font-medium hover:text-[#2D5BE3] transition-colors after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1px] after:bg-[#1A1A1A] after:transition-all hover:after:w-full">Services</a>
@@ -523,7 +519,7 @@ function Footer() {
 
         <div className="border-t border-[#2A2A2A] pt-10 flex justify-between items-center flex-wrap gap-6">
           <div className="flex items-center gap-4">
-            <Logo className="h-6 text-white" />
+            <img src="/logo-wordmark.png" alt="Taksh" style={{ height: 24, width: 'auto', display: 'block', filter: 'invert(1)' }} />
             <span className="text-sm text-white/80">© 2026 Taksh</span>
           </div>
           <div className="flex items-center gap-6 text-sm text-white/80">
