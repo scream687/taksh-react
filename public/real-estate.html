@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Taksh — Real Estate</title>
+<link rel="icon" href="../assets/logo-favicon.jpeg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap">
+<link rel="stylesheet" href="site.css">
+<link rel="stylesheet" href="effects.css">
+<style>
+  .page-hero__title em, .section__title em, .cta-band__title em { font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-weight: 400; letter-spacing: -0.015em; }
+
+  /* Re positioning offer grid */
+  .offer { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border-top: 1px solid var(--border); border-left: 1px solid var(--border); }
+  .offer__cell { padding: 48px 40px; border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); display: flex; flex-direction: column; min-height: 320px; }
+  .offer__num { font-size: 12px; letter-spacing: 0.2em; color: var(--muted); font-variant-numeric: tabular-nums; margin-bottom: 32px; }
+  .offer__name { font-size: clamp(28px, 3vw, 44px); font-weight: 600; letter-spacing: -0.02em; margin-bottom: 14px; }
+  .offer__desc { font-size: 16px; color: var(--muted); line-height: 1.55; max-width: 480px; }
+  .offer__cell--blue { background: var(--blue); color: var(--white); }
+  .offer__cell--blue .offer__num { color: rgba(255,255,255,0.7); }
+  .offer__cell--blue .offer__desc { color: rgba(255,255,255,0.8); }
+  @media (max-width: 720px) { .offer { grid-template-columns: 1fr; } }
+
+  /* Tension / problem block */
+  .tension { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+  .tension__num { font-size: 14px; letter-spacing: 0.2em; color: var(--muted); margin-bottom: 24px; }
+  .tension__h { font-size: clamp(28px, 2.6vw, 38px); font-weight: 600; letter-spacing: -0.02em; margin-bottom: 18px; }
+  .tension__p { font-size: 17px; color: var(--muted); line-height: 1.6; }
+  @media (max-width: 720px) { .tension { grid-template-columns: 1fr; gap: 24px; } }
+
+  /* Stat row */
+  .cta-band { background: var(--void); color: var(--paper); padding: clamp(96px, 10vw, 150px) 0; }
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; border-top: 1px solid var(--border-dark); padding-top: 40px; }
+  .stat__num { font-size: clamp(60px, 7vw, 120px); font-weight: 700; letter-spacing: -0.04em; line-height: 0.9; color: var(--paper); }
+  .stat__num .blue { color: var(--blue); }
+  .stat__lbl { margin-top: 16px; font-size: 14px; color: rgba(245,245,243,0.65); max-width: 280px; line-height: 1.5; }
+  @media (max-width: 720px) { .stats { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<!-- ── Preloader ── -->
+<div id="preloader" aria-hidden="true">
+  <img class="preloader__logo" src="logo-symbol.png" alt="">
+  <div class="preloader__bar"></div>
+</div>
+
+<!-- ── Liquid Background ── -->
+<div class="liquid-bg" aria-hidden="true">
+  <div class="liquid-bg__blob liquid-bg__blob--1"></div>
+  <div class="liquid-bg__blob liquid-bg__blob--2"></div>
+  <div class="liquid-bg__blob liquid-bg__blob--3"></div>
+</div>
+
+<!-- ── Theme Toggle ── -->
+<button id="theme-toggle" aria-label="Toggle theme" title="Toggle light / dark">
+  <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z"/></svg>
+  <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="12" y1="21" x2="12" y2="23" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="1" y1="12" x2="3" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="21" y1="12" x2="23" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+</button>
+
+<!-- ── Drawer Modal + Waitlist Form ── -->
+<div class="drawer-overlay" id="drawer-overlay"></div>
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Join the waitlist">
+  <button class="drawer__close" id="drawer-close" aria-label="Close">×</button>
+  <span class="drawer__eyebrow">Real estate · Early access</span>
+  <h2 class="drawer__title">Build your<br>brand.</h2>
+  <p class="drawer__body">Tell us about your project — current vertical, what's launching next, what's stuck. We reply within 48 hours.</p>
+  <form id="waitlist-form" novalidate>
+    <input type="text"  name="name"    placeholder="Your name"         autocomplete="name"  />
+    <input type="email" name="email"   placeholder="Work email"        autocomplete="email" required />
+    <input type="text"  name="company" placeholder="Developer / brokerage name" />
+    <button type="submit">Get in touch →</button>
+  </form>
+  <div id="waitlist-success">
+    Got it. We'll review and be in touch within 48 hours.
+  </div>
+  <div style="margin-top:auto;padding-top:32px;border-top:1px solid rgba(255,255,255,0.07)">
+    <p style="font-size:13px;color:rgba(245,245,243,0.4);margin-bottom:12px">Share with your network</p>
+    <button class="fb-share-btn" data-fb-share="https://taksh.in/real-estate">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+      Share on Facebook
+    </button>
+  </div>
+</aside>
+
+<!-- ── Custom Cursor ── -->
+<div class="cursor" id="cursor"></div>
+
+<nav class="nav" id="nav">
+  <div class="nav__inner">
+    <a class="nav__brand" href="index.html" aria-label="Taksh"><img src="logo-wordmark.png" alt="Taksh" style="height:28px;width:auto;display:block"></a>
+    <div class="nav__links">
+      <a href="index.html#services">Services</a>
+      <a href="index.html#process">Process</a>
+      <a href="index.html#industries">Industries</a>
+      <a href="index.html#manifesto">Manifesto</a>
+      <a href="real-estate.html" class="is-active">Real Estate</a>
+    </div>
+    <a class="nav__cta magnetic" href="index.html#contact">Start a project <span class="arrow">→</span></a>
+  </div>
+</nav>
+
+<!-- Page hero -->
+<header class="page-hero">
+  <div class="container">
+    <div class="page-hero__label label">Industries · 01 · Real Estate</div>
+    <h1 class="page-hero__title">
+      Stop selling<br>
+      <em>square feet</em>.<br>
+      Start selling a <span class="blue">decision</span>.
+    </h1>
+    <p class="page-hero__sub">
+      Real-estate brands look the same because they sell the same way — floor plans, amenities, EMI math. We help developers and brokerages build a brand that survives the project, not just the launch ad.
+    </p>
+  </div>
+</header>
+
+<!-- Tension -->
+<section class="section">
+  <div class="container">
+    <div class="tension">
+      <div>
+        <div class="tension__num">01 — The problem</div>
+        <h2 class="tension__h">Every project ad looks like every other project ad.</h2>
+      </div>
+      <div>
+        <p class="tension__p">Same drone shot. Same "luxury living." Same urgency banner. Buyers can't remember which developer they called. Brokers can't justify their price. And every launch starts from zero — because nothing compounds.</p>
+        <p class="tension__p" style="margin-top:18px">A brand is what makes the next project easier to sell than the last one. Most developers don't have one. They have a logo and a hoarding.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Offer -->
+<section class="section" style="background:var(--white);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+  <div class="container">
+    <div class="section__head">
+      <span class="label">What we build · 02</span>
+      <h2 class="section__title">A real-estate brand <em>worth</em> repeating.</h2>
+    </div>
+    <div class="offer">
+      <div class="offer__cell offer__cell--blue">
+        <div class="offer__num">01</div>
+        <div class="offer__name">Developer Identity</div>
+        <div class="offer__desc">A parent brand that holds every project — not a new logo every launch. Story, name system, identity, voice. The thing buyers actually remember.</div>
+      </div>
+      <div class="offer__cell">
+        <div class="offer__num">02</div>
+        <div class="offer__name">Project Positioning</div>
+        <div class="offer__desc">A sentence per project that explains who it's for, why now, and why you. We replace amenities with answers.</div>
+      </div>
+      <div class="offer__cell">
+        <div class="offer__num">03</div>
+        <div class="offer__name">Launch Campaign</div>
+        <div class="offer__desc">The film, the print, the OOH, the Meta funnel — produced from one strategy, not stitched from five vendors.</div>
+      </div>
+      <div class="offer__cell">
+        <div class="offer__num">04</div>
+        <div class="offer__name">Sales Enablement</div>
+        <div class="offer__desc">Brochures, sales-gallery scripts, broker decks. The story holds whether a buyer reads it on Instagram or hears it across a desk.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Stats -->
+<section class="cta-band">
+  <div class="container">
+    <span class="label label--paper">By the numbers · 03</span>
+    <h2 class="cta-band__title" style="margin-top:32px;font-size:clamp(44px,6vw,96px)">
+      The real-estate <em>opportunity</em>,<br>
+      in three lines.
+    </h2>
+    <div class="stats" style="margin-top:80px">
+      <div>
+        <div class="stat__num"><span class="blue">₹47</span>L Cr</div>
+        <div class="stat__lbl">Indian real-estate market projected for 2030 — and most of it still markets like it's 2010.</div>
+      </div>
+      <div>
+        <div class="stat__num"><span class="blue">73</span>%</div>
+        <div class="stat__lbl">Of buyers can't recall a developer's name 90 days after they bought from them.</div>
+      </div>
+      <div>
+        <div class="stat__num"><span class="blue">1</span>.</div>
+        <div class="stat__lbl">Brand. That's all it takes for the next project to launch with a waitlist instead of a banner ad.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Process specific -->
+<section class="section">
+  <div class="container">
+    <div class="section__head">
+      <span class="label">Engagement · 04</span>
+      <h2 class="section__title">Two ways to <em>start</em>.</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px">
+      <div class="rotate-card" style="border:1px solid var(--border);padding:48px 40px;background:var(--white);display:flex;flex-direction:column">
+        <div class="label" style="margin-bottom:24px">Sprint · 4 weeks</div>
+        <h3 style="font-size:clamp(32px,3.4vw,52px);font-weight:600;letter-spacing:-0.025em;margin-bottom:18px">Brand Foundation</h3>
+        <p style="color:var(--muted);font-size:16px;line-height:1.6;max-width:480px">For developers launching a new vertical or rebranding an existing portfolio. Positioning, identity, voice, and the first launch piece — in four weeks. Fixed scope. Fixed price.</p>
+        <div style="margin-top:auto;padding-top:32px;display:flex;justify-content:space-between;align-items:end;border-top:1px solid var(--border)">
+          <div><div class="label" style="margin-bottom:6px">Starts at</div><div style="font-size:32px;font-weight:600;letter-spacing:-0.02em">₹3.5L</div></div>
+          <a class="btn btn--primary magnetic" href="index.html#contact">Enquire <span class="arrow">→</span></a>
+        </div>
+      </div>
+      <div class="rotate-card" style="border:1px solid var(--ink);padding:48px 40px;background:var(--ink);color:var(--paper);display:flex;flex-direction:column;position:relative">
+        <div style="position:absolute;top:0;left:0;width:0;height:0;border-left:18px solid transparent;border-right:18px solid transparent;border-top:24px solid var(--blue)"></div>
+        <div class="label label--paper" style="margin-bottom:24px">Retainer · 6+ months</div>
+        <h3 style="font-size:clamp(32px,3.4vw,52px);font-weight:600;letter-spacing:-0.025em;margin-bottom:18px">Strategy Partner</h3>
+        <p style="color:rgba(245,245,243,0.7);font-size:16px;line-height:1.6;max-width:480px">For developers with multiple projects in market. Brand stewardship, project-by-project positioning, campaign oversight, and a Friday-call that actually moves things forward.</p>
+        <div style="margin-top:auto;padding-top:32px;display:flex;justify-content:space-between;align-items:end;border-top:1px solid var(--border-dark)">
+          <div><div class="label label--paper" style="margin-bottom:6px">From</div><div style="font-size:32px;font-weight:600;letter-spacing:-0.02em">₹1.5L / mo</div></div>
+          <a class="btn btn--blue magnetic" href="index.html#contact">Enquire <span class="arrow">→</span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-band">
+  <div class="container">
+    <span class="label label--paper">Let's talk · 05</span>
+    <h2 class="cta-band__title" style="margin-top:32px;font-size:clamp(56px,9vw,180px)">
+      Build a brand,<br>
+      not a <em style="color:var(--blue)">banner</em>.
+    </h2>
+    <div class="cta-band__row">
+      <div style="color:rgba(245,245,243,0.7);font-size:16px;max-width:520px;line-height:1.6">
+        Tell us about your project — current vertical, what's launching next, what's stuck. We reply within 48 hours with either a 30-min call or a polite "not the fit."
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px;align-items:flex-start">
+        <a class="cta-band__btn" href="mailto:hello@taksh.in">hello@taksh.in <span style="font-size:20px">→</span></a>
+        <button class="btn-waitlist" data-drawer-open>Fill a quick form →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer ── -->
+<footer class="footer" id="footer">
+  <div class="container">
+    <div class="footer__top reveal">
+      <div>
+        <h2 class="footer__cta">
+          Ready to make<br>
+          your <em>move?</em>
+        </h2>
+        <a class="btn btn--blue magnetic" href="mailto:hello@taksh.in" style="margin-top:40px">Start a project <span class="arrow">→</span></a>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px">
+        <div class="footer__col">
+          <h4>Navigation</h4>
+          <ul>
+            <li><a class="magnetic" href="index.html#services">Services</a></li>
+            <li><a class="magnetic" href="index.html#process">Process</a></li>
+            <li><a class="magnetic" href="real-estate.html">Real Estate</a></li>
+            <li><a class="magnetic" href="index.html#manifesto">Manifesto</a></li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <h4>Socials</h4>
+          <ul>
+            <li><a class="magnetic" href="#">Instagram</a></li>
+            <li><a class="magnetic" href="#">LinkedIn</a></li>
+            <li><a class="magnetic" href="#">Read.cv</a></li>
+            <li><a class="magnetic" href="#">Twitter</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    
+    <div class="footer__huge reveal">
+      <div style="display:flex;justify-content:space-between;align-items:flex-end">
+        <div class="footer__info">
+          <span>Vrindavan, Uttar Pradesh</span>
+          <span>India · 281121</span>
+          <span class="clock" id="clock-foot">—</span>
+        </div>
+        <a href="#nav" class="footer__back-top magnetic">↑</a>
+      </div>
+      
+      <div class="footer__logo-wrap">
+        <h1 style="font-size:clamp(80px, 18vw, 320px);line-height:0.8;letter-spacing:-0.05em;margin:0;color:var(--paper)">TΛKSH</h1>
+      </div>
+      
+      <div class="footer__bottom-bar">
+        <span>© 2026 Taksh Studio</span>
+        <span>Strategy &amp; marketing for growth-stage businesses.</span>
+        <span><a class="magnetic" href="#" style="color:inherit;text-decoration:underline;text-underline-offset:4px">Brand Bible</a></span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://unpkg.com/@studio-freight/lenis@1.0.34/dist/lenis.min.js"></script>
+<script>
+  // Custom Cursor
+  const cursor = document.getElementById('cursor');
+  let mouseX = 0, mouseY = 0;
+  
+  if(window.matchMedia("(pointer: fine)").matches) {
+    document.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX; mouseY = e.clientY;
+      if (cursor) cursor.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) translate(-50%, -50%)`;
+    });
+
+    document.querySelectorAll('a, button, .faq__q, .magnetic').forEach(el => {
+      el.addEventListener('mouseenter', () => cursor && cursor.classList.add('is-hover'));
+      el.addEventListener('mouseleave', () => cursor && cursor.classList.remove('is-hover'));
+    });
+    
+    // Magnetic Buttons
+    document.querySelectorAll('.magnetic').forEach(btn => {
+      btn.addEventListener('mousemove', (e) => {
+        const rect = btn.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+        btn.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+      });
+      btn.addEventListener('mouseleave', () => {
+        btn.style.transform = 'translate(0px, 0px)';
+        btn.style.transition = 'transform 0.5s cubic-bezier(0.25, 1, 0.5, 1)';
+      });
+      btn.addEventListener('mouseenter', () => {
+        btn.style.transition = 'none';
+      });
+    });
+  }
+
+  // Lenis smooth scroll
+  const lenis = new Lenis({ duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
+  function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+  requestAnimationFrame(raf);
+
+  // Sticky nav border
+  const nav = document.getElementById('nav');
+  const onScroll = () => nav.classList.toggle('is-scrolled', window.scrollY > 8);
+  document.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  // Clock
+  const fmt = new Intl.DateTimeFormat('en-IN', { hour: '2-digit', minute: '2-digit', second: '2-digit', timeZone: 'Asia/Kolkata', hour12: false });
+  const tick = () => {
+    const t = fmt.format(new Date()) + ' IST';
+    const b = document.getElementById('clock-foot'); if (b) b.textContent = t;
+  };
+  tick(); setInterval(tick, 1000);
+
+  // Reveal
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } });
+  }, { rootMargin: '0px 0px -10% 0px', threshold: 0.05 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+<script src="effects.js" defer></script>
+</body>
+</html>

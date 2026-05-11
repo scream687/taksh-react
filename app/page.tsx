@@ -1,554 +1,94 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
-import { motion, useInView } from 'framer-motion'
+import { useEffect } from 'react'
 
-// Logo Component
-function Logo({ className = "" }: { className?: string }) {
-  return (
-    <img src="/logo-wordmark.png" alt="Taksh" className={className} style={{ height: 28, width: 'auto', display: 'block' }} />
-  )
-}
+const htmlContent = `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Taksh — Shaped with intent.</title>
+<meta name="description" content="Strategy and marketing for growth-stage businesses. Founded by Rishabh Sharma in Vrindavan, India.">
+<link rel="icon" href="../assets/logo-favicon.jpeg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap">
+<link rel="stylesheet" href="/site.css">
+<link rel="stylesheet" href="/effects.css">
+<style>
+  .hero__title em { font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-weight: 400; letter-spacing: -0.015em; }
+  .section__title em { font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-weight: 400; letter-spacing: -0.015em; }
+  .cta-band__title em { font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-weight: 400; letter-spacing: -0.015em; }
+  .clock { font-variant-numeric: tabular-nums; font-feature-settings: 'tnum'; }
+  .pulse { width: 8px; height: 8px; border-radius: 50%; background: var(--blue); box-shadow: 0 0 0 0 rgba(45,91,227,0.6); animation: pulse 1.8s infinite; display: inline-block; }
+  @keyframes pulse { 70% { box-shadow: 0 0 0 12px rgba(45,91,227,0); } 100% { box-shadow: 0 0 0 0 rgba(45,91,227,0); } }
+</style>
+</head>
+<body>
+<div id="preloader" aria-hidden="true"><img class="preloader__logo" src="/logo-symbol.png" alt=""><div class="preloader__bar"></div></div>
+<div class="liquid-bg" aria-hidden="true"><div class="liquid-bg__blob liquid-bg__blob--1"></div><div class="liquid-bg__blob liquid-bg__blob--2"></div><div class="liquid-bg__blob liquid-bg__blob--3"></div></div>
+<button id="theme-toggle" aria-label="Toggle theme" title="Toggle light / dark"><svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z"/></svg><svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="12" y1="21" x2="12" y2="23" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="1" y1="12" x2="3" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="21" y1="12" x2="23" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+<div class="drawer-overlay" id="drawer-overlay"></div>
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Join the waitlist"><button class="drawer__close" id="drawer-close" aria-label="Close">×</button><span class="drawer__eyebrow">Early access</span><h2 class="drawer__title">Join the<br>waitlist.</h2><p class="drawer__body">We're selective about who we take on. Drop your details and we'll reach out when the fit looks right.</p><form id="waitlist-form" novalidate><input type="text" name="name" placeholder="Your name" autocomplete="name"/><input type="email" name="email" placeholder="Work email" autocomplete="email" required/><input type="text" name="company" placeholder="Company / project"/><button type="submit">Join the waitlist →</button></form><div id="waitlist-success">You're on the list. We'll be in touch within 48 hours.</div><div style="margin-top:auto;padding-top:32px;border-top:1px solid rgba(255,255,255,0.07)"><p style="font-size:13px;color:rgba(245,245,243,0.4);margin-bottom:12px">Share with your network</p><button class="fb-share-btn" data-fb-share="https://taksh.in"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>Share on Facebook</button></div></aside>
+<svg style="position: absolute; width: 0; height: 0;" aria-hidden="true"><filter id="directional-blur"><feGaussianBlur in="SourceGraphic" stdDeviation="120 0" /></filter><filter id="directional-blur-v"><feGaussianBlur in="SourceGraphic" stdDeviation="0 120" /></filter></svg>
+<div class="ambient-mesh"><div class="orb orb-1"></div><div class="orb orb-2 orb-v"></div><div class="orb orb-3"></div><div class="streak" style="left: 20%; animation-delay: 0s;"></div><div class="streak" style="left: 50%; animation-delay: -5s;"></div><div class="streak" style="left: 80%; animation-delay: -10s;"></div></div>
+<div class="cursor" id="cursor"></div>
+<nav class="nav" id="nav"><div class="nav__inner"><a class="nav__brand" href="index.html" aria-label="Taksh — home"><img src="/logo-wordmark.png" alt="Taksh" style="height:28px;width:auto;display:block"></a><div class="nav__links"><a href="#services" class="magnetic">Services</a><a href="#process" class="magnetic">Process</a><a href="#industries" class="magnetic">Industries</a><a href="#manifesto" class="magnetic">Manifesto</a><a href="/real-estate.html" class="magnetic">Real Estate</a></div><a class="nav__cta magnetic" href="#contact">Start a project <span class="arrow">→</span></a></div></nav>
+<header class="hero"><div class="container"><div class="hero__meta reveal"><div class="hero__meta-item"><span class="label">Founder</span><span class="v">Rishabh Sharma</span></div><div class="hero__meta-item"><span class="label">Studio</span><span class="v">Vrindavan · India</span></div><div class="hero__meta-item"><span class="label">Established</span><span class="v">2026 · v1.0</span></div><div class="hero__meta-item"><span class="label">Local time</span><span class="v clock" id="clock">—</span></div><div class="hero__meta-item"><span class="label">Status</span><span class="v" style="display:inline-flex;align-items:center;gap:10px"><span class="pulse"></span>Booking Q3 · 2026</span></div></div><h1 class="hero__title reveal kinetic-text">Strategy &amp;<br>marketing,<br><em>shaped</em> with <span class="blue">intent.</span></h1><div class="hero__bottom reveal"><p class="hero__statement text-embed">Taksh is a strategy &amp; marketing studio for growth-stage businesses — built to help brands think sharper, move faster, and grow with intent.</p><div class="hero__cta"><a class="btn btn--primary magnetic" href="#contact">Start a project <span class="arrow">→</span></a><a class="btn btn--ghost magnetic" href="#services">See the work</a><button class="btn-waitlist magnetic" data-drawer-open>Join waitlist</button></div></div></div></header>
+<div class="marquee" aria-hidden="true"><div class="marquee__track"><span>Strategy<span class="blue-tri"></span></span><span>Positioning<span class="blue-tri"></span></span><span>Go-to-Market<span class="blue-tri"></span></span><span>Content<span class="blue-tri"></span></span><span>Performance<span class="blue-tri"></span></span><span>Consultancy<span class="blue-tri"></span></span><span>Strategy<span class="blue-tri"></span></span><span>Positioning<span class="blue-tri"></span></span><span>Go-to-Market<span class="blue-tri"></span></span><span>Content<span class="blue-tri"></span></span><span>Performance<span class="blue-tri"></span></span><span>Consultancy<span class="blue-tri"></span></span></div></div>
+<div class="stats-strip" aria-label="Studio at a glance"><div class="stats-strip__inner"><div class="stats-strip__item"><div class="stats-strip__val"><span class="stats-strip__num" data-count="6">6</span><span class="stats-strip__suffix">+</span></div><span class="stats-strip__label">Brands shaped</span></div><div class="stats-strip__item"><div class="stats-strip__val"><span class="stats-strip__num">4</span><span class="stats-strip__suffix">wk</span></div><span class="stats-strip__label">Sprint delivery</span></div><div class="stats-strip__item"><div class="stats-strip__val"><span class="stats-strip__num" data-count="100">100</span><span class="stats-strip__suffix">%</span></div><span class="stats-strip__label">Fixed-price engagements</span></div><div class="stats-strip__item"><div class="stats-strip__val"><span class="stats-strip__num">3</span></div><span class="stats-strip__label">Industries served</span></div></div></div>
+<section class="section pain-section" id="pain"><div class="container"><div class="pain__head reveal"><span class="label label--paper" style="opacity:.55">Sound familiar? ·</span><h2 class="section__title" style="color:var(--paper);margin-top:16px">The problem isn't<br>the <em style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-weight:400">product.</em></h2></div><div class="pain__grid"><div class="pain__item reveal stagger-1"><span class="pain__num">01</span><div class="pain__icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div><h3 class="pain__title">No clear positioning</h3><p class="pain__desc">You look and sound like every other brand in the room. The product is solid — but nobody can explain why you, not them.</p></div><div class="pain__item reveal stagger-2"><span class="pain__num">02</span><div class="pain__icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div><h3 class="pain__title">Wasted ad spend</h3><p class="pain__desc">Campaigns launch before the strategy does. Budget burns fast without a brand foundation — and the numbers never lie about it.</p></div><div class="pain__item reveal stagger-3"><span class="pain__num">03</span><div class="pain__icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div><h3 class="pain__title">Inconsistent messaging</h3><p class="pain__desc">Your website, pitch deck, and sales calls each tell a different story. Buyers feel the gap even if they can't name it.</p></div><div class="pain__item reveal stagger-4"><span class="pain__num">04</span><div class="pain__icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg></div><h3 class="pain__title">Stalled growth</h3><p class="pain__desc">Revenue has plateaued and you know it's a brand problem, not a product problem. The ceiling is real — and it's made of perception.</p></div></div></div></section>
+<section class="section section--void" id="manifesto"><div class="container"><div class="section__head reveal"><span class="label label--paper">Manifesto · 01</span><h2 class="section__title kinetic-text">The brand is not a veneer.<br>It is the <em>operating system</em>.</h2></div><div class="principles"><div class="principle reveal stagger-1"><div class="principle__num">01</div><div class="principle__name">Precise</div><div class="principle__not">Not sloppy</div><div class="principle__desc">Every word and pixel is intentional. We don't ship rough drafts to clients — we ship answers.</div></div><div class="principle reveal stagger-2"><div class="principle__num">02</div><div class="principle__name">Confident</div><div class="principle__not">Not arrogant</div><div class="principle__desc">We know what we do. We don't oversell it. The work makes the case.</div></div><div class="principle reveal stagger-3"><div class="principle__num">03</div><div class="principle__name">Minimal</div><div class="principle__not">Not cold</div><div class="principle__desc">Less noise, more signal. If a section has to argue for itself, it doesn't belong.</div></div><div class="principle reveal stagger-4"><div class="principle__num">04</div><div class="principle__name">Sharp</div><div class="principle__not">Not aggressive</div><div class="principle__desc">Direct, clear, no fluff. We don't hide behind jargon — and we won't let your brand either.</div></div><div class="principle reveal stagger-5"><div class="principle__num">05</div><div class="principle__name">Young</div><div class="principle__not">Not immature</div><div class="principle__desc">Energy of a founder. Thinking of a veteran. We're new but we're not green.</div></div><div class="principle reveal stagger-6"><div class="principle__num">06</div><div class="principle__name">Grounded</div><div class="principle__not">Not pretentious</div><div class="principle__desc">Indian roots, global standards. Built in Vrindavan, written for the world.</div></div></div></div></section>
+<section class="section" id="services"><div class="container"><div class="section__head reveal"><span class="label">Services · 02</span><h2 class="section__title kinetic-text">Six services.<br><em>One</em> standard.</h2></div><div class="services"><a class="service reveal stagger-1 rotate-card" href="#contact"><span class="service__num">01</span><span class="service__name">Brand Strategy</span><span class="service__desc">Positioning, narrative, and the architecture that makes every next decision easier.</span><span class="service__arrow">→</span></a><a class="service reveal stagger-2 rotate-card" href="#contact"><span class="service__num">02</span><span class="service__name">Go-to-Market</span><span class="service__desc">Audience, channel, and launch plan — sequenced to actually ship, not just to look good in a deck.</span><span class="service__arrow">→</span></a><a class="service reveal stagger-3 rotate-card" href="#contact"><span class="service__num">03</span><span class="service__name">Content</span><span class="service__desc">Words and assets with a point of view, produced on a rhythm that compounds.</span><span class="service__arrow">→</span></a><a class="service reveal stagger-4 rotate-card" href="#contact"><span class="service__num">04</span><span class="service__name">Consultancy</span><span class="service__desc">Founder-level thinking, on retainer, for teams that don't need a full agency.</span><span class="service__arrow">→</span></a><a class="service reveal stagger-5 rotate-card" href="#contact"><span class="service__num">05</span><span class="service__name">Performance</span><span class="service__desc">Paid media and funnel work — judged on revenue, not impressions.</span><span class="service__arrow">→</span></a><a class="service reveal stagger-6 rotate-card" href="#contact"><span class="service__num">06</span><span class="service__name">Positioning</span><span class="service__desc">Who you're for, what you stand for, and why it's you — in one sentence you can defend.</span><span class="service__arrow">→</span></a></div></div></section>
+<section class="section" id="process" style="background:var(--white);border-top:1px solid var(--border);border-bottom:1px solid var(--border);"><div class="container"><div class="section__head reveal"><span class="label">Process · 03</span><h2 class="section__title">Four weeks to a<br>brand you can <em>defend.</em></h2></div><div class="process-wrapper"><div class="proc-rail" aria-hidden="true"><div class="proc-rail__fill" id="proc-fill"></div></div><div class="process"><div class="process__step" data-step="0"><div class="proc-node"><span class="proc-node__num">01</span><span class="proc-node__ring" aria-hidden="true"></span></div><div class="proc-body"><div class="process__week">Week 01</div><div class="process__name">Listen</div><div class="process__desc">Founder calls, market scan, customer interviews. We ask the questions you've stopped asking yourself.</div></div></div><div class="process__step" data-step="1"><div class="proc-node"><span class="proc-node__num">02</span><span class="proc-node__ring" aria-hidden="true"></span></div><div class="proc-body"><div class="process__week">Week 02</div><div class="process__name">Carve</div><div class="process__desc">Positioning, narrative, naming where needed. The sentence that holds everything else together.</div></div></div><div class="process__step" data-step="2"><div class="proc-node"><span class="proc-node__num">03</span><span class="proc-node__ring" aria-hidden="true"></span></div><div class="proc-body"><div class="process__week">Week 03</div><div class="process__name">Shape</div><div class="process__desc">Identity system, voice guide, the first piece of work that proves it. Not a deck — a thing you can use.</div></div></div><div class="process__step" data-step="3"><div class="proc-node"><span class="proc-node__num">04</span><span class="proc-node__ring" aria-hidden="true"></span></div><div class="proc-body"><div class="process__week">Week 04</div><div class="process__name">Ship</div><div class="process__desc">Handover, GTM plan, and the first 90 days mapped. We don't disappear — we calibrate.</div></div></div></div></div></div></section>
+<section class="section" id="industries"><div class="container"><div class="section__head reveal"><span class="label">Who we serve · 04</span><h2 class="section__title kinetic-text">Built for brands that have <em>outgrown</em><br>their first identity.</h2></div><div class="industries reveal"><div class="industry industry--primary"><div class="industry__top"><span class="industry__num">01</span><span class="industry__tag">Primary focus</span></div><div class="industry__name">Real Estate</div><div class="industry__desc">Developers, brokers, and property brands ready to stop looking like every other listing on the page. <a href="/real-estate.html" style="color:var(--blue);text-decoration:underline;text-underline-offset:3px">See how →</a></div></div><div class="industry"><div class="industry__top"><span class="industry__num">02</span></div><div class="industry__name">D2C &amp; Retail</div><div class="industry__desc">Product companies crossing from founder-led to brand-led — before paid spend stops working.</div></div><div class="industry"><div class="industry__top"><span class="industry__num">03</span></div><div class="industry__name">Services</div><div class="industry__desc">Studios, clinics, firms that sell outcomes, not hours — and need the positioning to prove it.</div></div><div class="industry"><div class="industry__top"><span class="industry__num">04</span></div><div class="industry__name">Founders</div><div class="industry__desc">Builders who need sharper thinking before the next deck, hire, or launch.</div></div></div></div></section>
+<section class="section" id="faq" style="background:var(--white);border-top:1px solid var(--border);"><div class="container"><div class="section__head reveal"><span class="label">Questions · 05</span><h2 class="section__title kinetic-text">Things people ask<br><em>before</em> they ask.</h2></div><div class="faq reveal" id="faq-list"><div class="faq__item"><div class="faq__q"><span class="num">01</span><span>How is Taksh different from a typical agency?</span><span class="faq__plus"></span></div><div class="faq__a"><div class="faq__a-text">Most agencies sell production. We sell the thinking that decides what to produce. Every engagement starts with the sentence that holds your brand together — then the work follows. We're small by design, founder-led, and the same person who pitched you will be in your Slack on day 30.</div></div></div><div class="faq__item"><div class="faq__q"><span class="num">02</span><span>What size of business do you work with?</span><span class="faq__plus"></span></div><div class="faq__a"><div class="faq__a-text">Growth-stage. That means past zero-to-one — you have customers, revenue, and a thing that works — but the brand is the bottleneck. Real-estate developers, D2C brands, services firms, and founders prepping to raise are typical fits.</div></div></div><div class="faq__item"><div class="faq__q"><span class="num">03</span><span>What does an engagement look like?</span><span class="faq__plus"></span></div><div class="faq__a"><div class="faq__a-text">Four weeks for a positioning + identity sprint. Three months for a full GTM. Or an ongoing retainer if you need a strategy partner on the inside. We send a fixed scope, fixed price, and a published timeline before you sign anything.</div></div></div><div class="faq__item"><div class="faq__q"><span class="num">04</span><span>Do you do design and execution, or just strategy?</span><span class="faq__plus"></span></div><div class="faq__a"><div class="faq__a-text">Both. Strategy without execution is a PDF. We ship the identity, the site, the first campaign — whatever proves the thinking. You're not handed a deck and a goodbye.</div></div></div><div class="faq__item"><div class="faq__q"><span class="num">05</span><span>What does it cost?</span><span class="faq__plus"></span></div><div class="faq__a"><div class="faq__a-text">Sprints start at ₹3.5L. Retainers start at ₹1.5L/month. Performance work is scoped to budget. We publish a number with the proposal — no "let's get on a call to discuss pricing" theatre.</div></div></div><div class="faq__item"><div class="faq__q"><span class="num">06</span><span>How do we start?</span><span class="faq__plus"></span></div><div class="faq__a"><div class="faq__a-text">Fill the form below or email Rishabh directly. We reply within 48 hours with either a 30-min intro call or a polite "not the right fit." Both are wins.</div></div></div></div></div></section>
+<section class="contact-cta" id="contact"><div class="container"><span class="label label--paper">Let's talk · 06</span><h2 class="contact-cta__title reveal">Let's talk about<br>your <em class="contact-cta__accent">brand.</em></h2><div class="contact-cta__row reveal"><div class="contact-cta__details"><div><div class="label label--paper" style="margin-bottom:8px">Email</div><a href="mailto:hello@taksh.in" style="color:var(--paper);font-size:18px;font-weight:500">hello@taksh.in</a></div><div><div class="label label--paper" style="margin-bottom:8px">Founder</div><span style="color:var(--paper);font-size:18px;font-weight:500">Rishabh Sharma</span></div><div><div class="label label--paper" style="margin-bottom:8px">Web</div><a href="#" style="color:var(--paper);font-size:18px;font-weight:500">taksh.in</a></div></div><a class="contact-cta__btn" href="mailto:hello@taksh.in">Start a project <span style="font-size:20px">→</span></a></div></div></section>
+<footer class="footer" id="footer"><div class="container"><div class="footer__top reveal"><div><h2 class="footer__cta">Ready to make<br>your <em>move?</em></h2><a class="btn btn--blue magnetic" href="mailto:hello@taksh.in" style="margin-top:40px">Start a project <span class="arrow">→</span></a></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:40px"><div class="footer__col"><h4>Navigation</h4><ul><li><a class="magnetic" href="#services">Services</a></li><li><a class="magnetic" href="#process">Process</a></li><li><a class="magnetic" href="/real-estate.html">Real Estate</a></li><li><a class="magnetic" href="#manifesto">Manifesto</a></li></ul></div><div class="footer__col"><h4>Socials</h4><ul><li><a class="magnetic" href="#">Instagram</a></li><li><a class="magnetic" href="#">LinkedIn</a></li><li><a class="magnetic" href="#">Read.cv</a></li><li><a class="magnetic" href="#">Twitter</a></li></ul></div></div></div><div class="footer__huge reveal"><div style="display:flex;justify-content:space-between;align-items:flex-end"><div class="footer__info"><span>Vrindavan, Uttar Pradesh</span><span>India · 281121</span><span class="clock" id="clock-foot">—</span></div><a href="#nav" class="footer__back-top magnetic">↑</a></div><div class="footer__logo-wrap"><h1 style="font-size:clamp(80px, 18vw, 320px);line-height:0.8;letter-spacing:-0.05em;margin:0;color:var(--paper)">TΛKSH</h1></div><div class="footer__bottom-bar"><span>© 2026 Taksh Studio</span><span>Strategy &amp; marketing for growth-stage businesses.</span><span><a class="magnetic" href="#" style="color:inherit;text-decoration:underline;text-underline-offset:4px">Brand Bible</a></span></div></div></div></footer>
+<section class="project-marquee"><div class="project-marquee__track"><div class="project-marquee__item">Start a project <span class="arrow">→</span></div><div class="project-marquee__item">Start a project <span class="arrow">→</span></div><div class="project-marquee__item">Start a project <span class="arrow">→</span></div><div class="project-marquee__item">Start a project <span class="arrow">→</span></div></div><a href="#contact" class="project-marquee__overlay" aria-label="Start a project"></a></section>
+<script src="https://unpkg.com/@studio-freight/lenis@1.0.34/dist/lenis.min.js"></script>
+<script>
+const cursor = document.getElementById('cursor');
+let mouseX = 0, mouseY = 0;
+if(window.matchMedia("(pointer: fine)").matches) {
+  document.addEventListener('mousemove', (e) => { mouseX = e.clientX; mouseY = e.clientY; cursor.style.transform = \`translate3d(\${mouseX}px, \${mouseY}px, 0) translate(-50%, -50%)\`; });
+  document.querySelectorAll('a, button, .faq__q, .magnetic').forEach(el => { el.addEventListener('mouseenter', () => cursor.classList.add('is-hover')); el.addEventListener('mouseleave', () => cursor.classList.remove('is-hover')); });
+  document.querySelectorAll('.magnetic').forEach(btn => { btn.addEventListener('mousemove', (e) => { const rect = btn.getBoundingClientRect(); const x = e.clientX - rect.left - rect.width / 2; const y = e.clientY - rect.top - rect.height / 2; btn.style.transform = \`translate(\${x * 0.3}px, \${y * 0.3}px)\`; }); btn.addEventListener('mouseleave', () => { btn.style.transform = 'translate(0px, 0px)'; btn.style.transition = 'transform 0.5s cubic-bezier(0.25, 1, 0.5, 1)'; }); btn.addEventListener('mouseenter', () => { btn.style.transition = 'none'; }); }); }
+const lenis = new Lenis({ duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
+function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+requestAnimationFrame(raf);
+const nav = document.getElementById('nav');
+const onScroll = () => nav.classList.toggle('is-scrolled', window.scrollY > 8);
+document.addEventListener('scroll', onScroll, { passive: true });
+onScroll();
+const fmt = new Intl.DateTimeFormat('en-IN', { hour: '2-digit', minute: '2-digit', second: '2-digit', timeZone: 'Asia/Kolkata', hour12: false });
+const tick = () => { const t = fmt.format(new Date()) + ' IST'; const a = document.getElementById('clock'); if (a) a.textContent = t; const b = document.getElementById('clock-foot'); if (b) b.textContent = t; };
+tick(); setInterval(tick, 1000);
+document.querySelectorAll('.faq__item').forEach(item => { item.querySelector('.faq__q').addEventListener('click', () => { const open = item.classList.contains('is-open'); document.querySelectorAll('.faq__item').forEach(i => i.classList.remove('is-open')); if (!open) item.classList.add('is-open'); }); });
+const io = new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } }); }, { rootMargin: '0px 0px -10% 0px', threshold: 0.05 });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+if (window.matchMedia('(pointer: fine)').matches) { const industries = document.querySelectorAll('.industry'); industries.forEach(card => { card.addEventListener('mousemove', (e) => { const rect = card.getBoundingClientRect(); const x = e.clientX - rect.left; const y = e.clientY - rect.top; const centerX = rect.width / 2; const centerY = rect.height / 2; const rotateX = (y - centerY) / 10; const rotateY = (centerX - x) / 10; card.style.transform = \`translate3d(0, -8px, 0) rotateX(\${rotateX}deg) rotateY(\${rotateY}deg)\`; card.style.setProperty('--x', \`\${x}px\`); card.style.setProperty('--y', \`\${y}px\`); }); card.addEventListener('mouseleave', () => { card.style.transform = \`translate3d(0, 0, 0) rotateX(0deg) rotateY(0deg)\`; }); }); }
+function initKineticTypography() { const targets = document.querySelectorAll('.kinetic-text'); targets.forEach(target => { if (target.querySelector('.word-wrapper')) return; const text = target.innerHTML; const words = text.trim().split(/(\s+|<br.*?>|<\/?em.*?>|<\/?span.*?>)/); let newHTML = ''; words.forEach(word => { if (!word) return; if (word.startsWith('<') || word.trim() === '') { newHTML += word; } else { newHTML += \`<span class="word-wrapper"><span class="word">\${word}</span></span>\`; } }); target.innerHTML = newHTML; const obs = new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-in'); const words = e.target.querySelectorAll('.word'); words.forEach((w, i) => { w.style.transitionDelay = \`\${i * 0.04}s\`; }); obs.unobserve(e.target); } }); }, { threshold: 0.1 }); obs.observe(target); }); }
+initKineticTypography();
+</script>
+<script src="/effects.js" defer></script>
+<script type="module">
+import { animate, scroll } from 'https://cdn.jsdelivr.net/npm/motion@latest/+esm';
+const section = document.getElementById('process');
+const fill = document.getElementById('proc-fill');
+const steps = [...document.querySelectorAll('.process__step')];
+const bodies = [...document.querySelectorAll('.proc-body')];
+const nodes = [...document.querySelectorAll('.proc-node')];
+if (!section || !fill || !steps.length) throw new Error('process elements missing');
+const THRESHOLDS = [0.02, 0.33, 0.65, 0.95];
+const done = new Set();
+scroll(({ y }) => { const p = y.progress; fill.style.width = \`\${p * 100}%\`; fill.classList.toggle('orb-on', p > 0.01 && p < 0.99); steps.forEach((step, i) => { if (p >= THRESHOLDS[i] && !done.has(i)) { done.add(i); step.classList.add('is-active'); animate(nodes[i], { scale: [0.78, 1.15, 1] }, { duration: 0.55, easing: [0.34, 1.56, 0.64, 1] }); animate(bodies[i], { opacity: [0, 1], y: [14, 0] }, { duration: 0.5, easing: [0.23, 1, 0.32, 1], delay: 0.12 }); } if (p < THRESHOLDS[i] - 0.02 && done.has(i)) { done.delete(i); step.classList.remove('is-active'); bodies[i].style.opacity = '0'; bodies[i].style.transform = 'translateY(14px)'; } }); }, { target: section, offset: ['start 75%', 'end 25%'] });
+</script>
+</body>
+</html>`
 
-// Ambient Mesh Background
-function AmbientMesh() {
-  return (
-    <div className="ambient-mesh" aria-hidden="true">
-      <div className="orb orb-1"></div>
-      <div className="orb orb-2"></div>
-      <div className="orb orb-3"></div>
-      <div className="streak" style={{ left: '20%', animationDelay: '0s' }}></div>
-      <div className="streak" style={{ left: '50%', animationDelay: '-5s' }}></div>
-      <div className="streak" style={{ left: '80%', animationDelay: '-10s' }}></div>
-    </div>
-  )
-}
-
-// Custom Cursor
-function CustomCursor() {
-  const [position, setPosition] = useState({ x: 0, y: 0 })
-  const [hover, setHover] = useState(false)
-
-  useEffect(() => {
-    const updatePosition = (e: MouseEvent) => {
-      setPosition({ x: e.clientX, y: e.clientY })
-    }
-    const handleMouseOver = (e: MouseEvent) => {
-      const target = e.target as HTMLElement
-      if (target.tagName === 'A' || target.tagName === 'BUTTON' || target.closest('a') || target.closest('button')) {
-        setHover(true)
-      } else {
-        setHover(false)
-      }
-    }
-    window.addEventListener('mousemove', updatePosition)
-    window.addEventListener('mouseover', handleMouseOver)
-    return () => {
-      window.removeEventListener('mousemove', updatePosition)
-      window.removeEventListener('mouseover', handleMouseOver)
-    }
-  }, [])
-
-  return (
-    <div
-      className={`cursor ${hover ? 'is-hover' : ''}`}
-      style={{ left: position.x, top: position.y }}
-    />
-  )
-}
-
-// Reveal Animation Component
-function Reveal({ children, delay = 0, className = "" }: { children: React.ReactNode, delay?: number, className?: string }) {
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: "-100px" })
-
-  return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
-      animate={isInView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
-      transition={{ duration: 1.2, delay, ease: [0.2, 0, 0.2, 1] }}
-      className={className}
-    >
-      {children}
-    </motion.div>
-  )
-}
-
-// Navigation
-function Nav() {
-  const [scrolled, setScrolled] = useState(false)
-
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50)
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
-
-  return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'is-scrolled' : ''}`}>
-      <div className="absolute inset-0 bg-[#F5F5F3]/40 backdrop-blur-[12px] saturate-[180%] -z-10 border-b border-[#1A1A1A]/5 transition-all" />
-      <div className="max-w-[1480px] mx-auto px-5 lg:px-14 flex items-center justify-between h-[76px]">
-        <a href="#" className="flex items-center">
-          <img src="/logo-wordmark.png" alt="Taksh" style={{ height: 28, width: 'auto', display: 'block' }} />
-        </a>
-        <div className="hidden md:flex items-center gap-10">
-          <a href="#services" className="relative text-sm font-medium hover:text-[#2D5BE3] transition-colors after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1px] after:bg-[#1A1A1A] after:transition-all hover:after:w-full">Services</a>
-          <a href="#process" className="relative text-sm font-medium hover:text-[#2D5BE3] transition-colors after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1px] after:bg-[#1A1A1A] after:transition-all hover:after:w-full">Process</a>
-          <a href="#industries" className="relative text-sm font-medium hover:text-[#2D5BE3] transition-colors after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1px] after:bg-[#1A1A1A] after:transition-all hover:after:w-full">Industries</a>
-          <a href="#manifesto" className="relative text-sm font-medium hover:text-[#2D5BE3] transition-colors after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1px] after:bg-[#1A1A1A] after:transition-all hover:after:w-full">Manifesto</a>
-          <a href="/real-estate" className="relative text-sm font-medium hover:text-[#2D5BE3] transition-colors after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1px] after:bg-[#1A1A1A] after:transition-all hover:after:w-full">Real Estate</a>
-        </div>
-        <a href="#contact" className="bg-[#1A1A1A] text-[#F5F5F3] px-5 py-2.5 text-sm font-medium hover:bg-[#2D5BE3] transition-all flex items-center gap-2">
-          Start a project <span className="transition-transform hover:translate-x-1">→</span>
-        </a>
-      </div>
-    </nav>
-  )
-}
-
-// Hero Section
-function Hero() {
-  const [time, setTime] = useState("--:--")
-
-  useEffect(() => {
-    const updateClock = () => {
-      const now = new Date()
-      setTime(now.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', hour12: false }))
-    }
-    updateClock()
-    const interval = setInterval(updateClock, 1000)
-    return () => clearInterval(interval)
-  }, [])
-
-  return (
-    <header className="pt-[156px] pb-20 relative">
-      <div className="max-w-[1480px] mx-auto px-5 lg:px-14">
-        <Reveal>
-          <div className="flex flex-wrap gap-x-10 gap-y-4 mb-14">
-            <div className="flex flex-col gap-1.5">
-              <span className="text-[11px] uppercase tracking-[0.2em] text-[#888]">Founder</span>
-              <span className="text-sm font-medium text-[#1A1A1A]">Rishabh Sharma</span>
-            </div>
-            <div className="flex flex-col gap-1.5">
-              <span className="text-[11px] uppercase tracking-[0.2em] text-[#888]">Studio</span>
-              <span className="text-sm font-medium text-[#1A1A1A]">Vrindavan · India</span>
-            </div>
-            <div className="flex flex-col gap-1.5">
-              <span className="text-[11px] uppercase tracking-[0.2em] text-[#888]">Established</span>
-              <span className="text-sm font-medium text-[#1A1A1A]">2026 · v1.0</span>
-            </div>
-            <div className="flex flex-col gap-1.5">
-              <span className="text-[11px] uppercase tracking-[0.2em] text-[#888]">Local time</span>
-              <span className="text-sm font-medium text-[#1A1A1A] font-mono tabular-nums">{time}</span>
-            </div>
-            <div className="flex flex-col gap-1.5">
-              <span className="text-[11px] uppercase tracking-[0.2em] text-[#888]">Status</span>
-              <span className="text-sm font-medium text-[#1A1A1A] flex items-center gap-2">
-                <span className="pulse-dot"></span>
-                Booking Q3 · 2026
-              </span>
-            </div>
-          </div>
-        </Reveal>
-
-        <Reveal delay={0.1}>
-          <h1 className="text-[clamp(60px,10.5vw,220px)] font-bold leading-[0.88] tracking-tight mb-[60px]">
-            Strategy &<br />
-            marketing,<br />
-            <em>shaped</em> with <span className="text-[#2D5BE3]">intent.</span>
-          </h1>
-        </Reveal>
-
-        <Reveal delay={0.2}>
-          <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_1fr] gap-[60px] border-t border-[#E0DDD6] pt-9">
-            <div>
-              <p className="text-[clamp(20px,1.6vw,26px)] font-medium leading-[1.4] max-w-[640px]">
-                Taksh is a strategy & marketing studio for growth-stage businesses — built to help brands think sharper, move faster, and grow with intent.
-              </p>
-            </div>
-            <div className="flex gap-4 justify-end flex-wrap">
-              <a href="#contact" className="bg-[#1A1A1A] text-[#F5F5F3] px-[28px] py-[18px] text-sm font-medium hover:bg-[#2D5BE3] transition-all flex items-center gap-3 magnetic-btn">
-                Start a project <span>→</span>
-              </a>
-              <a href="#services" className="border border-[#E0DDD6] text-[#1A1A1A] px-[28px] py-[18px] text-sm font-medium hover:border-[#2D5BE3] hover:text-[#2D5BE3] transition-all magnetic-btn">
-                See the work
-              </a>
-              <button className="border border-[#E0DDD6] text-[#1A1A1A] px-[28px] py-[18px] text-sm font-medium hover:border-[#2D5BE3] hover:text-[#2D5BE3] transition-all magnetic-btn">
-                Join waitlist
-              </button>
-            </div>
-          </div>
-        </Reveal>
-      </div>
-    </header>
-  )
-}
-
-// Marquee
-function Marquee() {
-  const items = ['Strategy', 'Positioning', 'Go-to-Market', 'Content', 'Performance', 'Consultancy']
-
-  return (
-    <div className="border-t border-b border-[#E0DDD6] overflow-hidden py-7 bg-[#F5F5F3] whitespace-nowrap" style={{ maskImage: 'linear-gradient(to right, transparent, black 15%, black 85%, transparent)' }}>
-      <div className="flex animate-marquee">
-        {[...items, ...items, ...items].map((item, i) => (
-          <span key={i} className="mx-16 text-[clamp(28px,4.4vw,64px)] font-semibold tracking-tight flex items-center gap-16">
-            {item}
-            <span className="blue-tri"></span>
-          </span>
-        ))}
-      </div>
-    </div>
-  )
-}
-
-// Stats Strip
-function StatsStrip() {
-  const stats = [
-    { num: "6+", label: "Years experience" },
-    { num: "50+", label: "Projects shipped" },
-    { num: "3", label: "Studio focus areas" },
-    { num: "0", label: "Retainers — ever" }
-  ]
-
-  return (
-    <div className="py-10 border-b border-[#E0DDD6]">
-      <div className="max-w-[1480px] mx-auto px-5 lg:px-14">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-          {stats.map((stat, i) => (
-            <Reveal key={i} delay={i * 0.1}>
-              <div className="text-center md:text-left">
-                <div className="text-4xl font-bold text-[#2D5BE3] mb-1">{stat.num}</div>
-                <div className="text-sm text-[#888] uppercase tracking-wider">{stat.label}</div>
-              </div>
-            </Reveal>
-          ))}
-        </div>
-      </div>
-    </div>
-  )
-}
-
-// Services Section
-function Services() {
-  const services = [
-    { num: "01", title: "Strategy", desc: "Strategic planning, market analysis, competitive positioning, and growth roadmaps tailored to your business stage." },
-    { num: "02", title: "Positioning", desc: "Brand identity, messaging architecture, narrative design, and visual identity systems that differentiate you in-market." },
-    { num: "03", title: "Content", desc: "Editorial and multimedia content creation — from thought leadership to product storytelling that builds authority." },
-    { num: "04", title: "Performance", desc: "Performance marketing, funnel optimization, and data-driven campaigns that convert and scale." }
-  ]
-
-  return (
-    <section id="services" className="py-[120px] border-t border-[#1A1A1A]">
-      <div className="max-w-[1480px] mx-auto px-5 lg:px-14">
-        <Reveal>
-          <div className="grid grid-cols-[200px_1fr] gap-12 mb-20">
-            <span className="text-[11px] uppercase tracking-[0.2em] text-[#888] pt-3">Services · 01</span>
-            <h2 className="text-[clamp(36px,5.4vw,84px)] font-bold leading-[1.1] tracking-tight">
-              What we<br /><em>actually do.</em>
-            </h2>
-          </div>
-        </Reveal>
-
-        <div className="border-t border-[#E0DDD6]">
-          {services.map((service, i) => (
-            <Reveal key={i} delay={i * 0.1}>
-              <div className="service-item group grid grid-cols-[80px_1fr_2fr_60px] gap-10 py-10 border-b border-[#E0DDD6] cursor-pointer transition-all">
-                <span className="service-num text-[14px] tracking-[0.18em] text-[#888] font-variant-numeric tabular-nums">{service.num}</span>
-                <h3 className="text-[clamp(28px,4vw,60px)] font-semibold leading-none tracking-tight">{service.title}</h3>
-                <p className="service-desc text-[17px] text-[#888] leading-[1.5] max-w-[520px]">{service.desc}</p>
-                <span className="service-arrow text-[28px] text-right opacity-30 group-hover:opacity-100 group-hover:translate-x-0 -translate-x-3 transition-all">→</span>
-              </div>
-            </Reveal>
-          ))}
-        </div>
-      </div>
-    </section>
-  )
-}
-
-// Process Section
-function Process() {
-  const steps = [
-    { num: "01", week: "Week 01", title: "Discovery", desc: "Deep dive into your business, market, and competitors. We ask questions you've stopped asking yourself." },
-    { num: "02", week: "Week 02", title: "Strategy", desc: "Positioning, narrative, and strategic roadmap. The sentence that holds everything together." },
-    { num: "03", week: "Week 03", title: "Execution", desc: "Identity system, content, or campaign creation. Work you can actually use." },
-    { num: "04", week: "Week 04", title: "Handoff", desc: "Delivery, GTM plan, and first 90 days mapped. We don't disappear — we calibrate." }
-  ]
-
-  const [active, setActive] = useState(0)
-
-  return (
-    <section id="process" className="py-[120px] bg-[#F5F5F3] border-y border-[#E0DDD6]">
-      <div className="max-w-[1480px] mx-auto px-5 lg:px-14">
-        <Reveal>
-          <div className="grid grid-cols-[200px_1fr] gap-12 mb-20">
-            <span className="text-[11px] uppercase tracking-[0.2em] text-[#888] pt-3">Process · 02</span>
-            <h2 className="text-[clamp(36px,5.4vw,84px)] font-bold leading-[1.1] tracking-tight">
-              Four weeks to<br /><em>work that works.</em>
-            </h2>
-          </div>
-        </Reveal>
-
-        <div className="relative pt-10">
-          <div className="absolute top-10 left-0 w-full h-0.5 bg-[#E0DDD6]"></div>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-            {steps.map((step, i) => (
-              <div
-                key={i}
-                className={`process-step relative pt-7 transition-all ${active >= i ? 'is-active' : ''}`}
-                onMouseEnter={() => setActive(i)}
-              >
-                <span className="text-[13px] tracking-[0.2em] font-variant-numeric tabular-nums text-[#888] mb-7 block">{step.num}</span>
-                <span className="text-[12px] tracking-[0.18em] uppercase text-[#2D5BE3] font-semibold block mb-3.5">{step.week}</span>
-                <h3 className="text-[clamp(22px,2vw,30px)] font-semibold leading-none tracking-tight mb-4.5">{step.title}</h3>
-                <p className="text-[15px] text-[#888] leading-[1.55]">{step.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
-  )
-}
-
-// Industries Section
-function Industries() {
-  const industries = [
-    { num: "01", title: "SaaS", desc: "B2B & B2C software companies looking to sharpen positioning and accelerate growth.", primary: true },
-    { num: "02", title: "Fintech", desc: "Financial products and platforms that need trust-building narratives.", primary: false },
-    { num: "03", title: "E-commerce", desc: "D2C brands ready to move beyond discount-driven marketing.", primary: false },
-    { num: "04", title: "Real Estate", desc: "Developers and property brands building long-term positioning.", primary: false },
-    { num: "05", title: "EdTech", desc: "Education platforms scaling their narrative and student acquisition.", primary: false },
-    { num: "06", title: "HealthTech", desc: "Wellness and medical tech brands requiring sensitive, credible messaging.", primary: false },
-  ]
-
-  return (
-    <section id="industries" className="py-[120px]">
-      <div className="max-w-[1480px] mx-auto px-5 lg:px-14">
-        <Reveal>
-          <div className="grid grid-cols-[200px_1fr] gap-12 mb-20">
-            <span className="text-[11px] uppercase tracking-[0.2em] text-[#888] pt-3">Industries · 03</span>
-            <h2 className="text-[clamp(36px,5.4vw,84px)] font-bold leading-[1.1] tracking-tight">
-              Where we've<br /><em>proven it.</em>
-            </h2>
-          </div>
-        </Reveal>
-
-        <div className="grid grid-cols-[1.2fr_1fr_1fr_1fr] border-t border-l border-[#E0DDD6]">
-          {industries.map((ind, i) => (
-            <Reveal key={i} delay={i * 0.1}>
-              <div className={`industry-card p-9 border-r border-b border-[#E0DDD6] min-h-[240px] flex flex-col transition-all ${ind.primary ? 'bg-white' : 'bg-[#F5F5F3]'}`}>
-                <div className="flex justify-between items-center mb-9">
-                  <span className="text-[12px] tracking-[0.2em] font-variant-numeric tabular-nums text-[#888] font-medium">{ind.num}</span>
-                  {ind.primary && (
-                    <span className="w-0 h-0 border-l-[16px] border-r-[16px] border-t-[22px] border-transparent border-t-[#2D5BE3]"></span>
-                  )}
-                </div>
-                <h3 className="text-[clamp(24px,2.4vw,36px)] font-semibold leading-none tracking-tight mt-auto mb-3.5">{ind.title}</h3>
-                <p className="text-[14px] text-[#888] leading-[1.5]">{ind.desc}</p>
-              </div>
-            </Reveal>
-          ))}
-        </div>
-      </div>
-    </section>
-  )
-}
-
-// FAQ Section
-function FAQ() {
-  const faqs = [
-    { q: "What's your typical engagement model?", a: "We work on fixed-scope project basis — no retainers. Each engagement is scoped to deliver specific outcomes within a defined timeline and budget. This keeps us aligned on results, not hours." },
-    { q: "How do you measure success?", a: "Success metrics are defined upfront based on your goals — whether that's revenue growth, brand awareness, lead volume, or market positioning. We report on what actually moves the needle." },
-    { q: "Do you work with early-stage startups?", a: "We focus on growth-stage businesses (Series A and beyond) that have product-market fit and need strategic support to scale. Early-stage ideas need different help — we're happy to point you to the right resources." },
-    { q: "What's your availability like?", a: "We're selective about who we work with. Current capacity: 2-3 project slots open for Q3 2026. If we're not the right fit, we'll tell you — and probably point you to someone who is." },
-  ]
-
-  const [open, setOpen] = useState<number | null>(null)
-
-  return (
-    <section id="faq" className="py-[120px] bg-[#F5F5F3] border-t border-[#E0DDD6]">
-      <div className="max-w-[1480px] mx-auto px-5 lg:px-14">
-        <Reveal>
-          <div className="grid grid-cols-[200px_1fr] gap-12 mb-20">
-            <span className="text-[11px] uppercase tracking-[0.2em] text-[#888] pt-3">FAQ · 05</span>
-            <h2 className="text-[clamp(36px,5.4vw,84px)] font-bold leading-[1.1] tracking-tight">
-              Answers to<br /><em>what matters.</em>
-            </h2>
-          </div>
-        </Reveal>
-
-        <div className="border-t border-[#E0DDD6]">
-          {faqs.map((faq, i) => (
-            <Reveal key={i} delay={i * 0.1}>
-              <div
-                className={`faq-item border-b border-[#E0DDD6] ${open === i ? 'is-open' : ''}`}
-                onClick={() => setOpen(open === i ? null : i)}
-              >
-                <div className="grid grid-cols-[60px_1fr_auto] gap-6 py-8 cursor-pointer">
-                  <span className="text-[13px] tracking-[0.18em] text-[#888] font-variant-numeric tabular-nums font-medium">{String(i + 1).padStart(2, '0')}</span>
-                  <span className="text-[clamp(20px,1.8vw,28px)] font-medium tracking-tight">{faq.q}</span>
-                  <div className={`faq-plus w-[22px] h-[22px] relative transition-transform ${open === i ? 'rotate-45' : ''}`}></div>
-                </div>
-                {open === i && (
-                  <div className="grid grid-cols-[60px_1fr_auto] gap-6 pb-8">
-                    <span></span>
-                    <p className="text-[17px] text-[#888] leading-[1.65] max-w-[720px]">{faq.a}</p>
-                    <span></span>
-                  </div>
-                )}
-              </div>
-            </Reveal>
-          ))}
-        </div>
-      </div>
-    </section>
-  )
-}
-
-// Manifesto Section
-function Manifesto() {
-  const points = [
-    "We don't do generic. Every brand has a point of view — we help you find and own it.",
-    "Strategy without execution is just intent. We build things that ship.",
-    "We'd rather do four things brilliantly than twelve things poorly.",
-    "Your growth is the only metric that matters. We don't confuse activity with progress.",
-    "No retainers. No lock-in. We work on projects, not as an expensive permanent employee."
-  ]
-
-  return (
-    <section id="manifesto" className="py-[120px] bg-[#0D0D0D] text-white">
-      <div className="max-w-[1480px] mx-auto px-5 lg:px-14">
-        <Reveal>
-          <div className="grid grid-cols-[200px_1fr] gap-12 mb-20">
-            <span className="text-[11px] uppercase tracking-[0.2em] text-[#888] pt-3">Manifesto · 04</span>
-            <h2 className="text-[clamp(36px,5.4vw,84px)] font-bold leading-[1.1] tracking-tight">
-              How we<br /><em>actually think.</em>
-            </h2>
-          </div>
-        </Reveal>
-
-        <div className="space-y-8 max-w-2xl">
-          {points.map((point, i) => (
-            <Reveal key={i} delay={i * 0.1}>
-              <div className="flex gap-6">
-                <span className="text-[#2D5BE3] font-bold text-lg">{String(i + 1).padStart(2, '0')}</span>
-                <p className="text-lg leading-relaxed">{point}</p>
-              </div>
-            </Reveal>
-          ))}
-        </div>
-      </div>
-    </section>
-  )
-}
-
-// Contact CTA
-function ContactCTA() {
-  return (
-    <section id="contact" className="py-[clamp(96px,10vw,150px)] bg-[#0D0D0D] text-white relative overflow-hidden">
-      <div className="max-w-[1480px] mx-auto px-5 lg:px-14">
-        <Reveal>
-          <h2 className="text-[clamp(56px,9vw,180px)] font-bold leading-[0.96] tracking-tight mt-8 max-w-[12ch]">
-            Ready to<br /><em>shape intent?</em>
-          </h2>
-        </Reveal>
-
-        <Reveal delay={0.2}>
-          <div className="mt-20 flex justify-between items-end flex-wrap gap-8 border-t border-[#2A2A2A] pt-9">
-            <div className="grid grid-cols-3 gap-[60px] text-white/70">
-              <div>
-                <span className="text-[11px] uppercase tracking-[0.2em] text-white/50 block mb-3">Email</span>
-                <a href="mailto:hello@taksh.in" className="text-lg hover:text-[#2D5BE3] transition-colors">hello@taksh.in</a>
-              </div>
-              <div>
-                <span className="text-[11px] uppercase tracking-[0.2em] text-white/50 block mb-3">Based in</span>
-                <span className="text-lg">Vrindavan, India</span>
-              </div>
-              <div>
-                <span className="text-[11px] uppercase tracking-[0.2em] text-white/50 block mb-3">Social</span>
-                <div className="flex gap-4">
-                  <a href="#" className="text-lg hover:text-[#2D5BE3] transition-colors">LinkedIn</a>
-                  <a href="#" className="text-lg hover:text-[#2D5BE3] transition-colors">Twitter</a>
-                </div>
-              </div>
-            </div>
-            <a href="mailto:hello@taksh.in" className="bg-[#2D5BE3] text-white px-9 py-[22px] text-base font-medium hover:bg-white hover:text-[#0D0D0D] transition-all flex items-center gap-4 cta-btn">
-              Start a project →
-            </a>
-          </div>
-        </Reveal>
-      </div>
-    </section>
-  )
-}
-
-// Footer
-function Footer() {
-  return (
-    <footer className="bg-[#0D0D0D] text-white py-[120px] pb-10">
-      <div className="max-w-[1480px] mx-auto px-5 lg:px-14">
-        <div className="grid grid-cols-2 gap-20 mb-[140px]">
-          <div>
-            <h2 className="text-[clamp(48px,6.5vw,110px)] font-bold leading-[0.95] tracking-tight">
-              Let's make<br /><em>something.</em>
-            </h2>
-          </div>
-          <div className="grid grid-cols-2 gap-10">
-            <div>
-              <h4 className="text-[11px] uppercase tracking-[0.2em] text-white font-medium mb-8">Navigation</h4>
-              <ul className="flex flex-col gap-4">
-                <li><a href="#services" className="text-xl hover:text-[#2D5BE3] transition-colors">Services</a></li>
-                <li><a href="#process" className="text-xl hover:text-[#2D5BE3] transition-colors">Process</a></li>
-                <li><a href="#industries" className="text-xl hover:text-[#2D5BE3] transition-colors">Industries</a></li>
-                <li><a href="#manifesto" className="text-xl hover:text-[#2D5BE3] transition-colors">Manifesto</a></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-[11px] uppercase tracking-[0.2em] text-white font-medium mb-8">Contact</h4>
-              <ul className="flex flex-col gap-4">
-                <li><a href="mailto:hello@taksh.in" className="text-xl hover:text-[#2D5BE3] transition-colors">Email</a></li>
-                <li><a href="#" className="text-xl hover:text-[#2D5BE3] transition-colors">LinkedIn</a></li>
-                <li><a href="#" className="text-xl hover:text-[#2D5BE3] transition-colors">Twitter</a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <div className="border-t border-[#2A2A2A] pt-10 flex justify-between items-center flex-wrap gap-6">
-          <div className="flex items-center gap-4">
-            <img src="/logo-wordmark.png" alt="Taksh" style={{ height: 24, width: 'auto', display: 'block', filter: 'invert(1)' }} />
-            <span className="text-sm text-white/80">© 2026 Taksh</span>
-          </div>
-          <div className="flex items-center gap-6 text-sm text-white/80">
-            <span>Built on trust</span>
-            <span>Grown by work</span>
-          </div>
-        </div>
-      </div>
-    </footer>
-  )
-}
-
-// Main Page
 export default function Home() {
   return (
-    <main className="min-h-screen bg-[#F5F5F3]">
-      <AmbientMesh />
-      <CustomCursor />
-      <Nav />
-      <Hero />
-      <Marquee />
-      <StatsStrip />
-      <Services />
-      <Process />
-      <Industries />
-      <Manifesto />
-      <FAQ />
-      <ContactCTA />
-      <Footer />
-    </main>
+    <div dangerouslySetInnerHTML={{ __html: htmlContent }} />
   )
 }

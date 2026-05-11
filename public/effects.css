@@ -1,0 +1,784 @@
+/* ═══════════════════════════════════════════════════
+   Taksh Effects — effects.css
+   Implements: Preloader · Liquid BG · Mouse Trail ·
+   Theme Changer · SVG Underline · Drawer Modal ·
+   Waitlist Form · Rotate Cards · Liquid Image ·
+   Facebook Share · Text Embed · Dynamic Toggle
+═══════════════════════════════════════════════════ */
+
+/* ── 1. LOGO PRELOADER ───────────────────────────── */
+#preloader {
+  position: fixed;
+  inset: 0;
+  background: #F5F5F3;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1),
+              visibility 0.7s;
+}
+#preloader.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+.preloader__logo {
+  width: 80px;
+  animation: pl-breathe 1.4s ease-in-out infinite;
+}
+.preloader__bar {
+  width: 120px;
+  height: 1px;
+  background: rgba(0,0,0,0.1);
+  position: relative;
+  overflow: hidden;
+}
+.preloader__bar::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: #2D5BE3;
+  transform: translateX(-100%);
+  animation: pl-bar 1.2s ease-in-out forwards;
+}
+@keyframes pl-breathe {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.5; transform: scale(0.94); }
+}
+@keyframes pl-bar {
+  to { transform: translateX(0); }
+}
+
+/* ── 2. ANIMATED LIQUID BACKGROUND ──────────────── */
+.liquid-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.liquid-bg__blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: 0.12;
+  will-change: transform;
+}
+.liquid-bg__blob--1 {
+  width: 600px;
+  height: 600px;
+  background: #2D5BE3;
+  top: -150px;
+  left: -150px;
+  animation: blob1 18s ease-in-out infinite;
+}
+.liquid-bg__blob--2 {
+  width: 500px;
+  height: 500px;
+  background: #6C3DE3;
+  bottom: -100px;
+  right: -100px;
+  animation: blob2 22s ease-in-out infinite;
+}
+.liquid-bg__blob--3 {
+  width: 400px;
+  height: 400px;
+  background: #2D5BE3;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: blob3 26s ease-in-out infinite;
+}
+@keyframes blob1 {
+  0%,100% { transform: translate(0, 0)    scale(1);   }
+  33%      { transform: translate(80px,-60px) scale(1.15); }
+  66%      { transform: translate(-50px,40px) scale(0.9);  }
+}
+@keyframes blob2 {
+  0%,100% { transform: translate(0, 0)    scale(1);   }
+  33%      { transform: translate(-70px,50px) scale(1.1);  }
+  66%      { transform: translate(40px,-30px) scale(0.95); }
+}
+@keyframes blob3 {
+  0%,100% { transform: translate(-50%,-50%) scale(1);    }
+  50%      { transform: translate(-50%,-50%) scale(1.25); }
+}
+
+
+/* ── 4. THEME CHANGER + DYNAMIC TOGGLE ──────────── */
+#theme-toggle {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  z-index: 200;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(26,26,26,0.08);
+  border: 1px solid rgba(26,26,26,0.12);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s, transform 0.2s, border-color 0.3s;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  backdrop-filter: blur(8px);
+  color: #1A1A1A;
+}
+#theme-toggle:hover { transform: scale(1.1); background: rgba(26,26,26,0.14); }
+
+/* Default (light): show moon → click to go dark */
+#theme-toggle .icon-sun  { display: none; }
+#theme-toggle .icon-moon { display: block; }
+
+/* Dark mode: show sun → click to go light */
+body.dark-mode #theme-toggle {
+  background: rgba(255,255,255,0.08);
+  border-color: rgba(255,255,255,0.14);
+  color: #F5F5F3;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+}
+body.dark-mode #theme-toggle .icon-sun  { display: block; }
+body.dark-mode #theme-toggle .icon-moon { display: none; }
+
+/* ── Dark mode CSS variable overrides ── */
+body.dark-mode {
+  --paper:       #0D0D0D;
+  --ink:         #F0EEE8;
+  --void:        #181818;
+  --white:       #F0EEE8;
+  --border:      #2A2A2A;
+  --border-dark: #3C3C3C;
+  --muted:       rgba(240,238,232,0.45);
+  --blue-light:  #12214A;
+}
+
+/* Sections that were light now go dark */
+body.dark-mode .nav {
+  background: rgba(13,13,13,0.92);
+  border-color: #2A2A2A;
+}
+body.dark-mode .section {
+  background: #0D0D0D;
+}
+body.dark-mode .section--void {
+  background: #000;
+}
+/* White/paper sections flip to near-black */
+body.dark-mode [style*="background:var(--white)"],
+body.dark-mode [style*="background: var(--white)"] {
+  background: #111 !important;
+}
+body.dark-mode .contact-cta {
+  background: #050505;
+}
+body.dark-mode .footer {
+  background: #000;
+}
+/* Borders in dark mode */
+body.dark-mode .service,
+body.dark-mode .faq__item {
+  border-color: #2A2A2A;
+}
+body.dark-mode .btn--ghost {
+  border-color: rgba(240,238,232,0.2);
+  color: #F0EEE8;
+}
+body.dark-mode .btn--ghost:hover {
+  background: rgba(240,238,232,0.06);
+}
+
+/* Dynamic Toggle component */
+.dynamic-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  user-select: none;
+}
+.dynamic-toggle__track {
+  width: 44px;
+  height: 24px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.15);
+  position: relative;
+  transition: background 0.25s;
+}
+.dynamic-toggle__thumb {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.5);
+  transition: transform 0.25s cubic-bezier(0.4,0,0.2,1), background 0.25s;
+}
+.dynamic-toggle[aria-checked="true"] .dynamic-toggle__track { background: #2D5BE3; border-color: #2D5BE3; }
+.dynamic-toggle[aria-checked="true"] .dynamic-toggle__thumb { transform: translateX(20px); background: #fff; }
+.dynamic-toggle__label { font-size: 14px; color: var(--muted, rgba(245,245,243,0.6)); }
+
+/* ── 5. SVG ANIMATED UNDERLINE ───────────────────── */
+.svg-ul {
+  position: relative;
+  display: inline-block;
+}
+.svg-ul__line {
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 100%;
+  height: 8px;
+  pointer-events: none;
+  overflow: visible;
+}
+.svg-ul__path {
+  fill: none;
+  stroke: #2D5BE3;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-dasharray: 1 1000;
+  stroke-dashoffset: 0;
+  transition: stroke-dasharray 0.45s cubic-bezier(0.4,0,0.2,1);
+}
+.svg-ul:hover .svg-ul__path { stroke-dasharray: 1000 1000; }
+
+/* ── 6. DRAWER MODAL ─────────────────────────────── */
+.drawer-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  z-index: 600;
+  opacity: 0;
+  visibility: hidden;
+  backdrop-filter: blur(6px);
+  transition: opacity 0.35s, visibility 0.35s;
+}
+.drawer-overlay.open { opacity: 1; visibility: visible; }
+
+.drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: min(500px, 100vw);
+  height: 100dvh;
+  background: #0D0D0D;
+  border-left: 1px solid rgba(255,255,255,0.07);
+  z-index: 601;
+  padding: 56px 40px 40px;
+  overflow-y: auto;
+  transform: translateX(110%);
+  transition: transform 0.45s cubic-bezier(0.4,0,0.2,1);
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+.drawer.open { transform: translateX(0); }
+
+.drawer__close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: none;
+  color: rgba(245,245,243,0.7);
+  cursor: pointer;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, color 0.2s;
+}
+.drawer__close:hover { background: rgba(255,255,255,0.08); color: #F5F5F3; }
+
+.drawer__eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #2D5BE3;
+}
+.drawer__title {
+  font-size: clamp(28px, 4vw, 40px);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: #F5F5F3;
+  line-height: 1.1;
+  margin-top: 8px;
+}
+.drawer__body {
+  font-size: 15px;
+  color: rgba(245,245,243,0.55);
+  line-height: 1.65;
+}
+
+/* ── 7. WAITLIST FORM ────────────────────────────── */
+#waitlist-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 8px;
+}
+#waitlist-form input {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: #F5F5F3;
+  padding: 14px 18px;
+  font-size: 15px;
+  border-radius: 6px;
+  outline: none;
+  font-family: inherit;
+  transition: border-color 0.2s, background 0.2s;
+}
+#waitlist-form input:focus { border-color: #2D5BE3; background: rgba(45,91,227,0.05); }
+#waitlist-form input::placeholder { color: rgba(245,245,243,0.3); }
+#waitlist-form button {
+  background: #2D5BE3;
+  color: #fff;
+  border: none;
+  padding: 14px 24px;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: inherit;
+  letter-spacing: -0.01em;
+  transition: opacity 0.2s, transform 0.15s;
+}
+#waitlist-form button:hover { opacity: 0.88; transform: translateY(-1px); }
+#waitlist-form button:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+#waitlist-success {
+  display: none;
+  padding: 20px;
+  background: rgba(74,222,128,0.08);
+  border: 1px solid rgba(74,222,128,0.2);
+  border-radius: 6px;
+  color: #4ade80;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* ── 8. ROTATE CARDS (3D TILT) ───────────────────── */
+.rotate-card {
+  transform-style: preserve-3d;
+  will-change: transform;
+  transition: transform 0.08s linear;
+}
+.rotate-card:not(:hover) {
+  transition: transform 0.6s cubic-bezier(0.23,1,0.32,1);
+}
+
+/* ── 9. LIQUID IMAGE ─────────────────────────────── */
+.liquid-img-wrap {
+  position: relative;
+  overflow: hidden;
+  display: block;
+}
+.liquid-img-wrap img {
+  transition: transform 0.6s cubic-bezier(0.23,1,0.32,1);
+  display: block;
+  width: 100%;
+}
+.liquid-img-wrap:hover img { transform: scale(1.04); }
+.liquid-img-wrap::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at var(--lx, 50%) var(--ly, 50%),
+    rgba(45,91,227,0.18) 0%,
+    transparent 65%
+  );
+  opacity: 0;
+  transition: opacity 0.35s;
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+.liquid-img-wrap:hover::after { opacity: 1; }
+
+/* ── 10. FACEBOOK SHARE ──────────────────────────── */
+.fb-share-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  background: #1877F2;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  transition: opacity 0.2s, transform 0.15s;
+  text-decoration: none;
+}
+.fb-share-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+.fb-share-btn svg { width: 16px; height: 16px; fill: #fff; }
+
+/* ── 11. TEXT EMBED (staggered word reveal) ──────── */
+.text-embed .word {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.45s ease, transform 0.45s ease;
+}
+.text-embed.revealed .word { opacity: 1; transform: none; }
+
+/* ── OPEN-DRAWER BUTTON ──────────────────────────── */
+.btn-waitlist {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.18);
+  color: #F5F5F3;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: inherit;
+  letter-spacing: -0.01em;
+  transition: background 0.2s, border-color 0.2s;
+}
+.btn-waitlist:hover { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.3); }
+
+/* ═══════════════════════════════════════════════════
+   STATS STRIP
+═══════════════════════════════════════════════════ */
+.stats-strip {
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  background: var(--paper);
+  padding: 0;
+  overflow: hidden;
+}
+.stats-strip__inner {
+  display: flex;
+  align-items: stretch;
+  max-width: var(--container, 1480px);
+  margin: 0 auto;
+  padding: 0 var(--gutter, 48px);
+}
+.stats-strip__item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  padding: 32px 0;
+  position: relative;
+}
+.stats-strip__item + .stats-strip__item {
+  padding-left: 40px;
+  border-left: 1px solid var(--border);
+  margin-left: 40px;
+}
+.stats-strip__val {
+  display: flex;
+  align-items: baseline;
+  gap: 2px;
+  line-height: 1;
+}
+.stats-strip__num {
+  font-size: clamp(36px, 4vw, 64px);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+  transition: color 0.3s;
+}
+.stats-strip__suffix {
+  font-size: clamp(18px, 2vw, 28px);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--blue);
+}
+.stats-strip__label {
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  text-transform: uppercase;
+  font-weight: 500;
+  margin-top: 6px;
+}
+@media (max-width: 720px) {
+  .stats-strip__inner {
+    flex-wrap: wrap;
+    gap: 0;
+  }
+  .stats-strip__item {
+    flex: 0 0 50%;
+    padding: 24px 0;
+  }
+  .stats-strip__item:nth-child(2n) {
+    padding-left: 24px;
+    border-left: 1px solid var(--border);
+    margin-left: 0;
+  }
+  .stats-strip__item:nth-child(n+3) {
+    border-top: 1px solid var(--border);
+  }
+}
+
+/* ═══════════════════════════════════════════════════
+   PAIN POINTS
+═══════════════════════════════════════════════════ */
+.pain-section {
+  background: var(--void);
+  color: var(--paper);
+}
+.pain__head {
+  max-width: 680px;
+  margin-bottom: 72px;
+}
+.pain__head .label {
+  color: rgba(245,245,243,0.5);
+}
+.pain__head .section__title {
+  color: var(--paper);
+  margin-top: 16px;
+}
+.pain__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.07);
+}
+.pain__item {
+  background: var(--void);
+  padding: 48px 44px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: background 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+.pain__item::before {
+  /* hover glow */
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 0% 100%, rgba(45,91,227,0.1) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+.pain__item:hover::before { opacity: 1; }
+
+.pain__num {
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  color: var(--blue);
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.pain__icon {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 8px;
+  color: var(--blue);
+  flex-shrink: 0;
+}
+.pain__title {
+  font-size: clamp(20px, 2vw, 28px);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--paper);
+  margin: 0;
+  line-height: 1.2;
+}
+.pain__desc {
+  font-size: 15px;
+  color: rgba(245,245,243,0.55);
+  line-height: 1.65;
+  margin: 0;
+  max-width: 400px;
+}
+@media (max-width: 720px) {
+  .pain__grid { grid-template-columns: 1fr; }
+  .pain__item { padding: 36px 28px; }
+}
+
+.process-line { display: none; }
+
+/* ═══════════════════════════════════════════════════
+   PROCESS — REDESIGNED TIMELINE
+═══════════════════════════════════════════════════ */
+
+/* Override existing step layout */
+.process-wrapper { position: relative; padding-top: 48px; }
+
+.process { gap: 0 !important; }
+
+.process__step {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  padding-top: 0 !important;
+  text-align: center;
+  gap: 0;
+}
+
+/* Kill the old tiny ::before dot and ::after pulse */
+.process__step::before,
+.process__step::after { display: none !important; }
+
+/* ── Rail ── */
+.proc-rail {
+  position: absolute;
+  /* JS will set top precisely after layout; this is the fallback */
+  top: 68px;
+  left: 12.5%;
+  right: 12.5%;
+  height: 3px;
+  background: #CAC7C0;
+  border-radius: 2px;
+  z-index: 1;
+  overflow: visible;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+}
+
+.proc-rail__fill {
+  position: absolute;
+  top: 0; left: 0; bottom: 0;
+  width: 0%;
+  background: linear-gradient(90deg, #2D5BE3 0%, #7C3AED 100%);
+  border-radius: 2px;
+  box-shadow: 0 0 10px rgba(45,91,227,0.5), 0 0 24px rgba(45,91,227,0.2);
+  transition: box-shadow 0.3s;
+}
+
+/* Glowing orb at the leading edge */
+.proc-rail__fill::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 0;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #7C3AED;
+  box-shadow: 0 0 0 4px rgba(124,58,237,0.2),
+              0 0 20px 5px rgba(124,58,237,0.6);
+  transform: translate(50%, -50%);
+  transition: opacity 0.2s;
+  opacity: 0;
+}
+.proc-rail__fill.orb-on::after { opacity: 1; }
+
+/* ── Dot ── */
+.proc-node {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1.5px solid var(--border);
+  background: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+  margin-bottom: 24px;
+  flex-shrink: 0;
+  transition: background    0.45s cubic-bezier(0.23,1,0.32,1),
+              border-color  0.45s cubic-bezier(0.23,1,0.32,1),
+              box-shadow    0.45s cubic-bezier(0.23,1,0.32,1);
+  will-change: transform;
+}
+
+.proc-node__num {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  transition: color 0.35s;
+  user-select: none;
+}
+
+/* Halo ring */
+.proc-node__ring {
+  position: absolute;
+  inset: -9px;
+  border-radius: 50%;
+  border: 1px solid transparent;
+  pointer-events: none;
+  transform: scale(0.6);
+  opacity: 0;
+  transition: border-color 0.4s,
+              transform    0.5s cubic-bezier(0.23,1,0.32,1),
+              opacity      0.4s;
+}
+
+/* Active dot state */
+.process__step.is-active .proc-node {
+  background: var(--blue);
+  border-color: var(--blue);
+  box-shadow: 0 0 0 5px rgba(45,91,227,0.1),
+              0 0 22px rgba(45,91,227,0.28);
+}
+.process__step.is-active .proc-node__num { color: #fff; }
+.process__step.is-active .proc-node__ring {
+  border-color: rgba(45,91,227,0.28);
+  transform: scale(1);
+  opacity: 1;
+  animation: proc-halo 2.2s ease-in-out infinite;
+}
+@keyframes proc-halo {
+  0%,100% { transform: scale(1);   opacity: 0.55; }
+  50%      { transform: scale(1.5); opacity: 0;    }
+}
+
+/* ── Step body ── */
+.proc-body {
+  opacity: 0;
+  transform: translateY(14px);
+  /* animated by Motion.js */
+}
+
+.process__week {
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--blue);
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.process__name {
+  font-size: clamp(18px, 1.8vw, 24px);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.process__desc {
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.65;
+  text-align: center;
+}
+
+/* ── Mobile ── */
+@media (max-width: 880px) {
+  .proc-rail { display: none; }
+  .process { grid-template-columns: 1fr 1fr !important; gap: 40px 20px !important; }
+  .proc-body { opacity: 1 !important; transform: none !important; }
+}
+@media (max-width: 560px) {
+  .process { grid-template-columns: 1fr !important; gap: 36px 0 !important; }
+}
