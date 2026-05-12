@@ -3,8 +3,210 @@
    Implements: Preloader · Liquid BG · Mouse Trail ·
    Theme Changer · SVG Underline · Drawer Modal ·
    Waitlist Form · Rotate Cards · Liquid Image ·
-   Facebook Share · Text Embed · Dynamic Toggle
+   Facebook Share · Text Embed · Dynamic Toggle ·
+   Dynamic Island Nav
 ═══════════════════════════════════════════════════ */
+
+/* ── 0. DYNAMIC ISLAND NAV ─────────────────────────── */
+.nav {
+  height: var(--nav-h, 60px) !important;
+}
+
+.nav::before {
+  background: rgba(13, 13, 13, 0.85) !important;
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+  border-bottom: 1px solid rgba(255,255,255,0.08) !important;
+}
+
+.nav__inner {
+  display: grid !important;
+  grid-template-columns: auto 1fr auto !important;
+  align-items: center !important;
+  gap: 16px !important;
+  padding: 0 24px !important;
+}
+
+.nav__left, .nav__right {
+  display: flex;
+  align-items: center;
+}
+
+.nav__brand {
+  display: flex;
+  align-items: center;
+}
+
+.nav__center {
+  display: flex;
+  justify-content: center;
+}
+
+.nav__status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: rgba(255,255,255,0.5);
+  background: rgba(255,255,255,0.06);
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.nav__cta {
+  padding: 10px 20px !important;
+  font-size: 13px !important;
+  background: var(--blue) !important;
+  color: white !important;
+  border-radius: 24px !important;
+  transition: transform 0.2s, box-shadow 0.2s !important;
+}
+
+.nav__cta:hover {
+  transform: scale(1.03);
+  box-shadow: 0 4px 20px rgba(45, 91, 227, 0.3);
+}
+
+/* Hamburger button */
+.nav__hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  padding: 8px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-left: 8px;
+}
+
+.nav__hamburger span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--paper);
+  border-radius: 2px;
+  transition: transform 0.3s, opacity 0.3s;
+}
+
+.nav__hamburger.is-open span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.nav__hamburger.is-open span:nth-child(2) {
+  opacity: 0;
+}
+
+.nav__hamburger.is-open span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* Mobile drawer */
+.nav__drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: min(320px, 85vw);
+  height: 100dvh;
+  background: var(--void);
+  z-index: 1001;
+  transform: translateX(110%);
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+}
+
+.nav__drawer.open {
+  transform: translateX(0);
+}
+
+.nav__drawer-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s, visibility 0.3s;
+}
+
+.nav__drawer-overlay.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.nav__drawer-inner {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.nav__drawer-close {
+  align-self: flex-end;
+  background: none;
+  border: none;
+  color: var(--paper);
+  font-size: 32px;
+  padding: 8px;
+  cursor: pointer;
+  margin-bottom: 32px;
+}
+
+.nav__drawer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.nav__drawer-links a {
+  font-size: 18px;
+  color: var(--paper);
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.nav__drawer-cta {
+  margin-top: auto;
+  padding: 16px 24px;
+  background: var(--blue);
+  color: white;
+  text-align: center;
+  border-radius: 12px;
+  font-weight: 600;
+}
+
+/* Mobile nav styles */
+@media (max-width: 768px) {
+  .nav__status {
+    display: none;
+  }
+
+  .nav__center {
+    display: none;
+  }
+
+  .nav__hamburger {
+    display: flex;
+  }
+
+  .nav__cta {
+    display: none;
+  }
+
+  .nav__inner {
+    padding: 0 16px !important;
+  }
+}
+
+/* Scroll state */
+.nav.is-scrolled {
+  background: rgba(13, 13, 13, 0.95) !important;
+}
+
+.nav.is-scrolled::before {
+  border-bottom-color: rgba(255,255,255,0.1) !important;
+}
 
 /* ── 1. LOGO PRELOADER ───────────────────────────── */
 #preloader {

@@ -1,9 +1,44 @@
 /* ═══════════════════════════════════════════════════
    Taksh Effects — effects.js
-   Implements all 12 interactive effects
+   Implements all 13 interactive effects
 ═══════════════════════════════════════════════════ */
 (() => {
   'use strict';
+
+  /* ── 0. MOBILE NAV HAMBURGER ───────────────────── */
+  const hamburger = document.getElementById('nav-hamburger');
+  const navDrawer = document.getElementById('nav-drawer');
+  const navDrawerOverlay = document.getElementById('nav-drawer-overlay');
+  const navDrawerClose = document.getElementById('nav-drawer-close');
+
+  if (hamburger && navDrawer) {
+    const openMenu = () => {
+      hamburger.classList.add('is-open');
+      hamburger.setAttribute('aria-expanded', 'true');
+      navDrawer.classList.add('open');
+      navDrawerOverlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    };
+
+    const closeMenu = () => {
+      hamburger.classList.remove('is-open');
+      hamburger.setAttribute('aria-expanded', 'false');
+      navDrawer.classList.remove('open');
+      navDrawerOverlay.classList.remove('open');
+      document.body.style.overflow = '';
+    };
+
+    hamburger.addEventListener('click', () => {
+      navDrawer.classList.contains('open') ? closeMenu() : openMenu();
+    });
+
+    navDrawerOverlay.addEventListener('click', closeMenu);
+    if (navDrawerClose) navDrawerClose.addEventListener('click', closeMenu);
+
+    navDrawer.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', closeMenu);
+    });
+  }
 
   /* ── 1. LOGO PRELOADER ───────────────────────── */
   const preloader = document.getElementById('preloader');
