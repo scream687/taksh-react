@@ -10,12 +10,11 @@
   if (preloader) {
     const dismiss = () => preloader.classList.add('hidden');
     if (document.readyState === 'complete') {
-      setTimeout(dismiss, 600);
+      setTimeout(dismiss, 400);
     } else {
-      window.addEventListener('load', () => setTimeout(dismiss, 600));
+      window.addEventListener('load', () => setTimeout(dismiss, 400));
     }
-    // Safety: hide after 3s regardless
-    setTimeout(dismiss, 3000);
+    setTimeout(dismiss, 2500);
   }
 
   /* ── 2. ANIMATED LIQUID BACKGROUND ──────────── */
