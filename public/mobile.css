@@ -141,39 +141,36 @@ html, body {
 /* ── 6. STATS STRIP ─────────────────────────────────── */
 @media (max-width: 768px) {
   .stats-strip {
-    padding: 32px 0;
+    padding: 0;
+    border: none;
   }
 
   .stats-strip__inner {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    padding: 0 16px;
+    gap: 0;
   }
 
   .stats-strip__item {
     padding: 20px;
-    border-radius: 16px;
-    background: white;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.04);
-    border: 1px solid var(--border);
+    border: none;
   }
 
   .stats-strip__item:nth-child(odd) {
-    border-right: none;
+    border-right: 1px solid var(--border);
   }
 
   .stats-strip__item:nth-child(n+3) {
-    border-top: none;
+    border-top: 1px solid var(--border);
   }
 
   .stats-strip__num {
-    font-size: 28px !important;
+    font-size: clamp(28px, 9vw, 40px) !important;
     display: block;
   }
 
   .stats-strip__label {
-    font-size: 10px;
+    font-size: 11px;
     margin-top: 4px;
   }
 }
@@ -311,30 +308,27 @@ html, body {
 /* ── 10. SERVICES ───────────────────────────────────── */
 @media (max-width: 768px) {
   #services {
-    padding: 48px 20px !important;
+    padding: 0 !important;
   }
 
   #services .section__head {
-    padding: 0;
-    margin-bottom: 24px;
+    padding: 48px 20px 24px;
   }
 
   .services {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 16px;
+    display: flex;
+    flex-direction: column;
   }
 
   .service {
-    padding: 24px;
-    border-radius: 16px;
-    display: flex;
-    flex-direction: column;
+    padding: 24px 20px;
+    border-top: 1px solid var(--border);
+    display: block;
     position: relative;
     background: var(--paper);
-    border: 1px solid var(--border);
-    box-shadow: 0 2px 12px rgba(0,0,0,0.03);
   }
+
+  .service:first-of-type { border-top: none; }
 
   .service__num {
     font-size: 10px;
