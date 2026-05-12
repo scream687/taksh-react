@@ -1,0 +1,483 @@
+================================================================================
+                    TAKSH WEBSITE - SECURITY OPTIMIZATION
+                    Security Best Practices Guide
+                    Generated: 2026-05-12
+================================================================================
+
+TARGET: Secure website, protect user data, prevent attacks
+
+================================================================================
+                    1. HTTPS & TRANSPORT SECURITY
+================================================================================
+
+A. Force HTTPS (Vercel handles this automatically)
+--------------------------------------------------------------------------------
+Vercel provides free SSL certificates. Ensure HTTPS is enforced:
+
+In vercel.json:
+{
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "Strict-Transport-Security", "value": "max-age=63072000; includeSubDomains; preload" }
+      ]
+    }
+  ]
+}
+
+B. Content Security Policy (CSP)
+--------------------------------------------------------------------------------
+Add CSP headers to prevent XSS attacks:
+
+Content-Security-Policy:
+  default-src 'self';
+  script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com;
+  style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+  font-src 'self' https://fonts.gstatic.com;
+  img-src 'self' data: https:;
+  connect-src 'self' https://www.google-analytics.com https://www.googletagmanager.com;
+  frame-ancestors 'none';
+
+In vercel.json:
+{
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://www.google-analytics.com; frame-ancestors 'none';"
+        }
+      ]
+    }
+  ]
+}
+
+================================================================================
+                    2. COMMON HEADERS
+================================================================================
+
+Add these security headers:
+
+A. X-Content-Type-Options
+--------------------------------------------------------------------------------
+Prevents MIME type sniffing:
+
+X-Content-Type-Options: nosniff
+
+B. X-Frame-Options
+--------------------------------------------------------------------------------
+Prevents clickjacking:
+
+X-Frame-Options: SAMEORIGIN
+
+C. X-XSS-Protection
+--------------------------------------------------------------------------------
+Legacy XSS protection (for older browsers):
+
+X-XSS-Protection: 1; mode=block
+
+D. Referrer-Policy
+--------------------------------------------------------------------------------
+Controls referrer information:
+
+Referrer-Policy: strict-origin-when-cross-origin
+
+E. Permissions-Policy
+--------------------------------------------------------------------------------
+Controls browser features:
+
+Permissions-Policy: geolocation=(), microphone=(), camera=()
+
+F. Complete Headers (vercel.json)
+--------------------------------------------------------------------------------
+
+{
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "X-Frame-Options", "value": "SAMEORIGIN" },
+        { "key": "X-XSS-Protection", "value": "1; mode=block" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
+        { "key": "Permissions-Policy", "value": "geolocation=(), microphone=(), camera=()" },
+        { "key": "Strict-Transport-Security", "value": "max-age=63072000; includeSubDomains; preload" }
+      ]
+    }
+  ]
+}
+
+================================================================================
+                    3. COOKIE SECURITY
+================================================================================
+
+A. HttpOnly Cookie
+--------------------------------------------------------------------------------
+For session cookies:
+
+Set-Cookie: session_id=xxx; HttpOnly; Secure; SameSite=Strict
+
+B. SameSite Attribute
+--------------------------------------------------------------------------------
+Prevent CSRF attacks:
+
+Set-Cookie: auth=xxx; SameSite=Strict; Secure
+
+Options:
+- Strict: Cookies only sent in first-party context
+- Lax: Cookies sent on safe top-level navigations (recommended)
+- None: Cookies sent in all contexts (requires Secure)
+
+C. Secure Flag
+--------------------------------------------------------------------------------
+Cookies only sent over HTTPS:
+
+Set-Cookie: token=xxx; Secure; HttpOnly
+
+================================================================================
+                    4. FORM SECURITY
+================================================================================
+
+A. Input Validation
+--------------------------------------------------------------------------------
+Validate all user input:
+
+// Client-side validation (not secure alone)
+const validateEmail = (email) => {
+  const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return re.test(email);
+};
+
+// Server-side validation (required)
+const sanitizeInput = (input) => {
+  return input.replace(/<[^>]*>/g, ''); // Remove HTML tags
+};
+
+B. CSRF Protection
+--------------------------------------------------------------------------------
+For form submissions:
+
+1. Generate CSRF token
+2. Include in form
+3. Validate on server
+
+C. Rate Limiting
+--------------------------------------------------------------------------------
+Prevent brute force/spam:
+
+// In API route or serverless function
+const rateLimit = require('express-rate-limit');
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // limit each IP to 100 requests per window
+  message: "Too many requests, please try again later."
+});
+
+D. Honeypot Fields
+--------------------------------------------------------------------------------
+Hidden field to catch bots:
+
+<input type="text" name="website" style="display:none" tabindex="-1" autocomplete="off">
+
+// Server-side check
+if (req.body.website) {
+  // Bot detected, reject
+  return res.status(400).send('Bot detected');
+}
+
+================================================================================
+                    5. JAVASCRIPT SECURITY
+================================================================================
+
+A. Prevent XSS
+--------------------------------------------------------------------------------
+Never use user input in innerHTML/eval:
+
+❌ Dangerous:
+element.innerHTML = userInput;
+eval(userInput);
+
+✅ Safe:
+element.textContent = userInput;
+element.setAttribute('data-value', userInput);
+
+B. Sanitize HTML
+--------------------------------------------------------------------------------
+Use DOMPurify for user-generated HTML:
+
+import DOMPurify from 'dompurify';
+
+const clean = DOMPurify.sanitize(dirty);
+
+C. JSON Security
+--------------------------------------------------------------------------------
+Secure JSON parsing:
+
+try {
+  const data = JSON.parse(userInput);
+} catch (e) {
+  // Handle invalid JSON
+}
+
+D. External Scripts
+--------------------------------------------------------------------------------
+Minimize third-party scripts:
+- Only load necessary scripts
+- Use integrity attribute
+
+<script src="https://example.com/script.js"
+        integrity="sha256-xxx"
+        crossorigin="anonymous"></script>
+
+================================================================================
+                    6. API SECURITY
+================================================================================
+
+A. Authentication
+--------------------------------------------------------------------------------
+For any API endpoints:
+
+1. JWT tokens with short expiry
+2. Refresh tokens
+3. Token rotation
+
+B. Authorization
+--------------------------------------------------------------------------------
+Check permissions on every request:
+
+const requireAuth = (req, res, next) => {
+  const token = req.headers.authorization;
+  if (!token) return res.status(401).send('Unauthorized');
+  // Verify token and check permissions
+  next();
+};
+
+C. Input Sanitization
+--------------------------------------------------------------------------------
+Sanitize all API inputs:
+
+const sanitize = (input) => {
+  if (typeof input === 'string') {
+    return input.replace(/[<>'"&]/g, '');
+  }
+  return input;
+};
+
+D. Error Handling
+--------------------------------------------------------------------------------
+Don't expose internal errors:
+
+❌ Dangerous:
+res.status(500).send(error.stack);
+
+✅ Safe:
+res.status(500).send('Internal server error');
+
+================================================================================
+                    7. DEPENDENCY SECURITY
+================================================================================
+
+A. Keep Dependencies Updated
+--------------------------------------------------------------------------------
+Regularly update packages:
+
+npm audit fix
+npm update
+
+B. Security Audit
+--------------------------------------------------------------------------------
+Run security checks:
+
+npm audit
+# or
+npx snyk test
+
+C. Lock Files
+--------------------------------------------------------------------------------
+Commit package-lock.json to ensure consistent installs:
+
+git add package-lock.json
+
+D. Remove Unused Dependencies
+--------------------------------------------------------------------------------
+Check for unused packages:
+
+npx depcheck
+
+================================================================================
+                    8. CORS CONFIGURATION
+================================================================================
+
+A. Restrictive CORS
+--------------------------------------------------------------------------------
+Only allow necessary origins:
+
+// In server config
+const corsOptions = {
+  origin: ['https://taksh.in', 'https://www.taksh.in'],
+  methods: ['GET', 'POST'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+};
+
+B. Preflight Requests
+--------------------------------------------------------------------------------
+Handle OPTIONS requests:
+
+if (req.method === 'OPTIONS') {
+  res.setHeader('Access-Control-Allow-Origin', 'https://taksh.in');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  res.sendStatus(200);
+}
+
+================================================================================
+                    9. DATA PROTECTION
+================================================================================
+
+A. Don't Store Sensitive Data Client-side
+--------------------------------------------------------------------------------
+❌ Don't store in localStorage/sessionStorage:
+- Passwords
+- Payment info
+- Personal data
+
+✅ Use httpOnly cookies for sensitive data
+
+B. Encrypt Data in Transit
+--------------------------------------------------------------------------------
+All data should be transmitted over HTTPS (Vercel handles this)
+
+C. Privacy Compliance
+--------------------------------------------------------------------------------
+For user data collection:
+
+1. Clear privacy policy
+2. Cookie consent (if EU users)
+3. Data retention policy
+4. User data deletion option
+
+D. GDPR Considerations (if EU users)
+--------------------------------------------------------------------------------
+Required elements:
+- Cookie consent banner
+- Privacy policy
+- Data processing agreement
+- Right to be forgotten
+
+================================================================================
+                    10. HOSTING SECURITY (Vercel)
+================================================================================
+
+A. Environment Variables
+--------------------------------------------------------------------------------
+Store secrets in Vercel dashboard:
+
+vercel env add API_KEY production
+# Enter value when prompted
+
+Access in code:
+process.env.API_KEY
+
+B. Secret Scanning
+--------------------------------------------------------------------------------
+Never commit secrets:
+
+# .gitignore
+.env
+.env.local
+.env.production
+
+C. Vercel Security Features
+--------------------------------------------------------------------------------
+- DDoS protection (automatic)
+- WAF (Web Application Firewall)
+- Bot protection
+- Rate limiting
+
+D. Access Control
+--------------------------------------------------------------------------------
+- Limit team access to production
+- Use 2FA on Vercel account
+- Audit logs in Vercel dashboard
+
+================================================================================
+                    11. MONITORING & LOGGING
+================================================================================
+
+A. Security Logging
+--------------------------------------------------------------------------------
+Log security-relevant events:
+
+- Failed login attempts
+- Form submissions
+- API requests
+- Admin actions
+
+B. Error Monitoring
+--------------------------------------------------------------------------------
+Use error tracking service:
+
+- Sentry
+- LogRocket
+- Bugsnag
+
+C. Uptime Monitoring
+--------------------------------------------------------------------------------
+Monitor for downtime:
+
+- UptimeRobot
+- Pingdom
+- Vercel status page
+
+D. Penetration Testing
+--------------------------------------------------------------------------------
+Regular security audits:
+
+- OWASP ZAP (free)
+- Burp Suite
+- Professional penetration test
+
+================================================================================
+                    12. SECURITY CHECKLIST
+================================================================================
+
+[ ] HTTPS enforced
+[ ] Security headers added (X-Frame-Options, CSP, etc.)
+[ ] Form validation (client + server)
+[ ] CSRF protection on forms
+[ ] Rate limiting on APIs
+[ ] Input sanitization
+[ ] Dependencies updated
+[ ] No secrets in code
+[ ] Environment variables for secrets
+[ ] CORS configured
+[ ] Error logging setup
+[ ] SSL certificate valid (Vercel auto)
+[ ] 2FA on hosting account
+[ ] Privacy policy published
+[ ] Cookie consent (if needed)
+
+================================================================================
+                    VERSONEL IMPLEMENTATION FILES
+================================================================================
+
+1. vercel.json - Add security headers
+2. .gitignore - Ensure no secrets
+3. Security headers in server config
+
+================================================================================
+                    TOOLS & RESOURCES
+================================================================================
+
+1. SecurityHeaders.com - Check your headers
+2. Observatory.mozilla.org - Security check
+3. SSL Labs - SSL configuration test
+4. OWASP Top 10 - Common vulnerabilities
+5. Snyk - Dependency vulnerability scanner
+6. Sucuri - Website security scanner
+
+================================================================================
+                              END
+================================================================================

@@ -5,8 +5,21 @@ const htmlContent = `<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Taksh — Shaped with intent.</title>
-<meta name="description" content="Strategy and marketing for growth-stage businesses. Founded by Rishabh Sharma in Vrindavan, India.">
+<title>Taksh — Strategy & Marketing for Growth-Stage Businesses</title>
+<meta name="title" content="Taksh — Strategy & Marketing for Growth-Stage Businesses">
+<meta name="description" content="Taksh is a strategy & marketing studio for growth-stage businesses. We help brands think sharper, move faster, and grow with intent. Based in Vrindavan, India.">
+<meta name="keywords" content="brand strategy, marketing agency, growth marketing, positioning, go-to-market, content marketing, India, Vrindavan, startup marketing">
+<meta name="author" content="Rishabh Sharma">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://taksh.in/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://taksh.in/">
+<meta property="og:title" content="Taksh — Strategy & Marketing for Growth-Stage Businesses">
+<meta property="og:description" content="Strategy & marketing studio for growth-stage brands. Think sharper, move faster, grow with intent.">
+<meta property="og:image" content="https://taksh.in/og-image.jpg">
+<meta property="twitter:card" content="summary_large_image">
+<meta property="twitter:title" content="Taksh — Strategy & Marketing for Growth-Stage Businesses">
+<meta property="twitter:description" content="Strategy & marketing studio for growth-stage brands.">
 <link rel="icon" href="../assets/logo-favicon.jpeg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,6 +35,33 @@ const htmlContent = `<!DOCTYPE html>
   .pulse { width: 8px; height: 8px; border-radius: 50%; background: var(--blue); box-shadow: 0 0 0 0 rgba(45,91,227,0.6); animation: pulse 1.8s infinite; display: inline-block; }
   @keyframes pulse { 70% { box-shadow: 0 0 0 12px rgba(45,91,227,0); } 100% { box-shadow: 0 0 0 0 rgba(45,91,227,0); } }
 </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Taksh Studio",
+  "alternateName": "Taksh",
+  "url": "https://taksh.in",
+  "description": "Strategy & marketing studio for growth-stage businesses",
+  "founder": {
+    "@type": "Person",
+    "name": "Rishabh Sharma",
+    "jobTitle": "Founder"
+  },
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Vrindavan",
+    "addressRegion": "Uttar Pradesh",
+    "postalCode": "281121",
+    "addressCountry": "IN"
+  },
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "email": "hello@taksh.in",
+    "contactType": "customer service"
+  }
+}
+</script>
 </head>
 <body>
 <div id="preloader" aria-hidden="true"><img class="preloader__logo" src="/logo-symbol.png" alt=""><div class="preloader__bar"></div></div>

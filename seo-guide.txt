@@ -1,0 +1,429 @@
+================================================================================
+                    TAKSH WEBSITE - SEO OPTIMIZATION
+                    Search Engine Optimization Guide
+                    Generated: 2026-05-12
+================================================================================
+
+TARGET: Increase organic traffic, improve rankings, better visibility
+
+================================================================================
+                    1. META TAGS (Current + Missing)
+================================================================================
+
+CURRENT - Add these to <head>:
+--------------------------------------------------------------------------------
+
+<!-- Primary Meta Tags -->
+<title>Taksh — Strategy & Marketing for Growth-Stage Businesses</title>
+<meta name="title" content="Taksh — Strategy & Marketing for Growth-Stage Businesses">
+<meta name="description" content="Taksh is a strategy & marketing studio for growth-stage businesses. We help brands think sharper, move faster, and grow with intent. Based in Vrindavan, India.">
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://taksh.in/">
+<meta property="og:title" content="Taksh — Strategy & Marketing for Growth-Stage Businesses">
+<meta property="og:description" content="Strategy & marketing studio for growth-stage brands. Think sharper, move faster, grow with intent.">
+<meta property="og:image" content="https://taksh.in/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image">
+<meta property="twitter:url" content="https://taksh.in/">
+<meta property="twitter:title" content="Taksh — Strategy & Marketing for Growth-Stage Businesses">
+<meta property="twitter:description" content="Strategy & marketing studio for growth-stage brands. Think sharper, move faster, grow with intent.">
+<meta property="twitter:image" content="https://taksh.in/og-image.jpg">
+
+<!-- Additional SEO -->
+<meta name="keywords" content="brand strategy, marketing agency, growth marketing, positioning, go-to-market, content marketing, India, Vrindavan, startup marketing, business strategy">
+<meta name="author" content="Rishabh Sharma">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://taksh.in/">
+
+================================================================================
+                    2. STRUCTURED DATA (JSON-LD)
+================================================================================
+
+Add to <head> - Organization Schema:
+--------------------------------------------------------------------------------
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Taksh Studio",
+  "alternateName": "Taksh",
+  "url": "https://taksh.in",
+  "logo": "https://taksh.in/logo.png",
+  "description": "Strategy & marketing studio for growth-stage businesses",
+  "founder": {
+    "@type": "Person",
+    "name": "Rishabh Sharma",
+    "jobTitle": "Founder",
+    "url": "https://rishabhsharma.in"
+  },
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Vrindavan",
+    "addressRegion": "Uttar Pradesh",
+    "postalCode": "281121",
+    "addressCountry": "IN"
+  },
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "email": "hello@taksh.in",
+    "contactType": "customer service"
+  },
+  "sameAs": [
+    "https://instagram.com/takshstudio",
+    "https://linkedin.com/company/takshstudio",
+    "https://twitter.com/takshstudio"
+  ]
+}
+</script>
+
+LocalBusiness Schema (for local SEO):
+--------------------------------------------------------------------------------
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Taksh Studio",
+  "image": "https://taksh.in/logo.png",
+  "priceRange": "₹₹₹",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Vrindavan",
+    "addressLocality": "Vrindavan",
+    "addressRegion": "Uttar Pradesh",
+    "postalCode": "281121",
+    "addressCountry": "IN"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 27.5755,
+    "longitude": 77.6994
+  },
+  "telephone": "+91-XXXXXXXXXX",
+  "email": "hello@taksh.in",
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      "opens": "09:00",
+      "closes": "18:00"
+    }
+  ]
+}
+</script>
+
+Service Schema:
+--------------------------------------------------------------------------------
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "serviceType": "Brand Strategy & Marketing",
+  "provider": {
+    "@type": "Organization",
+    "name": "Taksh Studio"
+  },
+  "areaServed": "Worldwide",
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Services",
+    "itemListElement": [
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Brand Strategy"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Go-to-Market"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Content Marketing"
+        }
+      }
+    ]
+  }
+}
+</script>
+
+================================================================================
+                    3. TECHNICAL SEO
+================================================================================
+
+A. Sitemap (sitemap.xml)
+--------------------------------------------------------------------------------
+Create in public/ folder:
+
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://taksh.in/</loc>
+    <lastmod>2026-05-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://taksh.in/real-estate.html</loc>
+    <lastmod>2026-05-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+</urlset>
+
+B. Robots.txt
+--------------------------------------------------------------------------------
+Create in public/ folder:
+
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /_next/
+
+# Sitemap
+Sitemap: https://taksh.in/sitemap.xml
+
+C. Canonical URLs
+--------------------------------------------------------------------------------
+Ensure consistent canonical tags across all pages:
+
+<link rel="canonical" href="https://taksh.in/">
+
+D. Hreflang (if multi-language)
+--------------------------------------------------------------------------------
+Not needed if only English.
+
+================================================================================
+                    4. CONTENT SEO
+================================================================================
+
+A. Heading Hierarchy
+--------------------------------------------------------------------------------
+Current: Needs improvement
+
+Fix structure:
+  <h1> - One per page (hero title) ✓
+  <h2> - Section titles (Pain, Manifesto, Services, Process, etc.)
+  <h3> - Sub-sections within content
+  <h4>-<h6> - Further breakdowns
+
+Rule: Don't skip heading levels (don't go from h2 to h4)
+
+B. Image Alt Text
+--------------------------------------------------------------------------------
+Add descriptive alt text to all images:
+
+  <img src="/logo.png" alt="Taksh Studio logo">
+  <img src="/team.jpg" alt="Rishabh Sharma, Founder of Taksh Studio">
+
+C. Internal Linking
+--------------------------------------------------------------------------------
+Add links between related pages:
+
+  - Services → Process
+  - Industries → Real Estate page
+  - Footer → All main pages
+
+D. External Links
+--------------------------------------------------------------------------------
+Link to authoritative sources:
+  - Mention tools/technologies used
+  - Link to relevant industry resources
+  - Open external links in new tab (target="_blank" rel="noopener")
+
+E. Anchor Text
+--------------------------------------------------------------------------------
+Use descriptive link text:
+
+  ❌ "Click here"
+  ❌ "Read more"
+  ✅ "Learn about our brand strategy process"
+  ✅ "See our real estate marketing services"
+
+================================================================================
+                    5. PAGE SPEED (SEO Factor)
+================================================================================
+
+Google uses Core Web Vitals as ranking factors:
+
+A. Largest Contentful Paint (LCP) - < 2.5s
+   - Preload hero image
+   - Optimize/compress images
+   - Use CDN
+
+B. First Input Delay (FID) - < 100ms
+   - Minimize JS
+   - Defer non-critical JS
+   - Use passive listeners
+
+C. Cumulative Layout Shift (CLS) - < 0.1
+   - Set image dimensions
+   - Reserve ad space
+   - Avoid dynamic content injection
+
+================================================================================
+                    6. SOCIAL OPTIMIZATION
+================================================================================
+
+A. OG Image
+--------------------------------------------------------------------------------
+Create 1200x630px image for social sharing:
+  - Include logo
+  - Tagline text
+  - Branded colors
+
+Tools: Canva, Figma
+
+B. Twitter Card Validation
+--------------------------------------------------------------------------------
+After adding meta tags, test at:
+https://cards-dev.twitter.com/validator
+
+C. LinkedIn Post Inspector
+--------------------------------------------------------------------------------
+Test sharing at:
+https://www.linkedin.com/post-inspector/
+
+================================================================================
+                    7. LOCAL SEO
+================================================================================
+
+A. Google Business Profile
+--------------------------------------------------------------------------------
+1. Create/claim Google Business Profile
+2. Add accurate business information
+3. Add photos
+4. Get reviews
+5. Post updates regularly
+
+B. Local Citations
+--------------------------------------------------------------------------------
+List on:
+- Justdial
+- Sulekha
+- IndiaMart
+- Local business directories
+
+C. Location Pages
+--------------------------------------------------------------------------------
+If targeting local clients, create location-specific content
+
+================================================================================
+                    8. MONITORING & ANALYTICS
+================================================================================
+
+A. Google Search Console
+--------------------------------------------------------------------------------
+Setup:
+1. Go to https://search.google.com/search-console
+2. Add property (domain or URL prefix)
+3. Verify ownership
+4. Submit sitemap
+
+Monitor:
+- Search performance
+- Index coverage
+- Core Web Vitals
+- Mobile usability
+
+B. Google Analytics 4
+--------------------------------------------------------------------------------
+Setup:
+1. Create GA4 property
+2. Get measurement ID (G-XXXXXXXX)
+3. Add to site
+
+<!-- Add before </head> -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-XXXXXXXXXX');
+</script>
+
+C. Tracking Events
+--------------------------------------------------------------------------------
+Track important actions:
+- Form submissions
+- Button clicks
+- Scroll depth
+- Time on page
+
+================================================================================
+                    9. CONTENT STRATEGY
+================================================================================
+
+A. Blog/Resources
+--------------------------------------------------------------------------------
+Add a blog section for:
+- Industry insights
+- Case studies
+- How-to guides
+- Behind-the-scenes
+
+This drives organic traffic
+
+B. Long-tail Keywords
+--------------------------------------------------------------------------------
+Target specific phrases:
+- "brand strategy agency India"
+- "marketing consultant for startups"
+- "real estate marketing agency"
+- "GTM strategy consultant"
+
+C. FAQ Section
+--------------------------------------------------------------------------------
+Already done! Expand with:
+- "How much does brand strategy cost?"
+- "What's the difference between branding and marketing?"
+- "How long does a brand strategy project take?"
+
+================================================================================
+                    10. SEO CHECKLIST
+================================================================================
+
+[ ] Add missing meta tags
+[ ] Create sitemap.xml
+[ ] Create robots.txt
+[ ] Add structured data (JSON-LD)
+[ ] Setup Google Search Console
+[ ] Setup Google Analytics 4
+[ ] Create OG image (1200x630)
+[ ] Test social sharing
+[ ] Add alt text to all images
+[ ] Fix heading hierarchy
+[ ] Add Google Business Profile
+[ ] Submit sitemap to Search Console
+[ ] Create 3-5 blog posts
+[ ] Build backlinks
+
+================================================================================
+                    TOOLS
+================================================================================
+
+1. Google Search Console - https://search.google.com/search-console
+2. Google Analytics 4 - https://analytics.google.com
+3. Ahrefs - SEO audit & backlink analysis
+4. SEMrush - Keyword research
+5. Screaming Frog - Technical SEO audit
+6. GTmetrix - Performance testing
+7. PageSpeed Insights - https://pagespeed.web.dev
+
+================================================================================
+                              END
+================================================================================

@@ -1,0 +1,347 @@
+================================================================================
+                    TAKSH WEBSITE - PERFORMANCE OPTIMIZATION
+                    Best Practices Guide
+                    Generated: 2026-05-12
+================================================================================
+
+TARGET METRICS
+--------------------------------------------------------------------------------
+Lighthouse Score: 90+ (currently ~85)
+First Contentful Paint: < 1.5s
+Largest Contentful Paint: < 2.5s
+Time to Interactive: < 3.5s
+Cumulative Layout Shift: < 0.1
+Total Blocking Time: < 200ms
+
+================================================================================
+                    1. IMAGE OPTIMIZATION
+================================================================================
+
+A. Lazy Loading
+--------------------------------------------------------------------------------
+Add loading="lazy" to all below-fold images:
+
+  <img src="image.jpg" loading="lazy" alt="...">
+
+Already optimized:
+  - Logo images (header): Keep preload
+  - Below-fold images: Add lazy loading
+  - Background images: Use CSS background-image
+
+B. Image Formats
+--------------------------------------------------------------------------------
+Current: PNG/JPEG
+Recommended:
+  - Use WebP for all images (40-60% smaller)
+  - Use AVIF where supported (even smaller)
+  - Tools: sharp, squoosh, cwebp
+
+Command to convert:
+  cwebp -q 80 input.png -o output.webp
+
+C. Responsive Images
+--------------------------------------------------------------------------------
+Use srcset for different screen sizes:
+
+  <img src="image-800.jpg"
+       srcset="image-400.jpg 400w,
+               image-800.jpg 800w,
+               image-1200.jpg 1200w"
+       sizes="(max-width: 600px) 100vw,
+              (max-width: 1200px) 50vw,
+              33vw"
+       alt="...">
+
+D. Preconnect & Prefetch
+--------------------------------------------------------------------------------
+Add to <head>:
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="dns-prefetch" href="https://www.google-analytics.com">
+
+================================================================================
+                    2. FONT OPTIMIZATION
+================================================================================
+
+A. Font Display Swap
+--------------------------------------------------------------------------------
+Already implemented with font-display:swap
+
+  font-family: 'Inter', sans-serif; /* fallback */
+  font-family: 'Inter', sans-serif;
+  font-display: swap;
+
+B. Subset Fonts
+--------------------------------------------------------------------------------
+Use only needed character sets:
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap&subset=latin">
+
+C. Variable Fonts
+--------------------------------------------------------------------------------
+Consider using variable fonts (1 file instead of 6):
+
+  # Instead of 6 weights, use 1 variable font
+  font-variation-settings: 'wght' 400..700;
+
+D. Font Preloading
+--------------------------------------------------------------------------------
+Preload critical fonts only:
+
+  <link rel="preload" href="/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin>
+
+================================================================================
+                    3. CSS OPTIMIZATION
+================================================================================
+
+A. Critical CSS
+--------------------------------------------------------------------------------
+Inline critical CSS in <head> for above-fold content:
+
+  <style>
+    /* Critical CSS here */
+    body { margin: 0; font-family: Inter, sans-serif; }
+    .hero { min-height: 100vh; display: flex; }
+  </style>
+
+B. Async CSS Loading
+--------------------------------------------------------------------------------
+Load non-critical CSS asynchronously:
+
+  <link rel="preload" href="/styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="/styles.css"></noscript>
+
+C. CSS Minification
+--------------------------------------------------------------------------------
+Already minified if using Vercel.
+
+For manual optimization:
+  - Remove unused CSS
+  - Use CSS containment where applicable
+  - Avoid expensive selectors (deep nesting)
+
+================================================================================
+                    4. JAVASCRIPT OPTIMIZATION
+================================================================================
+
+A. Defer Non-Critical JS
+--------------------------------------------------------------------------------
+Use defer for scripts that can load after parse:
+
+  <script src="/effects.js" defer></script>
+
+B. Dynamic Imports
+--------------------------------------------------------------------------------
+Lazy load non-critical features:
+
+  // Instead of importing everything at once
+  const drawer = await import('./drawer.js');
+
+C. Remove Unused Code
+--------------------------------------------------------------------------------
+Tree-shake unused functions:
+
+  - Check effects.js for unused functions
+  - Remove debug console.log statements
+  - Minify with terser (already done by Vercel)
+
+D. Event Listener Optimization
+--------------------------------------------------------------------------------
+Use passive listeners for scroll/touch:
+
+  window.addEventListener('scroll', handler, { passive: true });
+
+Already done in effects.js - verify all scroll listeners are passive.
+
+================================================================================
+                    5. NETWORK OPTIMIZATION
+================================================================================
+
+A. Gzip/Brotli Compression
+--------------------------------------------------------------------------------
+Vercel handles this automatically.
+
+For local dev, add to vercel.json:
+
+  {
+    "headers": [
+      {
+        "source": "/(.*)",
+        "headers": [
+          { "key": "Compression", "value": "brotli" }
+        ]
+      }
+    ]
+  }
+
+B. HTTP/2
+--------------------------------------------------------------------------------
+Vercel uses HTTP/2 by default - no action needed.
+
+C. Cache Headers
+--------------------------------------------------------------------------------
+Configure cache headers:
+
+  <script src="/effects.js" defer></script>
+  <link rel="stylesheet" href="/site.css">
+  <!-- Vercel handles cache headers -->
+
+D. CDN
+--------------------------------------------------------------------------------
+Vercel Edge Network is already in use.
+
+================================================================================
+                    6. RENDER OPTIMIZATION
+================================================================================
+
+A. Reduce CLS (Cumulative Layout Shift)
+--------------------------------------------------------------------------------
+Add dimensions to all images:
+
+  <img width="400" height="300" src="..." />
+
+Reserve space with aspect-ratio:
+
+  .image-container {
+    aspect-ratio: 4 / 3;
+    background: var(--border); /* placeholder */
+  }
+
+B. Avoid Layout Shifts from Fonts
+--------------------------------------------------------------------------------
+Use font-display: swap (already done)
+
+Use size-adjust for fallback:
+
+  @font-face {
+    font-family: 'Inter Fallback';
+    src: local('Arial');
+    size-adjust: 107%;
+    ascent-override: 90%;
+    descent-override: 25%;
+  }
+
+C. Virtualize Long Lists
+--------------------------------------------------------------------------------
+If adding testimonials/projects, use virtualization:
+  - react-window
+  - @tanstack/virtual
+
+================================================================================
+                    7. MOBILE PERFORMANCE
+================================================================================
+
+A. Touch Optimization
+--------------------------------------------------------------------------------
+Already done in mobile.css:
+  - Hide cursor on touch
+  - Disable magnetic effect
+  - Reduce animations
+
+B. Viewport
+--------------------------------------------------------------------------------
+Already set correctly:
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+C. 4G Throttling
+--------------------------------------------------------------------------------
+Test on slow connections:
+  - Chrome DevTools: Network tab
+  - Select "Slow 3G" for mobile simulation
+
+================================================================================
+                    8. LENIS SMOOTH SCROLL
+================================================================================
+
+Current: 1.2s duration might be heavy on mobile.
+
+Consider reducing on mobile:
+
+  const lenis = new Lenis({
+    duration: window.innerWidth < 768 ? 0.8 : 1.2,
+    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
+  });
+
+================================================================================
+                    9. ANIMATION PERFORMANCE
+================================================================================
+
+A. Use transform/opacity Only
+--------------------------------------------------------------------------------
+Only these properties can be animated cheaply:
+
+  ✅ transform: translateX(), scale(), rotate()
+  ✅ opacity
+  ❌ Avoid: width, height, margin, padding, top, left
+
+B. Will-Change
+--------------------------------------------------------------------------------
+Add for animated elements:
+
+  .animated-element {
+    will-change: transform, opacity;
+  }
+
+  /* Remove after animation completes */
+  element.style.willChange = 'auto';
+
+C. GPU Acceleration
+--------------------------------------------------------------------------------
+Force GPU for specific elements:
+
+  .blur-element {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+
+================================================================================
+                    10. THIRD-PARTY SCRIPTS
+================================================================================
+
+A. Lenis Library
+--------------------------------------------------------------------------------
+Current: Loaded from unpkg CDN
+
+Better options:
+  - Self-host: Download and serve locally
+  - Use @studio-freight/lenis npm package
+  - Bundle with main JS
+
+B. Google Fonts
+--------------------------------------------------------------------------------
+Current: Loaded from fonts.googleapis.com
+
+Optimizations:
+  - Self-host fonts locally
+  - Use fontsource packages (fontsource/inter)
+  - Preconnect to fonts.gstatic.com
+
+================================================================================
+                    QUICK WINS CHECKLIST
+================================================================================
+
+[ ] Compress all images (WebP format)
+[ ] Add loading="lazy" to below-fold images
+[ ] Add width/height to all images
+[ ] Self-host Lenis library
+[ ] Self-host Google Fonts
+[ ] Remove unused JS functions
+[ ] Add passive event listeners
+[ ] Test on 4G throttling
+[ ] Verify Lighthouse score > 90
+
+================================================================================
+                    TOOLS
+================================================================================
+
+1. Lighthouse (built into Chrome)
+2. WebPageTest.org
+3. GTmetrix
+4. PageSpeed Insights
+5. Bundle analyzer: source-map-explorer
+
+================================================================================
+                              END
+================================================================================
