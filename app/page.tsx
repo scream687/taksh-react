@@ -62,13 +62,13 @@ const htmlContent = `<!DOCTYPE html>
   }
 }
 </script>
-<!-- Google tag (gtag.js) - REPLACE G-XXXXXXXXXX WITH YOUR GA4 ID -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<!-- Google tag (gtag.js) - REPLACE G-G7V8S8G6L3 WITH YOUR GA4 ID -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-G7V8S8G6L3"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-  gtag('config', 'G-XXXXXXXXXX');
+  gtag('config', 'G-G7V8S8G6L3');
 </script>
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
