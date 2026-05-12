@@ -1,0 +1,174 @@
+<!--
+===========================================
+TAKSH SEO & ANALYTICS SETUP GUIDE
+===========================================
+Generated: 2026-05-12
+===========================================
+
+STEP 1: GOOGLE ANALYTICS 4 (GA4)
+===========================================
+
+1. Go to https://analytics.google.com
+2. Sign in with your Google account
+3. Click "Start measuring"
+4. Enter account name: "Taksh Studio"
+5. Configure business details
+6. Get your Measurement ID (G-XXXXXXXXXX)
+
+REPLACE IN page.tsx:
+- Line 65: Replace G-XXXXXXXXXX with your GA4 ID
+
+EXAMPLE:
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-XXXXXX');
+</script>
+
+===========================================
+
+STEP 2: GOOGLE TAG MANAGER (GTM)
+===========================================
+
+1. Go to https://tagmanager.google.com
+2. Create account: "Taksh Studio"
+3. Set up container for website
+4. Get your GTM ID (GTM-XXXXXXX)
+
+REPLACE IN page.tsx:
+- Line 63: Replace GTM-XXXXXXX with your GTM ID (first occurrence)
+- Line 76: Replace GTM-XXXXXXX with your GTM ID (noscript iframe)
+
+===========================================
+
+STEP 3: GOOGLE SEARCH CONSOLE
+===========================================
+
+1. Go to https://search.google.com/search-console
+2. Click "Add property"
+3. Choose "Domain" and enter: taksh.in
+4. Verify ownership (DNS record or HTML file)
+
+OPTION A: DOMAIN VERIFICATION (Recommended)
+--------------------------------------------
+Add a DNS TXT record:
+- Name: @
+- TXT Value: google-site-verification=xxxxxxx
+
+OPTION B: HTML FILE VERIFICATION
+--------------------------------------------
+1. Download the HTML verification file
+2. Place it in /public folder
+3. Deploy to Vercel
+4. Click "Verify"
+
+For HTML verification, I've created:
+- public/google123456789.html (placeholder)
+
+Download your verification file from Google Search Console
+and replace the placeholder.
+
+===========================================
+
+STEP 4: CREATE OG IMAGE
+===========================================
+
+Dimensions: 1200 x 630 pixels
+
+DESIGN RECOMMENDATIONS:
+- Use Taksh brand colors (#0D0D0D background)
+- Include "TΛKSH" logo/text
+- Tagline: "Strategy & Marketing for Growth-Stage Businesses"
+- Clean, professional look
+
+TOOLS:
+- Canva: https://www.canva.com
+- Figma: https://www.figma.com
+- Adobe Express: https://express.adobe.com
+
+PLACE IMAGE AT:
+public/og-image.jpg
+
+REPLACE in page.tsx (already configured):
+<meta property="og:image" content="https://taksh.in/og-image.jpg">
+
+===========================================
+
+STEP 5: BING WEBMASTER TOOLS
+===========================================
+
+1. Go to https://bingwebmastertools.com
+2. Add site: taksh.in
+3. Verify ownership
+4. Submit sitemap: https://taksh.in/sitemap.xml
+
+===========================================
+
+STEP 6: GOOGLE BUSINESS PROFILE
+===========================================
+
+1. Go to https://business.google.com
+2. Click "Manage Now"
+3. Add your business:
+   - Name: Taksh Studio
+   - Category: Marketing Agency
+   - Address: Vrindavan, Uttar Pradesh, India
+   - Phone: +91-XXXXXXXXXX
+   - Email: hello@taksh.in
+
+===========================================
+
+STEP 7: SUBMIT SITEMAP TO SEARCH ENGINES
+===========================================
+
+Google:
+https://search.google.com/search-console -> Sitemaps -> Submit
+
+Bing:
+https://bingwebmastertools.com -> Sitemaps -> Submit
+
+===========================================
+
+CHECKLIST
+===========================================
+
+[ ] Get GA4 Measurement ID
+[ ] Replace G-XXXXXXXXXX in page.tsx
+[ ] Get GTM Container ID
+[ ] Replace GTM-XXXXXXX in page.tsx
+[ ] Download Google Search Console verification file
+[ ] Place in /public folder
+[ ] Create 1200x630 OG image
+[ ] Save as public/og-image.jpg
+[ ] Deploy to Vercel
+[ ] Verify with Google Search Console
+[ ] Submit sitemap
+
+===========================================
+
+QUICK TEST
+===========================================
+
+After deploying, test:
+
+1. SEO Meta Tags:
+   - Go to https://search.google.com/search-console
+   - Inspect URL: https://taksh.in
+   - Check if meta tags are detected
+
+2. Structured Data:
+   - Go to https://search.google.com/test/rich-results
+   - Enter URL: https://taksh.in
+   - Check for Organization schema
+
+3. Security Headers:
+   - Go to https://securityheaders.com
+   - Enter URL: https://taksh.in
+   - Check score (should be A or A+)
+
+===========================================
+                              END
+===========================================
+-->
