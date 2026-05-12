@@ -122,27 +122,12 @@ p {
   z-index: 100;
   display: flex;
   align-items: center;
-  border-bottom: 1px solid transparent;
-  transition: border-color .4s, background .4s, backdrop-filter .4s;
+  border-bottom: 1px solid var(--border);
+  background: var(--paper);
 }
 
 .nav::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: rgba(245, 245, 243, 0.4);
-  backdrop-filter: blur(12px) saturate(180%);
-  -webkit-backdrop-filter: blur(12px) saturate(180%);
-  z-index: -1;
-  pointer-events: none;
-  transition: background .4s, backdrop-filter .4s;
-  border-bottom: 1px solid rgba(26, 26, 26, 0.04);
-}
-
-.nav.is-scrolled::before {
-  background: rgba(245, 245, 243, 0.75);
-  backdrop-filter: blur(16px) saturate(190%);
-  border-bottom-color: rgba(26, 26, 26, 0.08);
+  display: none;
 }
 
 /* Ambient mesh background with directional blur & theme */
@@ -203,14 +188,6 @@ p {
   0% { transform: translate(0,0) rotate(0deg) scale(1); }
   50% { transform: translate(100px, 50px) rotate(180deg) scale(1.2); }
   100% { transform: translate(-50px, 100px) rotate(360deg) scale(1); }
-}
-
-.nav.is-scrolled {
-  border-bottom-color: rgba(26, 26, 26, 0.05);
-}
-
-.nav.is-scrolled::before {
-  background: rgba(245, 245, 243, 0.7);
 }
 
 .nav__inner {
