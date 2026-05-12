@@ -274,11 +274,7 @@
   }, { threshold: 0.15 });
   document.querySelectorAll('.process__step').forEach(el => stepObs.observe(el));
 
-  /* ── GENERAL REVEAL OBSERVER ─ */
-  const revealObs = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-in'); revealObs.unobserve(e.target); } });
-  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-  document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+  /* ── GENERAL REVEAL OBSERVER (handled in page.tsx) ─ */
 
   // Wire any [data-theme-toggle] dynamic-toggle elements to dark-mode
   document.addEventListener('toggle-change', e => {
