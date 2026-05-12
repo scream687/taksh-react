@@ -35,15 +35,39 @@
 .nav__brand {
   display: flex;
   align-items: center;
+}
+
+.nav__logo-wrap {
+  display: flex;
+  align-items: center;
+}
+
+.nav__logo {
+  height: 36px;
+  width: auto;
+  display: block;
+  border-radius: 8px;
   transition: opacity 0.3s ease;
 }
 
-.nav__brand:hover {
-  opacity: 0.85;
+.nav__logo--dark {
+  display: none;
 }
 
-body:not(.dark-mode) .nav__brand {
-  filter: brightness(0) invert(1);
+.nav__logo--white {
+  display: block;
+}
+
+body:not(.dark-mode) .nav__logo--white {
+  display: none;
+}
+
+body:not(.dark-mode) .nav__logo--dark {
+  display: block;
+}
+
+.nav__logo:hover {
+  opacity: 0.85;
 }
 
 .nav__center {
