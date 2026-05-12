@@ -35,12 +35,15 @@
 .nav__brand {
   display: flex;
   align-items: center;
-  filter: brightness(0) invert(1);
-  transition: filter 0.3s ease;
+  transition: opacity 0.3s ease;
 }
 
 .nav__brand:hover {
-  filter: brightness(0.85) invert(1);
+  opacity: 0.85;
+}
+
+body:not(.dark-mode) .nav__brand {
+  filter: brightness(0) invert(1);
 }
 
 .nav__center {
