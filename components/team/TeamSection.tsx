@@ -3,146 +3,142 @@
 import React from 'react';
 import './team.css';
 import { motion } from 'framer-motion';
-import { TextScatter } from '@/components/motion/TextScatter';
-import { ParticleImage } from '@/components/motion/ParticleImage';
-import { AsciiCursorField } from '@/components/motion/AsciiCursorField';
-import { ParallaxPills, PillItem } from '@/components/motion/ParallaxPills';
 
-export const TEAM = [
+export const TEAM_MEMBERS = [
   {
     id: 'rishabh',
+    num: '01',
     name: 'Rishabh Sharma',
-    role: 'Founder',
-    discipline: 'Brand Strategy & Creative Direction',
+    role: 'Founder & Creative Director',
+    discipline: 'Brand Strategy · Creative Direction',
     tag: 'Founder',
     initials: 'RS',
-    x: 24,
-    y: 28,
-    depth: 1.15,
-    rotate: -1,
+    bio: 'Directing brand narrative, positioning, and creative vision from first principles to high-velocity market execution.',
+    skills: ['Brand Architecture', 'Creative Direction', 'Positioning', 'GTM Strategy'],
   },
   {
     id: 'yogita',
     name: 'Yogita Fulara',
-    role: 'Lead Design', // TODO: Update role if needed
-    discipline: 'Identity Systems & Visual Design',
+    num: '02',
+    role: 'Lead Designer',
+    discipline: 'Identity Systems · Visual Design',
     tag: 'Design',
     initials: 'YF',
-    x: 68,
-    y: 28,
-    depth: 0.95,
-    rotate: 1.5,
+    bio: 'Crafting bespoke visual identities, typography hierarchies, and cohesive design systems for ambitious companies.',
+    skills: ['Identity Systems', 'Art Direction', 'Typography', 'Design Tokens'],
   },
   {
     id: 'tanmay',
     name: 'Tanmay Pania',
-    role: 'Full-Stack Engineer', // TODO: Update role if needed
-    discipline: 'Creative Engineering & Systems',
+    num: '03',
+    role: 'Full-Stack Engineer',
+    discipline: 'Creative Engineering · Systems',
     tag: 'Engineering',
     initials: 'TP',
-    x: 28,
-    y: 72,
-    depth: 1.2,
-    rotate: 1,
+    bio: 'Architecting high-performance web applications, motion engines, and production-grade frontend experiences.',
+    skills: ['Next.js / React', 'Creative Dev', 'Motion Physics', 'Performance'],
   },
   {
     id: 'ritika',
     name: 'Ritika Fulara',
-    role: 'Brand Strategist', // TODO: Update role if needed
-    discipline: 'GTM Planning & Content Architecture',
+    num: '04',
+    role: 'Brand Strategist',
+    discipline: 'GTM Planning · Content Architecture',
     tag: 'Strategy',
     initials: 'RF',
-    x: 70,
-    y: 72,
-    depth: 0.85,
-    rotate: -1.5,
+    bio: 'Structuring comprehensive launch frameworks, narrative messaging, and growth-stage brand communications.',
+    skills: ['Messaging Strategy', 'GTM Roadmaps', 'Copy Direction', 'Market Research'],
   },
 ];
 
-const BACKGROUND_PILLS: PillItem[] = [
-  { id: 'bg-1', label: 'Vrindavan · India', x: 8, y: 50, depth: 0.3, rotate: -3 },
-  { id: 'bg-2', label: 'Fixed Scope · 4 Wk', x: 82, y: 16, depth: 0.4, rotate: 2 },
-  { id: 'bg-3', label: 'Point of View', x: 50, y: 50, depth: 0.25, rotate: 0 },
-  { id: 'bg-4', label: 'Studio 2026', x: 82, y: 84, depth: 0.35, rotate: -2 },
+const STUDIO_METRICS = [
+  { label: 'Studio Composition', value: '4 Senior Specialists' },
+  { label: 'Delivery Model', value: '4-Week Fixed Sprints' },
+  { label: 'Primary Base', value: 'Vrindavan · India' },
+  { label: 'Client Reach', value: 'Global Engagements' },
 ];
 
 export function TeamSection() {
-  const pills: PillItem[] = TEAM.map((member) => ({
-    id: member.id,
-    label: member.name,
-    sublabel: `${member.role} — ${member.discipline}`,
-    tag: member.tag,
-    initials: member.initials,
-    x: member.x,
-    y: member.y,
-    depth: member.depth,
-    rotate: member.rotate,
-    isMain: true,
-  }));
-
   return (
     <div className="team-section__inner container">
       {/* Section Head */}
       <motion.div
         className="team-section__head"
-        initial={{ opacity: 0, y: 18 }}
+        initial={{ opacity: 0, y: 16 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.2 }}
-        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
       >
         <span className="label label--paper">The studio · 05</span>
         <h2 className="team-section__title">
-          <TextScatter text="The people behind the" />{' '}
-          <em>
-            <TextScatter text="point of view." />
-          </em>
+          The people behind the <em>point of view.</em>
         </h2>
+        <p className="team-section__sub">
+          A lean, multidisciplinary core. No account managers, no layers of junior staff — direct partnership with the practitioners shaping your brand.
+        </p>
       </motion.div>
 
-      {/* Desktop Interactive Stage */}
-      <motion.div
-        className="team-stage"
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true, amount: 0.15 }}
-        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-      >
-        {/* Backdrop Particle Visual */}
-        <div className="team-stage__backdrop">
-          <div className="team-stage__particle-box">
-            <ParticleImage
-              src="/logo-symbol.png"
-              alt="Taksh Symbol"
-              maxParticles={16000}
-              particleSize={2.0}
-              color="#2D5BE3"
-            />
-          </div>
-        </div>
-
-        {/* ASCII Cursor Field overlay */}
-        <AsciiCursorField color="#2D5BE3" cellSize={26} />
-
-        {/* Parallax Pills foreground */}
-        <ParallaxPills pills={pills} backgroundPills={BACKGROUND_PILLS} />
-      </motion.div>
-
-      {/* Mobile & Semantic Accessible Under-layer */}
-      <ul className="team-semantic-grid" aria-label="Taksh team members">
-        {TEAM.map((member, index) => (
-          <li key={member.id} className="team-semantic-card">
-            <div className="team-semantic-card__top">
-              <span className="team-semantic-card__num">0{index + 1}</span>
-              <span className="team-semantic-card__tag">{member.tag}</span>
+      {/* 2x2 Bento Team Grid */}
+      <div className="team-grid">
+        {TEAM_MEMBERS.map((member, index) => (
+          <motion.article
+            key={member.id}
+            className="team-card"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.15 }}
+            transition={{
+              duration: 0.5,
+              delay: index * 0.08,
+              ease: [0.16, 1, 0.3, 1],
+            }}
+          >
+            {/* Top Meta */}
+            <div className="team-card__meta">
+              <span className="team-card__num">{member.num}</span>
+              <span className="team-card__tag">{member.tag}</span>
             </div>
-            <div>
-              <h3 className="team-semantic-card__name">{member.name}</h3>
-              <div className="team-semantic-card__role">{member.role}</div>
+
+            {/* Profile Row */}
+            <div className="team-card__profile">
+              <div className="team-card__avatar">{member.initials}</div>
+              <div className="team-card__details">
+                <h3 className="team-card__name">{member.name}</h3>
+                <div className="team-card__role">{member.role}</div>
+                <div className="team-card__discipline">{member.discipline}</div>
+              </div>
             </div>
-            <p className="team-semantic-card__discipline">{member.discipline}</p>
-          </li>
+
+            {/* Bio */}
+            <p className="team-card__bio">{member.bio}</p>
+
+            {/* Skills */}
+            <div className="team-card__skills">
+              {member.skills.map((skill) => (
+                <span key={skill} className="team-card__skill">
+                  {skill}
+                </span>
+              ))}
+            </div>
+          </motion.article>
         ))}
-      </ul>
+      </div>
+
+      {/* Footprint Strip */}
+      <motion.div
+        className="team-footprint"
+        initial={{ opacity: 0, y: 12 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.5, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
+      >
+        {STUDIO_METRICS.map((metric) => (
+          <div key={metric.label} className="team-footprint__item">
+            <span className="team-footprint__label">{metric.label}</span>
+            <span className="team-footprint__value">{metric.value}</span>
+          </div>
+        ))}
+      </motion.div>
     </div>
   );
 }
