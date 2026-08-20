@@ -12,6 +12,12 @@
   --border: #E0DDD6;
   --border-dark: #2A2A2A;
   --blue-light: #EEF2FD;
+  /* Light text that sits on always-dark or Signal Blue surfaces.
+     Deliberately identical in both themes — it is a foreground role,
+     not a palette slot, so it must never flip with the theme. */
+  --on-dark: #F5F5F3;
+  /* ...and its companion, for text on always-light surfaces. */
+  --on-light: #0D0D0D;
 
   --container: 1480px;
   --gutter: clamp(20px, 4vw, 56px);
@@ -70,7 +76,52 @@ a {
 
 ::selection {
   background: var(--blue);
-  color: var(--paper);
+  color: var(--on-dark);
+}
+
+/* ── Browser surfaces ──────────────────────────────────────────
+   The parts we did not draw still carry the design: caret, focus
+   ring, scrollbar and underline offset all ship with browser
+   defaults that belong to no design system. Themed from the palette,
+   so they follow light and dark automatically. */
+html {
+  caret-color: var(--blue);
+  scrollbar-color: var(--border) transparent;
+}
+
+:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* Only suppress the ring for pointer users, never for keyboard. */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border: 3px solid var(--paper);
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--muted);
+}
+
+a:not([class]) {
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1px;
 }
 
 .container {
@@ -425,7 +476,7 @@ p {
 
 .btn--blue {
   background: var(--blue);
-  color: var(--white);
+  color: var(--on-dark);
 }
 
 .btn--blue:hover {
@@ -494,7 +545,7 @@ p {
 
 .section--void {
   background: var(--void);
-  color: var(--paper);
+  color: var(--on-dark);
 }
 
 .section__head {
@@ -594,68 +645,69 @@ p {
   }
 }
 
-/* ── Services list ────────────────────────────────────────── */
+/* ── Services — ruled editorial index ─────────────────────────
+   Adopts the Team Roster signature from DESIGN.md: hairline rows
+   with a Signal Blue rule drawn left-to-right on hover. Not cards —
+   the name carries the weight, the number and arrow stay subordinate. */
 .services {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-  padding: 0;
+  border-top: 1px solid var(--border);
 }
 
 .service {
-  display: flex;
-  flex-direction: column;
-  background: var(--paper);
-  border: 1px solid var(--border);
-  border-radius: 24px;
-  padding: 32px;
   position: relative;
-  transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1),
-              box-shadow 0.4s cubic-bezier(0.23, 1, 0.32, 1),
-              border-color 0.3s ease,
-              background 0.3s ease;
+  display: grid;
+  grid-template-columns: auto minmax(0, 0.8fr) minmax(26ch, 36ch) auto;
+  align-items: baseline;
+  column-gap: clamp(20px, 3.6vw, 64px);
+  padding: clamp(26px, 2.9vw, 40px) 0;
+  border-bottom: 1px solid var(--border);
+  color: inherit;
+  text-decoration: none;
   cursor: pointer;
-  overflow: hidden;
 }
 
-.service::before {
+/* The one authored moment: the blue rule sweeps in beneath the row. */
+.service::after {
   content: '';
   position: absolute;
-  top: 0;
   left: 0;
   right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, var(--blue), transparent);
-  opacity: 0;
-  transition: opacity 0.3s ease;
+  bottom: -1px;
+  height: 1px;
+  background: var(--blue);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.service:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 24px 48px rgba(0,0,0,0.08), 0 8px 16px rgba(0,0,0,0.04);
-  border-color: rgba(45, 91, 227, 0.3);
+/* Nudge the children, not the row — .reveal owns the row's transform. */
+.service > * {
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+              color 0.3s ease,
+              opacity 0.3s ease;
 }
 
-.service:hover::before {
-  opacity: 1;
+.service:hover::after,
+.service:focus-visible::after {
+  transform: scaleX(1);
 }
 
-.service:hover .service__num {
+.service:hover > *,
+.service:focus-visible > * {
+  transform: translateX(8px);
+}
+
+.service:hover .service__num,
+.service:focus-visible .service__num {
   color: var(--blue);
 }
 
-.service:hover .service__name {
-  color: var(--ink);
-}
-
-.service:hover .service__desc {
-  color: var(--muted);
-}
-
-.service:hover .service__arrow {
-  transform: translateX(0);
-  opacity: 1;
+.service:hover .service__arrow,
+.service:focus-visible .service__arrow {
   color: var(--blue);
+  opacity: 1;
+  transform: translateX(14px);
 }
 
 .service__num {
@@ -663,35 +715,29 @@ p {
   letter-spacing: 0.18em;
   color: var(--muted);
   font-variant-numeric: tabular-nums;
-  margin-bottom: 20px;
-  transition: color 0.3s;
 }
 
 .service__name {
-  font-size: clamp(22px, 2.5vw, 32px);
-  font-weight: 700;
-  letter-spacing: -0.025em;
-  line-height: 1.1;
-  margin-bottom: 16px;
-  transition: color 0.3s;
+  font-size: clamp(28px, 3.5vw, 44px);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  text-wrap: balance;
 }
 
 .service__desc {
   font-size: 15px;
   color: var(--muted);
   line-height: 1.6;
-  flex-grow: 1;
-  transition: color 0.3s;
+  max-width: 34ch;
 }
 
+/* In-flow now, so it can no longer collide with the description. */
 .service__arrow {
-  position: absolute;
-  bottom: 32px;
-  right: 32px;
-  font-size: 24px;
-  transform: translateX(-8px);
-  opacity: 0.3;
-  transition: transform 0.3s, opacity 0.3s, color 0.3s;
+  font-size: 22px;
+  line-height: 1;
+  color: var(--muted);
+  opacity: 0.45;
 }
 
 @media (max-width: 1024px) {
@@ -1037,7 +1083,7 @@ p {
 /* ── Contact CTA ───────────────────────────────────────────── */
 .contact-cta {
   background: var(--void);
-  color: var(--paper);
+  color: var(--on-dark);
   padding: clamp(96px, 10vw, 150px) 0;
   position: relative;
   overflow: hidden;
@@ -1086,7 +1132,7 @@ p {
 
 .contact-cta__btn {
   background: var(--blue);
-  color: var(--white);
+  color: var(--on-dark);
   padding: 22px 36px;
   font-size: 16px;
   font-weight: 500;
@@ -1219,15 +1265,15 @@ p {
   display: flex;
   justify-content: center;
   align-items: center;
-  color: var(--paper);
+  color: var(--on-dark);
   font-size: 24px;
   transition: background 0.3s, color 0.3s;
 }
 
 .footer__back-top:hover {
-  background: var(--paper);
-  color: var(--void);
-  border-color: var(--paper);
+  background: var(--on-dark);
+  color: var(--on-light);
+  border-color: var(--on-dark);
 }
 
 @media (max-width: 880px) {
@@ -1285,7 +1331,7 @@ p {
 /* ── Project marquee ───────────────────────────────────────── */
 .project-marquee {
   background: var(--blue);
-  color: var(--white);
+  color: var(--on-dark);
   padding: 120px 0;
   overflow: hidden;
   position: relative;

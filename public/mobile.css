@@ -199,7 +199,7 @@ html, body {
 
   .section--void {
     background: var(--void) !important;
-    color: var(--paper);
+    color: var(--on-dark);
   }
 }
 
@@ -207,7 +207,7 @@ html, body {
 @media (max-width: 768px) {
   #pain {
     background: var(--void);
-    color: var(--paper);
+    color: var(--on-dark);
     padding: 48px 20px !important;
   }
 
@@ -316,41 +316,53 @@ html, body {
   }
 
   .services {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    border-top: 1px solid var(--border);
   }
 
   .service {
-    padding: 24px 20px;
-    border-top: 1px solid var(--border);
-    display: block;
-    position: relative;
-    background: var(--paper);
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    grid-template-areas:
+      "num  name  arrow"
+      ".    desc  desc";
+    column-gap: 14px;
+    row-gap: 8px;
+    align-items: baseline;
+    padding: 22px 20px 24px;
+    border-top: none;
+    border-bottom: 1px solid var(--border);
+    background: transparent;
   }
 
-  .service:first-of-type { border-top: none; }
-
   .service__num {
+    grid-area: num;
     font-size: 10px;
     color: var(--blue);
-    display: block;
-    margin-bottom: 8px;
   }
 
   .service__name {
-    font-size: 18px;
+    grid-area: name;
+    font-size: clamp(20px, 5.6vw, 26px);
     font-weight: 600;
-    margin-bottom: 8px;
+    letter-spacing: -0.025em;
+    line-height: 1.1;
+    margin-bottom: 0;
   }
 
   .service__desc {
+    grid-area: desc;
     font-size: 14px;
     line-height: 1.5;
     color: var(--muted);
+    max-width: none;
   }
 
   .service__arrow {
-    display: none;
+    grid-area: arrow;
+    display: block;
+    font-size: 18px;
+    opacity: 0.35;
   }
 }
 
@@ -509,7 +521,7 @@ html, body {
   .contact-cta {
     padding: 48px 20px;
     background: var(--void);
-    color: var(--paper);
+    color: var(--on-dark);
   }
 
   .contact-cta .label {

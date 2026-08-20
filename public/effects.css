@@ -148,12 +148,14 @@ body.dark-mode #theme-toggle .icon-moon { display: none; }
 body.dark-mode {
   --paper:       #0D0D0D;
   --ink:         #F0EEE8;
-  --void:        #181818;
-  --white:       #F0EEE8;
+  --void:        #050505;
+  --white:       #141414;
   --border:      #2A2A2A;
   --border-dark: #3C3C3C;
   --muted:       rgba(240,238,232,0.45);
   --blue-light:  #12214A;
+  --on-dark:     #F5F5F3;
+  --on-light:    #0D0D0D;
 }
 
 /* Sections that were light now go dark */
@@ -161,16 +163,20 @@ body.dark-mode .nav {
   background: rgba(13,13,13,0.92);
   border-color: #2A2A2A;
 }
+
+/* The nav's frosted surface is .nav::before, not .nav — without these the
+   glass panel stays paper-white in dark mode. */
+body.dark-mode .nav::before {
+  background: rgba(13, 13, 13, 0.45);
+  border-bottom-color: rgba(240, 238, 232, 0.06);
+}
+
+body.dark-mode .nav.is-scrolled::before {
+  background: rgba(13, 13, 13, 0.78);
+  border-bottom-color: rgba(240, 238, 232, 0.10);
+}
 body.dark-mode .section {
   background: #0D0D0D;
-}
-body.dark-mode .section--void {
-  background: #000;
-}
-/* White/paper sections flip to near-black */
-body.dark-mode [style*="background:var(--white)"],
-body.dark-mode [style*="background: var(--white)"] {
-  background: #111 !important;
 }
 body.dark-mode .contact-cta {
   background: #050505;
@@ -533,7 +539,7 @@ body.dark-mode .btn--ghost:hover {
 ═══════════════════════════════════════════════════ */
 .pain-section {
   background: var(--void);
-  color: var(--paper);
+  color: var(--on-dark);
 }
 .pain__head {
   max-width: 680px;
@@ -543,7 +549,7 @@ body.dark-mode .btn--ghost:hover {
   color: rgba(245,245,243,0.5);
 }
 .pain__head .section__title {
-  color: var(--paper);
+  color: var(--on-dark);
   margin-top: 16px;
 }
 .pain__grid {
@@ -596,7 +602,7 @@ body.dark-mode .btn--ghost:hover {
   font-size: clamp(20px, 2vw, 28px);
   font-weight: 600;
   letter-spacing: -0.02em;
-  color: var(--paper);
+  color: var(--on-dark);
   margin: 0;
   line-height: 1.2;
 }
@@ -626,9 +632,9 @@ body.dark-mode .btn--ghost:hover {
 .process__step {
   display: flex !important;
   flex-direction: column !important;
-  align-items: center !important;
+  align-items: flex-start !important;
   padding-top: 0 !important;
-  text-align: center;
+  text-align: left;
   gap: 0;
 }
 
@@ -744,11 +750,11 @@ body.dark-mode .btn--ghost:hover {
 
 /* ── Step body ── */
 .proc-body {
-  opacity: 1 !important;
-  transform: none !important;
+  opacity: 1;
+  transform: none;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .process__week {
@@ -766,15 +772,15 @@ body.dark-mode .btn--ghost:hover {
   letter-spacing: -0.02em;
   color: var(--ink);
   margin-bottom: 12px;
-  text-align: center;
+  text-align: left;
 }
 
 .process__desc {
   font-size: 14.5px;
-  color: #666666;
+  color: var(--muted);
   line-height: 1.6;
-  text-align: center;
-  max-width: 280px;
+  text-align: left;
+  max-width: 30ch;
 }
 
 /* ── Mobile ── */
