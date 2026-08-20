@@ -489,6 +489,7 @@ p {
 /* ── Section base ─────────────────────────────────────────── */
 .section {
   padding: 120px 0;
+  scroll-margin-top: 90px;
 }
 
 .section--void {
@@ -497,42 +498,33 @@ p {
 }
 
 .section__head {
-  display: grid;
-  grid-template-columns: 200px 1fr;
-  gap: 48px;
-  align-items: baseline;
-  margin-bottom: 80px;
-}
-
-.section__head {
-  padding-top: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 64px;
+  max-width: 900px;
 }
 
 .section__title {
   font-size: var(--t-section);
   letter-spacing: -0.03em;
-  line-height: 1.1;
+  line-height: 1.12;
   text-wrap: balance;
+  margin: 0;
 }
-
 
 .section__title .blue {
   color: var(--blue);
 }
 
 .section__title em {
+  font-family: 'Instrument Serif', Georgia, serif;
   font-style: italic;
   font-weight: 400;
+  letter-spacing: -0.015em;
+  display: inline;
 }
-
-@media (max-width: 720px) {
-  .section__head {
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
-
-  .section {
-    padding: 80px 0;
   }
 }
 
@@ -1273,34 +1265,21 @@ p {
 
 /* ── Kinetic Typography ──────────────────────────────────── */
 .kinetic-text {
-  overflow: visible; /* Changed from hidden to prevent clipping of slanted characters */
+  overflow: visible;
   display: block;
-  padding: 0.05em 0; /* Add tiny vertical padding for descenders */
 }
 
 .kinetic-text .word {
   display: inline-block;
-  transform: translateY(110%) rotate(2deg);
-  opacity: 0;
-  filter: blur(8px);
-  transition: transform 0.8s cubic-bezier(0.2, 0, 0.2, 1),
-              opacity 0.8s cubic-bezier(0.2, 0, 0.2, 1),
-              filter 0.8s cubic-bezier(0.2, 0, 0.2, 1);
-  will-change: transform, opacity, filter;
-}
-
-.kinetic-text.is-in .word {
-  transform: translateY(0) rotate(0deg);
   opacity: 1;
-  filter: blur(0);
+  transform: none;
+  filter: none;
 }
 
 .kinetic-text .word-wrapper {
   display: inline-block;
-  overflow: hidden;
-  vertical-align: bottom;
-  padding: 0.1em 0.3em 0.1em 0; /* Extra room for italics/accents */
-  margin-right: -0.1em; /* Compensate for the extra padding */
+  overflow: visible;
+  vertical-align: baseline;
 }
 
 /* ── Project marquee ───────────────────────────────────────── */

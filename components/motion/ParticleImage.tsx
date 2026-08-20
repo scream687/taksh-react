@@ -9,7 +9,7 @@ export interface ParticleImageProps {
   className?: string;
   maxParticles?: number;
   particleSize?: number;
-  color?: string;
+  color?: string; // Optional override color (e.g. '#2D5BE3')
   repelRadius?: number;
 }
 
@@ -31,9 +31,10 @@ export function ParticleImage({
   src,
   alt = 'Particle visual',
   className = '',
-  maxParticles = 18000,
-  particleSize = 1.6,
-  repelRadius = 75,
+  maxParticles = 14000,
+  particleSize = 1.8,
+  color,
+  repelRadius = 85,
 }: ParticleImageProps) {
   const isMotionAllowed = useMotionAllowed();
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -72,21 +73,20 @@ export function ParticleImage({
     };
 
     const initParticles = () => {
-      const width = canvas.clientWidth || 320;
-      const height = canvas.clientHeight || 320;
+      const width = container.clientWidth || 360;
+      const height = container.clientHeight || 360;
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
 
       canvas.width = width * dpr;
       canvas.height = height * dpr;
       ctx.scale(dpr, dpr);
 
-      // Draw image centered in virtual coordinates
       const offCanvas = document.createElement('canvas');
       const offCtx = offCanvas.getContext('2d');
       if (!offCtx) return;
 
       const imgAspect = (img.width || 1) / (img.height || 1);
-      const drawSize = Math.min(width, height) * 0.72;
+      const drawSize = Math.min(width, height) * 0.76;
       let drawW = drawSize;
       let drawH = drawSize;
       if (imgAspect > 1) {
@@ -108,7 +108,6 @@ export function ParticleImage({
       const data = imgData.data;
 
       particles = [];
-      // Calculate step dynamically to keep particle count under maxParticles
       let step = 3;
       let count = 0;
       for (let y = 0; y < height; y += step) {
@@ -126,14 +125,23 @@ export function ParticleImage({
       for (let y = 0; y < height; y += step) {
         for (let x = 0; x < width; x += step) {
           const index = (y * width + x) * 4;
-          const r = data[index];
-          const g = data[index + 1];
-          const b = data[index + 2];
+          let r = data[index];
+          let g = data[index + 1];
+          let b = data[index + 2];
           const alpha = data[index + 3];
 
           if (alpha > 30) {
-            // Initial scattered position (dissolved)
-            const scatterRadius = Math.max(width, height) * 0.9;
+            // For dark logos on dark backgrounds, make particles glowing signal blue / luminous white
+            if (r < 60 && g < 60 && b < 60) {
+              if (color) {
+                // Parse hex or use blue
+                r = 45; g = 91; b = 227;
+              } else {
+                r = 60; g = 110; b = 245; // Glowing brand blue
+              }
+            }
+
+            const scatterRadius = Math.max(width, height) * 0.85;
             const angle = Math.random() * Math.PI * 2;
             const dist = Math.random() * scatterRadius + 40;
 
@@ -147,8 +155,8 @@ export function ParticleImage({
               r,
               g,
               b,
-              a: alpha / 255,
-              size: particleSize * (0.8 + Math.random() * 0.4),
+              a: Math.max(0.65, alpha / 255),
+              size: particleSize * (0.85 + Math.random() * 0.35),
             });
           }
         }
@@ -160,55 +168,54 @@ export function ParticleImage({
       if (isVisible) renderLoop();
     };
 
+    if (img.complete && img.naturalWidth > 0) {
+      initParticles();
+    }
+
     const renderLoop = () => {
       if (!isVisible) return;
 
-      const width = canvas.clientWidth;
-      const height = canvas.clientHeight;
+      const width = container.clientWidth;
+      const height = container.clientHeight;
 
       ctx.clearRect(0, 0, width, height);
 
       const friction = 0.88;
-      const ease = 0.065;
+      const ease = 0.07;
       const mouseRepel = repelRadius;
 
       for (let i = 0; i < particles.length; i++) {
         const p = particles[i];
 
-        // Spring force toward origin
         const dx = p.originX - p.x;
         const dy = p.originY - p.y;
         p.vx += dx * ease;
         p.vy += dy * ease;
 
-        // Pointer repulsion
         if (mouse.active) {
           const mdx = p.x - mouse.x;
           const mdy = p.y - mouse.y;
           const distSq = mdx * mdx + mdy * mdy;
           if (distSq < mouseRepel * mouseRepel && distSq > 0.01) {
             const dist = Math.sqrt(distSq);
-            const force = ((mouseRepel - dist) / mouseRepel) * 6;
+            const force = ((mouseRepel - dist) / mouseRepel) * 7;
             p.vx += (mdx / dist) * force;
             p.vy += (mdy / dist) * force;
           }
         }
 
-        // Apply velocity and friction
         p.vx *= friction;
         p.vy *= friction;
         p.x += p.vx;
         p.y += p.vy;
 
-        // Draw particle
-        ctx.fillStyle = `rgba(${p.r}, ${p.g}, ${p.b}, ${p.a * 0.85})`;
+        ctx.fillStyle = `rgba(${p.r}, ${p.g}, ${p.b}, ${p.a * 0.95})`;
         ctx.fillRect(p.x, p.y, p.size, p.size);
       }
 
       animationFrameId = requestAnimationFrame(renderLoop);
     };
 
-    // IntersectionObserver to pause when offscreen
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -222,7 +229,7 @@ export function ParticleImage({
           }
         });
       },
-      { threshold: 0.05 }
+      { threshold: 0.02 }
     );
 
     observer.observe(container);
@@ -243,7 +250,7 @@ export function ParticleImage({
       canvas.removeEventListener('mouseleave', handleMouseLeave);
       window.removeEventListener('resize', handleResize);
     };
-  }, [src, isMotionAllowed, maxParticles, particleSize, repelRadius]);
+  }, [src, isMotionAllowed, maxParticles, particleSize, repelRadius, color]);
 
   if (!isMotionAllowed) {
     return (
@@ -252,7 +259,7 @@ export function ParticleImage({
         <img
           src={src}
           alt={alt}
-          className="w-full h-full object-contain opacity-20 pointer-events-none"
+          className="w-full h-full object-contain opacity-25 pointer-events-none filter invert"
         />
       </div>
     );

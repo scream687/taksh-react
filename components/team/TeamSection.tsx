@@ -2,13 +2,12 @@
 
 import React from 'react';
 import './team.css';
+import { motion } from 'framer-motion';
 import { TextScatter } from '@/components/motion/TextScatter';
 import { ParticleImage } from '@/components/motion/ParticleImage';
 import { AsciiCursorField } from '@/components/motion/AsciiCursorField';
 import { ParallaxPills, PillItem } from '@/components/motion/ParallaxPills';
 
-// Stated assumption: Only Rishabh's role is confirmed (Founder).
-// The other three disciplines are placeholders drawn from the service lines — a four-line edit. Marked TODO.
 export const TEAM = [
   {
     id: 'rishabh',
@@ -17,10 +16,10 @@ export const TEAM = [
     discipline: 'Brand Strategy & Creative Direction',
     tag: 'Founder',
     initials: 'RS',
-    x: 10,
-    y: 18,
+    x: 24,
+    y: 28,
     depth: 1.15,
-    rotate: -1.5,
+    rotate: -1,
   },
   {
     id: 'yogita',
@@ -29,10 +28,10 @@ export const TEAM = [
     discipline: 'Identity Systems & Visual Design',
     tag: 'Design',
     initials: 'YF',
-    x: 52,
-    y: 20,
+    x: 68,
+    y: 28,
     depth: 0.95,
-    rotate: 2,
+    rotate: 1.5,
   },
   {
     id: 'tanmay',
@@ -41,10 +40,10 @@ export const TEAM = [
     discipline: 'Creative Engineering & Systems',
     tag: 'Engineering',
     initials: 'TP',
-    x: 16,
-    y: 60,
+    x: 28,
+    y: 72,
     depth: 1.2,
-    rotate: 1.5,
+    rotate: 1,
   },
   {
     id: 'ritika',
@@ -53,18 +52,18 @@ export const TEAM = [
     discipline: 'GTM Planning & Content Architecture',
     tag: 'Strategy',
     initials: 'RF',
-    x: 56,
-    y: 64,
+    x: 70,
+    y: 72,
     depth: 0.85,
-    rotate: -2,
+    rotate: -1.5,
   },
 ];
 
 const BACKGROUND_PILLS: PillItem[] = [
-  { id: 'bg-1', label: 'Vrindavan · India', x: 2, y: 44, depth: 0.35, rotate: -4 },
-  { id: 'bg-2', label: 'Fixed Scope · 4 Wk', x: 78, y: 12, depth: 0.4, rotate: 3 },
-  { id: 'bg-3', label: 'Point of View', x: 40, y: 46, depth: 0.25, rotate: 0 },
-  { id: 'bg-4', label: 'Studio 2026', x: 76, y: 78, depth: 0.45, rotate: -2 },
+  { id: 'bg-1', label: 'Vrindavan · India', x: 8, y: 50, depth: 0.3, rotate: -3 },
+  { id: 'bg-2', label: 'Fixed Scope · 4 Wk', x: 82, y: 16, depth: 0.4, rotate: 2 },
+  { id: 'bg-3', label: 'Point of View', x: 50, y: 50, depth: 0.25, rotate: 0 },
+  { id: 'bg-4', label: 'Studio 2026', x: 82, y: 84, depth: 0.35, rotate: -2 },
 ];
 
 export function TeamSection() {
@@ -83,26 +82,40 @@ export function TeamSection() {
 
   return (
     <div className="team-section__inner container">
-      <div className="team-section__head reveal">
+      {/* Section Head */}
+      <motion.div
+        className="team-section__head"
+        initial={{ opacity: 0, y: 18 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+      >
         <span className="label label--paper">The studio · 05</span>
-        <h2 className="team-section__title reveal kinetic-text">
-          <TextScatter text="The people behind the " />
+        <h2 className="team-section__title">
+          <TextScatter text="The people behind the" />{' '}
           <em>
             <TextScatter text="point of view." />
           </em>
         </h2>
-      </div>
+      </motion.div>
 
-      {/* Desktop interactive stage */}
-      <div className="team-section__interactive-area reveal">
-        {/* Backdrop Particle Visual (dissolves & reassembles) */}
-        <div className="team-section__backdrop">
-          <div className="w-[340px] h-[340px] max-w-full">
+      {/* Desktop Interactive Stage */}
+      <motion.div
+        className="team-stage"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true, amount: 0.15 }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+      >
+        {/* Backdrop Particle Visual */}
+        <div className="team-stage__backdrop">
+          <div className="team-stage__particle-box">
             <ParticleImage
               src="/logo-symbol.png"
               alt="Taksh Symbol"
               maxParticles={16000}
-              particleSize={1.8}
+              particleSize={2.0}
+              color="#2D5BE3"
             />
           </div>
         </div>
@@ -112,7 +125,7 @@ export function TeamSection() {
 
         {/* Parallax Pills foreground */}
         <ParallaxPills pills={pills} backgroundPills={BACKGROUND_PILLS} />
-      </div>
+      </motion.div>
 
       {/* Mobile & Semantic Accessible Under-layer */}
       <ul className="team-semantic-grid" aria-label="Taksh team members">

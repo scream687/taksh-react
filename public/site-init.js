@@ -64,6 +64,7 @@
     }
   });
 
+  // Reveal observer with immediate viewport check
   const io = new IntersectionObserver((entries) => {
     entries.forEach(e => {
       if (e.isIntersecting) {
@@ -71,8 +72,15 @@
         io.unobserve(e.target);
       }
     });
-  }, { rootMargin: '0px 0px -10% 0px', threshold: 0.05 });
-  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  }, { rootMargin: '0px 0px -5% 0px', threshold: 0.01 });
+
+  document.querySelectorAll('.reveal').forEach(el => {
+    io.observe(el);
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight + 100 && rect.bottom > -100) {
+      el.classList.add('is-in');
+    }
+  });
 
   if (window.matchMedia('(pointer: fine)').matches) {
     const industries = document.querySelectorAll('.industry');
@@ -94,43 +102,4 @@
       });
     });
   }
-
-  function initKineticTypography() {
-    try {
-      const targets = document.querySelectorAll('.kinetic-text');
-      targets.forEach(target => {
-        if (target.querySelector('.word-wrapper')) return;
-        const text = target.innerHTML;
-        const pattern = '(\\s+|<br[^>]*>|</?[a-z][^>]*>)';
-        const regex = new RegExp(pattern, 'g');
-        const words = text.trim().split(regex);
-        let newHTML = '';
-        words.forEach(word => {
-          if (!word) return;
-          if (word.startsWith('<') || word.trim() === '') {
-            newHTML += word;
-          } else {
-            newHTML += `<span class="word-wrapper"><span class="word">${word}</span></span>`;
-          }
-        });
-        target.innerHTML = newHTML;
-        const obs = new IntersectionObserver((entries) => {
-          entries.forEach(e => {
-            if (e.isIntersecting) {
-              e.target.classList.add('is-in');
-              const words = e.target.querySelectorAll('.word');
-              words.forEach((w, i) => {
-                w.style.transitionDelay = `${i * 0.04}s`;
-              });
-              obs.unobserve(e.target);
-            }
-          });
-        }, { threshold: 0.1 });
-        obs.observe(target);
-      });
-    } catch(e) {
-      console.warn('Kinetic typography skipped:', e);
-    }
-  }
-  initKineticTypography();
 })();

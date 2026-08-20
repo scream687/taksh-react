@@ -23,7 +23,7 @@ export function AsciiCursorField({
   charSet = '·+×/\\_~*01TAKSH□◇',
   cellSize = 24,
   decaySpeed = 0.04,
-  trailRadius = 90,
+  trailRadius = 100,
   color = '#2D5BE3',
 }: AsciiCursorFieldProps) {
   const isMotionAllowed = useMotionAllowed();
@@ -95,7 +95,7 @@ export function AsciiCursorField({
       const height = container.clientHeight;
 
       ctx.clearRect(0, 0, width, height);
-      ctx.font = `600 ${Math.floor(cellSize * 0.58)}px 'Inter', monospace, sans-serif`;
+      ctx.font = `600 ${Math.floor(cellSize * 0.55)}px 'Inter', monospace, sans-serif`;
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
 
@@ -107,7 +107,6 @@ export function AsciiCursorField({
           const cx = c * cellSize + cellSize / 2;
           const cy = r * cellSize + cellSize / 2;
 
-          // Check proximity to mouse
           const dx = cx - mouse.x;
           const dy = cy - mouse.y;
           const distSq = dx * dx + dy * dy;
@@ -116,13 +115,11 @@ export function AsciiCursorField({
             const dist = Math.sqrt(distSq);
             const proximity = 1 - dist / trailRadius;
             cell.targetIntensity = Math.max(cell.targetIntensity, proximity);
-            // Cycle character on direct hover
             if (proximity > 0.6) {
               cell.charIndex = (cell.charIndex + 1) % charSet.length;
             }
           }
 
-          // Smooth intensity approach & decay
           if (cell.targetIntensity > cell.intensity) {
             cell.intensity += (cell.targetIntensity - cell.intensity) * 0.35;
           } else {
@@ -130,14 +127,19 @@ export function AsciiCursorField({
           }
           cell.targetIntensity = Math.max(0, cell.targetIntensity - decaySpeed * 0.8);
 
+          // Render active or ambient subtle dot
           if (cell.intensity > 0.01) {
             const char = charSet[cell.charIndex % charSet.length];
-            const alpha = Math.min(cell.intensity * 0.75, 0.75);
+            const alpha = Math.min(cell.intensity * 0.9, 0.9);
 
             ctx.fillStyle = color === '#2D5BE3'
-              ? `rgba(45, 91, 227, ${alpha})`
+              ? `rgba(60, 110, 245, ${alpha})`
               : color;
             ctx.fillText(char, cx, cy);
+          } else if ((r + c) % 4 === 0) {
+            // Subtle resting grid texture
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.035)';
+            ctx.fillText('·', cx, cy);
           }
         }
       }
@@ -158,7 +160,7 @@ export function AsciiCursorField({
           }
         });
       },
-      { threshold: 0.05 }
+      { threshold: 0.02 }
     );
 
     observer.observe(container);

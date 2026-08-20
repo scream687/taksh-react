@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useRef, useMemo } from 'react';
-import { motion, useInView } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useMotionAllowed } from './useMotionAllowed';
 
 export interface TextScatterProps {
@@ -13,8 +13,6 @@ export interface TextScatterProps {
   rotation?: number;
   scale?: number;
   returnAfter?: number;
-  duration?: number;
-  stagger?: number;
 }
 
 export function TextScatter({
@@ -22,21 +20,17 @@ export function TextScatter({
   children,
   as: Component = 'span',
   className = '',
-  velocity = 28,
-  rotation = 18,
-  scale = 1.15,
-  returnAfter = 500,
-  duration = 0.5,
-  stagger = 0.02,
+  velocity = 18,
+  rotation = 10,
+  scale = 1.06,
+  returnAfter = 400,
 }: TextScatterProps) {
   const isMotionAllowed = useMotionAllowed();
-  const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, amount: 0.2 });
   const [isScattered, setIsScattered] = useState(false);
   const scatterTimerRef = useRef<NodeJS.Timeout | null>(null);
 
   const rawText = useMemo(() => {
-    if (text) return text;
+    if (typeof text === 'string') return text;
     if (typeof children === 'string') return children;
     return '';
   }, [text, children]);
@@ -55,69 +49,78 @@ export function TextScatter({
     }
   };
 
-  const characters = rawText.split('');
+  const words = rawText.trim().split(/\s+/);
 
   return (
     <Component
-      ref={ref}
-      className={`inline-block cursor-default select-none ${className}`}
+      className={`scatter-wrap ${className}`}
       onMouseEnter={triggerScatter}
+      style={{
+        display: 'inline-flex',
+        flexWrap: 'wrap',
+        alignItems: 'baseline',
+        cursor: 'pointer',
+        userSelect: 'none',
+      }}
     >
-      {characters.map((char, index) => {
-        if (char === ' ') {
-          return <span key={index}>&nbsp;</span>;
-        }
+      {words.map((word, wordIdx) => (
+        <span
+          key={wordIdx}
+          className="scatter-word"
+          style={{
+            display: 'inline-flex',
+            whiteSpace: 'nowrap',
+            marginRight: wordIdx < words.length - 1 ? '0.28em' : undefined,
+          }}
+        >
+          {word.split('').map((char, charIdx) => {
+            const globalIdx = wordIdx * 8 + charIdx;
+            const angle = ((globalIdx * 137.5) % 360) * (Math.PI / 180);
+            const distance = ((globalIdx % 4) + 1) * (velocity / 3);
+            const xOffset = Math.cos(angle) * distance;
+            const yOffset = Math.sin(angle) * distance;
+            const rot = (globalIdx % 2 === 0 ? 1 : -1) * (rotation * (0.5 + ((globalIdx * 5) % 8) / 8));
 
-        // Deterministic angle & distance offsets per character
-        const angle = ((index * 137.5) % 360) * (Math.PI / 180);
-        const distance = ((index % 5) + 1) * (velocity / 3.5);
-        const xOffset = Math.cos(angle) * distance;
-        const yOffset = Math.sin(angle) * distance;
-        const rot = (index % 2 === 0 ? 1 : -1) * (rotation * (0.4 + ((index * 7) % 10) / 10));
-        const scl = 1 + (((index * 3) % 5) / 10) * (scale - 1);
-
-        return (
-          <motion.span
-            key={index}
-            className="inline-block"
-            initial={{ opacity: 0, y: 14 }}
-            animate={
-              isScattered
-                ? {
-                    x: xOffset,
-                    y: yOffset,
-                    rotate: rot,
-                    scale: scl,
-                    opacity: 0.9,
-                    transition: {
-                      type: 'spring',
-                      stiffness: 340,
-                      damping: 14,
-                      duration,
-                    },
-                  }
-                : inView
-                ? {
-                    x: 0,
-                    y: 0,
-                    rotate: 0,
-                    scale: 1,
-                    opacity: 1,
-                    transition: {
-                      type: 'spring',
-                      stiffness: 220,
-                      damping: 22,
-                      delay: index * stagger,
-                      duration,
-                    },
-                  }
-                : { opacity: 0, y: 14 }
-            }
-          >
-            {char}
-          </motion.span>
-        );
-      })}
+            return (
+              <motion.span
+                key={charIdx}
+                className="scatter-char"
+                style={{ display: 'inline-block' }}
+                initial={false}
+                animate={
+                  isScattered
+                    ? {
+                        x: xOffset,
+                        y: yOffset,
+                        rotate: rot,
+                        scale,
+                        opacity: 0.95,
+                        transition: {
+                          type: 'spring',
+                          stiffness: 380,
+                          damping: 15,
+                        },
+                      }
+                    : {
+                        x: 0,
+                        y: 0,
+                        rotate: 0,
+                        scale: 1,
+                        opacity: 1,
+                        transition: {
+                          type: 'spring',
+                          stiffness: 260,
+                          damping: 22,
+                        },
+                      }
+                }
+              >
+                {char}
+              </motion.span>
+            );
+          })}
+        </span>
+      ))}
     </Component>
   );
 }

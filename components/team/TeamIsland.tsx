@@ -1,24 +1,22 @@
 'use client';
 
-import { useSyncExternalStore } from 'react';
+import { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import TeamSection from './TeamSection';
 
-function subscribe(callback: () => void) {
-  window.addEventListener('DOMContentLoaded', callback);
-  return () => window.removeEventListener('DOMContentLoaded', callback);
-}
-
-function getSnapshot(): HTMLElement | null {
-  return typeof document !== 'undefined' ? document.getElementById('team-mount') : null;
-}
-
-function getServerSnapshot(): null {
-  return null;
-}
-
 export default function TeamIsland() {
-  const mountNode = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
+  const [mountNode, setMountNode] = useState<HTMLElement | null>(null);
+
+  useEffect(() => {
+    // Schedule state update after mount to safely get portal container
+    const id = requestAnimationFrame(() => {
+      const el = document.getElementById('team-mount');
+      if (el) {
+        setMountNode(el);
+      }
+    });
+    return () => cancelAnimationFrame(id);
+  }, []);
 
   if (!mountNode) {
     return null;
