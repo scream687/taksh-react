@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef, useCallback } from 'react';
+import React from 'react';
 import './team.css';
 import { motion } from 'framer-motion';
 
@@ -51,71 +51,41 @@ export const TEAM_MEMBERS = [
   },
 ];
 
-const STUDIO_STANDARDS = [
-  { label: 'Studio Model', value: 'Senior Lead Practitioners Only' },
-  { label: 'Sprint Cadence', value: '4-Week Fixed-Scope Delivery' },
-  { label: 'Studio Base', value: 'Vrindavan · Indian Roots' },
-  { label: 'Client Reach', value: 'Global Growth-Stage Brands' },
-];
-
-function TeamCardItem({ member, index }: { member: typeof TEAM_MEMBERS[0]; index: number }) {
-  const cardRef = useRef<HTMLDivElement | null>(null);
-
-  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
-    if (!cardRef.current) return;
-    const rect = cardRef.current.getBoundingClientRect();
-    const x = `${e.clientX - rect.left}px`;
-    const y = `${e.clientY - rect.top}px`;
-    cardRef.current.style.setProperty('--mouse-x', x);
-    cardRef.current.style.setProperty('--mouse-y', y);
-  }, []);
-
+function TeamRow({ member, index }: { member: typeof TEAM_MEMBERS[0]; index: number }) {
   return (
     <motion.article
-      className="team-card-shell"
+      className="team-row"
       initial={{ opacity: 0, y: 22 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.15 }}
+      viewport={{ once: true, amount: 0.2 }}
       transition={{
         duration: 0.55,
         delay: index * 0.08,
         ease: [0.16, 1, 0.3, 1],
       }}
-      onMouseMove={handleMouseMove}
     >
-      <div ref={cardRef} className="team-card-core">
-        <div>
-          {/* Top Meta */}
-          <div className="team-card__meta">
-            <span className="team-card__num">{member.num} / 04</span>
-            <span className="team-card__tag">{member.tag}</span>
-          </div>
-
-          {/* Profile Row */}
-          <div className="team-card__profile">
-            <div className="team-card__avatar">{member.initials}</div>
-            <div className="team-card__details">
-              <h3 className="team-card__name">{member.name}</h3>
-              <div className="team-card__role">{member.role}</div>
-              <div className="team-card__discipline">{member.discipline}</div>
-            </div>
-          </div>
-
-          {/* Statement Quote */}
-          <blockquote className="team-card__quote">
-            &ldquo;{member.quote}&rdquo;
-          </blockquote>
-        </div>
-
-        {/* Practice Pillar Skills */}
-        <div className="team-card__skills">
-          {member.skills.map((skill) => (
-            <span key={skill} className="team-card__skill">
-              {skill}
-            </span>
-          ))}
-        </div>
+      <div className="team-row__index">
+        <span className="team-row__num">{member.num} / 04</span>
+        <span className="team-row__tag">{member.tag}</span>
       </div>
+
+      <div className="team-row__identity">
+        <h3 className="team-row__name">{member.name}</h3>
+        <div className="team-row__role">{member.role}</div>
+        <div className="team-row__discipline">{member.discipline}</div>
+      </div>
+
+      <blockquote className="team-row__quote">
+        &ldquo;{member.quote}&rdquo;
+      </blockquote>
+
+      <ul className="team-row__skills" aria-label={`${member.name} skills`}>
+        {member.skills.map((skill) => (
+          <li key={skill} className="team-row__skill">
+            {skill}
+          </li>
+        ))}
+      </ul>
     </motion.article>
   );
 }
@@ -140,28 +110,12 @@ export function TeamSection() {
         </p>
       </motion.div>
 
-      {/* 2x2 Bento Team Grid */}
-      <div className="team-grid">
+      {/* Editorial Roster */}
+      <div className="team-roster">
         {TEAM_MEMBERS.map((member, index) => (
-          <TeamCardItem key={member.id} member={member} index={index} />
+          <TeamRow key={member.id} member={member} index={index} />
         ))}
       </div>
-
-      {/* Studio Standards Strip */}
-      <motion.div
-        className="team-footprint"
-        initial={{ opacity: 0, y: 14 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.2 }}
-        transition={{ duration: 0.5, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
-      >
-        {STUDIO_STANDARDS.map((standard) => (
-          <div key={standard.label} className="team-footprint__item">
-            <span className="team-footprint__label">{standard.label}</span>
-            <span className="team-footprint__value">{standard.value}</span>
-          </div>
-        ))}
-      </motion.div>
     </div>
   );
 }

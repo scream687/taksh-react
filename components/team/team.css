@@ -1,4 +1,4 @@
-/* ── Team Section — Double-Bezel Impeccable Craft ─────────────── */
+/* ── Team Section — Editorial Roster ───────────────────────────── */
 
 .team-section {
   position: relative;
@@ -52,272 +52,142 @@
   max-width: 640px;
 }
 
-/* ── 2x2 Bento Grid ── */
-.team-grid {
+/* ── Editorial Roster ── */
+.team-roster {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.team-row {
+  position: relative;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 24px;
-  margin-bottom: 48px;
+  grid-template-columns: 180px 1.2fr 1fr 1fr;
+  gap: 40px;
+  align-items: start;
+  padding: 36px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* ── Double-Bezel (Doppelrand) Card Architecture ── */
-.team-card-shell {
-  position: relative;
-  padding: 1px;
-  border-radius: 16px;
-  background: rgba(255, 255, 255, 0.08);
-  transition: background 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-              box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.team-card-shell:hover {
-  background: linear-gradient(135deg, rgba(45, 91, 227, 0.6) 0%, rgba(255, 255, 255, 0.15) 50%, rgba(45, 91, 227, 0.3) 100%);
-  transform: translateY(-4px);
-  box-shadow: 0 24px 50px -12px rgba(0, 0, 0, 0.8),
-              0 0 32px -8px rgba(45, 91, 227, 0.35);
-}
-
-.team-card-core {
-  position: relative;
-  padding: 36px 32px;
-  border-radius: 15px;
-  background: rgba(14, 14, 18, 0.94);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  min-height: 310px;
-  overflow: hidden;
-  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.12);
-}
-
-/* Dynamic Spotlight Radial Layer */
-.team-card-core::before {
+.team-row::after {
   content: '';
   position: absolute;
-  inset: 0;
-  background: radial-gradient(circle 280px at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(45, 91, 227, 0.12), transparent 75%);
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.35s ease;
+  left: 0;
+  bottom: -1px;
+  width: 100%;
+  height: 1px;
+  background: var(--blue, #2D5BE3);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.team-card-shell:hover .team-card-core::before {
-  opacity: 1;
+.team-row:hover {
+  transform: translateX(8px);
 }
 
-/* ── Top Meta Bar ── */
-.team-card__meta {
-  position: relative;
-  z-index: 2;
+.team-row:hover::after {
+  transform: scaleX(1);
+}
+
+/* ── Index Column ── */
+.team-row__index {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 24px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
 }
 
-.team-card__num {
+.team-row__num {
   font-family: 'JetBrains Mono', monospace, sans-serif;
   font-size: 12px;
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.4);
+  color: rgba(245, 245, 243, 0.4);
   letter-spacing: 0.08em;
 }
 
-.team-card__tag {
+.team-row__tag {
   font-family: 'JetBrains Mono', monospace, sans-serif;
   font-size: 10px;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.12em;
-  padding: 4px 10px;
-  border-radius: 9999px;
-  background: rgba(45, 91, 227, 0.16);
-  color: #60A5FA;
-  border: 1px solid rgba(45, 91, 227, 0.35);
-  transition: background 0.3s, color 0.3s, border-color 0.3s, box-shadow 0.3s;
-}
-
-.team-card-shell:hover .team-card__tag {
-  background: rgba(45, 91, 227, 0.28);
   color: #93C5FD;
-  border-color: rgba(45, 91, 227, 0.6);
-  box-shadow: 0 0 14px rgba(45, 91, 227, 0.4);
 }
 
-/* ── Profile Header ── */
-.team-card__profile {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  align-items: flex-start;
-  gap: 18px;
-  margin-bottom: 18px;
-}
-
-.team-card__avatar {
-  width: 46px;
-  height: 46px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: 'JetBrains Mono', monospace, sans-serif;
-  font-size: 13px;
-  font-weight: 700;
-  background: rgba(255, 255, 255, 0.06);
-  color: #FFFFFF;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  flex-shrink: 0;
-  transition: background 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-              border-color 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-              box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.team-card-shell:hover .team-card__avatar {
-  background: #2D5BE3;
-  border-color: #2D5BE3;
-  box-shadow: 0 0 20px rgba(45, 91, 227, 0.65);
-  transform: scale(1.04);
-}
-
-.team-card__details {
+/* ── Identity Column ── */
+.team-row__identity {
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  align-items: flex-start;
+  gap: 6px;
 }
 
-.team-card__name {
-  font-size: 22px;
+.team-row__name {
+  font-size: clamp(28px, 3.5vw, 44px);
   font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.08;
   color: #FFFFFF;
-  letter-spacing: -0.02em;
   margin: 0;
+  text-wrap: balance;
 }
 
-.team-card__role {
+.team-row__role {
   font-size: 13.5px;
   font-weight: 500;
-  color: #93C5FD;
+  color: #60A5FA;
   letter-spacing: -0.01em;
 }
 
-.team-card__discipline {
+.team-row__discipline {
   font-size: 12.5px;
-  color: rgba(255, 255, 255, 0.45);
-  margin-top: 1px;
+  color: rgba(245, 245, 243, 0.5);
 }
 
-/* ── Statement Quote ── */
-.team-card__quote {
-  position: relative;
-  z-index: 2;
+/* ── Quote Column ── */
+.team-row__quote {
   font-family: 'Instrument Serif', Georgia, serif;
   font-style: italic;
   font-size: 17px;
   color: rgba(245, 245, 243, 0.85);
-  line-height: 1.45;
-  margin: 0 0 24px 0;
-  padding-left: 12px;
-  border-left: 2px solid rgba(45, 91, 227, 0.5);
+  line-height: 1.5;
+  margin: 4px 0 0 0;
+  max-width: 46ch;
 }
 
-/* ── Practice Pillar Chips ── */
-.team-card__skills {
-  position: relative;
-  z-index: 2;
+/* ── Skills Column ── */
+.team-row__skills {
+  list-style: none;
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
-  padding-top: 16px;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  gap: 8px 16px;
+  margin: 4px 0 0 0;
+  padding: 0;
 }
 
-.team-card__skill {
+.team-row__skill {
   font-family: 'JetBrains Mono', monospace, sans-serif;
-  font-size: 11px;
-  color: rgba(255, 255, 255, 0.55);
-  padding: 3.5px 9px;
-  border-radius: 4px;
-  background: rgba(255, 255, 255, 0.035);
-  border: 1px solid rgba(255, 255, 255, 0.07);
+  font-size: 11.5px;
+  color: rgba(245, 245, 243, 0.55);
   letter-spacing: 0.02em;
-  transition: color 0.25s, border-color 0.25s, background-color 0.25s;
 }
 
-.team-card-shell:hover .team-card__skill {
-  color: #FFFFFF;
-  background: rgba(255, 255, 255, 0.07);
-  border-color: rgba(255, 255, 255, 0.15);
-}
-
-/* ── Studio Standards Footprint Strip ── */
-.team-footprint {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
-  padding: 28px 32px;
-  border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(18, 18, 22, 0.5);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-}
-
-.team-footprint__item {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-}
-
-.team-footprint__label {
-  font-family: 'JetBrains Mono', monospace, sans-serif;
-  font-size: 10.5px;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: #60A5FA;
-}
-
-.team-footprint__value {
-  font-size: 14px;
-  font-weight: 500;
-  color: #FFFFFF;
-  line-height: 1.4;
+.team-row__skill::before {
+  content: '— ';
+  color: var(--blue, #2D5BE3);
 }
 
 /* ── Responsive Architecture ── */
 @media (max-width: 960px) {
-  .team-grid {
+  .team-row {
     grid-template-columns: 1fr;
     gap: 20px;
+    padding: 32px 0;
   }
 
-  .team-footprint {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-  }
-}
-
-@media (max-width: 640px) {
-  .team-section {
-    padding: 80px 0;
-  }
-
-  .team-card-core {
-    padding: 28px 22px;
-    min-height: auto;
-  }
-
-  .team-card__profile {
-    gap: 14px;
-  }
-
-  .team-footprint {
-    grid-template-columns: 1fr;
-    padding: 22px;
+  .team-row__index {
+    flex-direction: row;
+    align-items: center;
     gap: 16px;
   }
 }
