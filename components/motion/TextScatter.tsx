@@ -36,7 +36,11 @@ export function TextScatter({
   }, [text, children]);
 
   if (!isMotionAllowed || !rawText) {
-    return <Component className={className}>{children || text}</Component>;
+    return (
+      <Component className={className} aria-hidden="true" aria-label={rawText}>
+        {children || text}
+      </Component>
+    );
   }
 
   const triggerScatter = () => {
@@ -55,11 +59,12 @@ export function TextScatter({
     <Component
       className={`scatter-wrap ${className}`}
       onMouseEnter={triggerScatter}
+      aria-hidden="true"
+      aria-label={rawText}
       style={{
         display: 'inline-flex',
         flexWrap: 'wrap',
         alignItems: 'baseline',
-        cursor: 'pointer',
         userSelect: 'none',
       }}
     >

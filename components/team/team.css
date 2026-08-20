@@ -4,7 +4,7 @@
   position: relative;
   overflow: hidden;
   background-color: var(--void, #0D0D0D);
-  color: var(--paper, #F5F5F3);
+  color: var(--on-dark, #F5F5F3);
   padding: 130px 0;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
@@ -14,6 +14,74 @@
 .team-section__inner {
   position: relative;
   z-index: 2;
+}
+
+/* ── Backdrop FX Layer ──
+   Ambient canvas/pill layer behind the roster. pointer-events none so the
+   roster stays fully interactive; the ascii field listens on the section. */
+.team-section__fx {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.team-section__fx canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Particle (dissolving logo) — tucked to the top-right of the section */
+.team-section__fx-particle {
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  width: min(520px, 46vw);
+  height: min(520px, 46vw);
+  opacity: 0.5;
+}
+
+/* Inner container relies on dead Tailwind `h-full` — size it explicitly */
+.team-section__fx-particle > div {
+  width: 100%;
+  height: 100%;
+}
+
+/* Fallback <img> used when motion is disabled (dead Tailwind utilities) */
+.team-section__fx-particle img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  opacity: 0.25;
+  filter: invert(1);
+}
+
+/* Keep head + roster above the FX layer */
+.team-section__head,
+.team-roster {
+  position: relative;
+  z-index: 2;
+}
+
+/* Background pill chips (Tailwind is not compiled in this build) */
+.team-pill--bg {
+  position: absolute;
+  pointer-events: none;
+}
+
+.team-pill__chip {
+  font-family: 'JetBrains Mono', monospace, sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(245, 245, 243, 0.32);
+  border: 1px solid rgba(245, 245, 243, 0.1);
+  border-radius: 999px;
+  padding: 6px 14px;
+  white-space: nowrap;
+  background: rgba(255, 255, 255, 0.02);
 }
 
 /* ── Section Header ── */
@@ -101,7 +169,7 @@
   font-family: 'JetBrains Mono', monospace, sans-serif;
   font-size: 12px;
   font-weight: 500;
-  color: rgba(245, 245, 243, 0.4);
+  color: rgba(245, 245, 243, 0.55);
   letter-spacing: 0.08em;
 }
 
@@ -111,7 +179,7 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.12em;
-  color: #93C5FD;
+  color: rgba(45, 91, 227, 0.9);
 }
 
 /* ── Identity Column ── */
@@ -135,7 +203,7 @@
 .team-row__role {
   font-size: 13.5px;
   font-weight: 500;
-  color: #60A5FA;
+  color: rgba(45, 91, 227, 0.75);
   letter-spacing: -0.01em;
 }
 

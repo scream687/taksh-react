@@ -3,6 +3,18 @@
 import React from 'react';
 import './team.css';
 import { motion } from 'framer-motion';
+import { TextScatter } from '@/components/motion/TextScatter';
+import { ParallaxPills, type PillItem } from '@/components/motion/ParallaxPills';
+import { ParticleImage } from '@/components/motion/ParticleImage';
+import { AsciiCursorField } from '@/components/motion/AsciiCursorField';
+
+const BACKGROUND_PILLS: PillItem[] = [
+  { id: 'bg-1', label: 'Vrindavan · India', x: 4, y: 6, depth: 0.5, rotate: -3 },
+  { id: 'bg-2', label: 'Fixed Scope · 4 Wk', x: 88, y: 16, depth: 0.6, rotate: 2 },
+  { id: 'bg-3', label: 'Point of View', x: 78, y: 38, depth: 0.4, rotate: -2 },
+  { id: 'bg-4', label: 'Studio 2026', x: 6, y: 52, depth: 0.55, rotate: 3 },
+  { id: 'bg-5', label: 'Brand Architecture', x: 90, y: 78, depth: 0.5, rotate: -2 },
+];
 
 export const TEAM_MEMBERS = [
   {
@@ -93,6 +105,20 @@ function TeamRow({ member, index }: { member: typeof TEAM_MEMBERS[0]; index: num
 export function TeamSection() {
   return (
     <div className="team-section__inner container">
+      {/* Backdrop FX layer — ambience only, never blocks roster */}
+      <div className="team-section__fx" aria-hidden="true">
+        <AsciiCursorField color="#2D5BE3" cellSize={22} trailRadius={90} />
+        <div className="team-section__fx-particle">
+          <ParticleImage
+            src="/logo-symbol.png"
+            maxParticles={8000}
+            particleSize={1.6}
+            repelRadius={70}
+          />
+        </div>
+        <ParallaxPills pills={[]} backgroundPills={BACKGROUND_PILLS} />
+      </div>
+
       {/* Section Head */}
       <motion.div
         className="team-section__head"
@@ -103,7 +129,10 @@ export function TeamSection() {
       >
         <span className="label label--paper">The studio · 05</span>
         <h2 className="team-section__title">
-          The people behind the <em>point of view.</em>
+          <TextScatter text="The people behind the point of " />
+          <em>
+            <TextScatter text="view." />
+          </em>
         </h2>
         <p className="team-section__sub">
           A lean, senior-led multidisciplinary practice. No account layers, no junior handoffs — direct collaboration with the partners shaping your category position.
