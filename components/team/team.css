@@ -1,0 +1,160 @@
+/* Scoped styles for Team Section — consumes site.css tokens */
+
+.team-section {
+  position: relative;
+  width: 100%;
+  background: var(--void, #0D0D0D);
+  color: var(--paper, #F5F5F3);
+  padding: 120px 0;
+  overflow: hidden;
+  border-top: 1px solid var(--border-dark, #2A2A2A);
+  border-bottom: 1px solid var(--border-dark, #2A2A2A);
+}
+
+.team-section__inner {
+  position: relative;
+  z-index: 10;
+}
+
+.team-section__head {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 48px;
+  align-items: baseline;
+  margin-bottom: 60px;
+}
+
+.team-section__title {
+  font-size: var(--t-section, clamp(36px, 5.4vw, 84px));
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  color: var(--paper, #F5F5F3);
+  margin: 0;
+}
+
+.team-section__title em {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  color: var(--paper, #F5F5F3);
+}
+
+.team-section__interactive-area {
+  position: relative;
+  min-height: 480px;
+  border: 1px solid var(--border-dark, #2A2A2A);
+  background: radial-gradient(circle at center, rgba(45, 91, 227, 0.05) 0%, rgba(13, 13, 13, 0) 70%);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.team-section__backdrop {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.28;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Mobile & Semantic Team Grid */
+.team-semantic-grid {
+  display: none;
+  list-style: none;
+  padding: 0;
+  margin: 40px 0 0 0;
+  border-top: 1px solid var(--border-dark, #2A2A2A);
+  border-left: 1px solid var(--border-dark, #2A2A2A);
+}
+
+.team-semantic-card {
+  padding: 32px 28px;
+  border-right: 1px solid var(--border-dark, #2A2A2A);
+  border-bottom: 1px solid var(--border-dark, #2A2A2A);
+  background: #111111;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 16px;
+  position: relative;
+}
+
+.team-semantic-card__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.team-semantic-card__num {
+  font-family: 'Inter', monospace, sans-serif;
+  font-size: 11px;
+  color: rgba(245, 245, 243, 0.4);
+}
+
+.team-semantic-card__tag {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--blue, #2D5BE3);
+  background: rgba(45, 91, 227, 0.12);
+  border: 1px solid rgba(45, 91, 227, 0.3);
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+
+.team-semantic-card__name {
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--paper, #F5F5F3);
+  margin: 0;
+}
+
+.team-semantic-card__role {
+  font-size: 13px;
+  color: #888888;
+  margin-top: 4px;
+}
+
+.team-semantic-card__discipline {
+  font-size: 14px;
+  color: rgba(245, 245, 243, 0.7);
+  line-height: 1.4;
+}
+
+/* 375px / Mobile Adaptation (AGENTS.md Rule 8) */
+@media (max-width: 767px) {
+  .team-section {
+    padding: 80px 0;
+  }
+
+  .team-section__head {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+
+  .team-section__interactive-area {
+    display: none; /* Hide interactive canvas on mobile */
+  }
+
+  .team-semantic-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (min-width: 480px) and (max-width: 767px) {
+  .team-semantic-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width: 768px) {
+  .team-semantic-grid {
+    display: none;
+  }
+}
