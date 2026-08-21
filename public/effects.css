@@ -26,7 +26,10 @@
   pointer-events: none;
 }
 .preloader__logo {
-  width: 80px;
+  width: 44px;
+  height: auto;
+  object-fit: contain;
+  display: block;
   animation: pl-breathe 1.4s ease-in-out infinite;
 }
 .preloader__bar {
@@ -443,20 +446,39 @@ body.dark-mode .btn--ghost:hover {
 .btn-waitlist {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
-  padding: 12px 24px;
+  padding: 16px 28px;
   background: transparent;
-  border: 1px solid rgba(255,255,255,0.18);
-  color: #F5F5F3;
-  border-radius: 4px;
-  font-size: 14px;
+  border: 1px solid var(--border);
+  color: var(--ink);
+  font-size: 11px;
   font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
   cursor: pointer;
   font-family: inherit;
-  letter-spacing: -0.01em;
-  transition: background 0.2s, border-color 0.2s;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 }
-.btn-waitlist:hover { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.3); }
+
+.btn-waitlist:hover {
+  background: var(--blue);
+  color: #FFFFFF;
+  border-color: var(--blue);
+}
+
+.section--void .btn-waitlist,
+.cta-band .btn-waitlist {
+  color: var(--on-dark);
+  border-color: var(--border-dark);
+}
+
+.section--void .btn-waitlist:hover,
+.cta-band .btn-waitlist:hover {
+  background: var(--blue);
+  color: #FFFFFF;
+  border-color: var(--blue);
+}
 
 /* ═══════════════════════════════════════════════════
    STATS STRIP

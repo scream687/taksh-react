@@ -13,8 +13,8 @@ export interface TiltedCardProps {
 export function TiltedCard({
   children,
   className = '',
-  maxTilt = 8,
-  glareColor = 'rgba(45, 91, 227, 0.15)',
+  maxTilt = 6,
+  glareColor = 'rgba(45, 91, 227, 0.12)',
 }: TiltedCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const [rotateX, setRotateX] = useState(0);
@@ -52,9 +52,10 @@ export function TiltedCard({
   }, []);
 
   return (
-    <div style={{ perspective: '1000px' }} className={className}>
+    <div style={{ perspective: '1000px', width: '100%', height: '100%', display: 'flex' }}>
       <motion.div
         ref={cardRef}
+        className={className}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
         animate={{
@@ -63,14 +64,15 @@ export function TiltedCard({
         }}
         transition={{
           type: 'spring',
-          stiffness: 300,
-          damping: 25,
+          stiffness: 280,
+          damping: 24,
         }}
         style={{
           transformStyle: 'preserve-3d',
           position: 'relative',
           width: '100%',
           height: '100%',
+          overflow: 'hidden',
         }}
       >
         {children}
@@ -79,8 +81,7 @@ export function TiltedCard({
             position: 'absolute',
             inset: 0,
             pointerEvents: 'none',
-            borderRadius: 'inherit',
-            background: `radial-gradient(circle 300px at ${glarePos.x}% ${glarePos.y}%, ${glareColor}, transparent 80%)`,
+            background: `radial-gradient(circle 320px at ${glarePos.x}% ${glarePos.y}%, ${glareColor}, transparent 80%)`,
             opacity: glarePos.opacity,
             transition: 'opacity 0.3s ease',
             zIndex: 10,

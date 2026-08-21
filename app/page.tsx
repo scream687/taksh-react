@@ -1,8 +1,9 @@
 'use client';
 
 import React, { useState } from 'react';
-import Image from 'next/image';
 import Script from 'next/script';
+import { SmoothScroll } from '@/components/layout/SmoothScroll';
+import { Preloader } from '@/components/layout/Preloader';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { WaitlistDrawer } from '@/components/layout/WaitlistDrawer';
@@ -50,10 +51,7 @@ export default function Home() {
       </a>
 
       {/* Preloader & Ambient Liquid Canvas */}
-      <div id="preloader" aria-hidden="true">
-        <Image className="preloader__logo" src="/logo-symbol.png" alt="Taksh" width={64} height={64} priority />
-        <div className="preloader__bar" />
-      </div>
+      <Preloader />
 
       <div className="liquid-bg" aria-hidden="true">
         <div className="liquid-bg__blob liquid-bg__blob--1" />
@@ -79,22 +77,24 @@ export default function Home() {
       {/* Floating Pill Navigation */}
       <Navbar />
 
-      {/* Page Content Layout */}
-      <main id="main-content" className="overflow-x-hidden w-full max-w-full">
-        <HeroSection onOpenWaitlist={() => setIsWaitlistOpen(true)} />
-        <StatsStrip />
-        <PainPointsSection />
-        <ManifestoSection />
-        <ServicesSection />
-        <ProcessSection />
-        <IndustriesSection />
-        <TeamSection />
-        <FAQSection />
-        <ContactSection />
-      </main>
+      {/* Page Content Layout with Smooth Scroll */}
+      <SmoothScroll>
+        <main id="main-content" className="overflow-x-hidden w-full max-w-full">
+          <HeroSection onOpenWaitlist={() => setIsWaitlistOpen(true)} />
+          <StatsStrip />
+          <PainPointsSection />
+          <ManifestoSection />
+          <ServicesSection />
+          <ProcessSection />
+          <IndustriesSection />
+          <TeamSection />
+          <FAQSection />
+          <ContactSection />
+        </main>
 
-      {/* Footer & Bottom Banner */}
-      <Footer />
+        {/* Footer & Bottom Banner */}
+        <Footer />
+      </SmoothScroll>
 
       {/* Early Access Waitlist Drawer */}
       <WaitlistDrawer

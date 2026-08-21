@@ -1,33 +1,27 @@
-/* ── Team Section — Double-Bezel Impeccable Craft ─────────────── */
+/* ── Team Section — Editorial Studio Roster (Awwwards Vanguard) ── */
 
-.team-section {
+.team-roster-section {
   position: relative;
   overflow: hidden;
   background-color: var(--void, #0D0D0D);
-  color: var(--paper, #F5F5F3);
-  padding: 130px 0;
+  color: var(--on-dark, #F5F5F3);
+  padding: 140px 0;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   scroll-margin-top: 90px;
 }
 
-.team-section__inner {
-  position: relative;
-  z-index: 2;
-}
-
-/* ── Section Header ── */
-.team-section__head {
+.team-roster__head {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 16px;
-  margin-bottom: 64px;
+  margin-bottom: 80px;
   max-width: 880px;
 }
 
-.team-section__title {
-  font-size: var(--t-section, clamp(34px, 4.4vw, 58px));
+.team-roster__title {
+  font-size: var(--t-section, clamp(36px, 5.4vw, 84px));
   letter-spacing: -0.03em;
   line-height: 1.12;
   color: #FFFFFF;
@@ -35,7 +29,7 @@
   text-wrap: balance;
 }
 
-.team-section__title em {
+.team-roster__title em {
   font-family: 'Instrument Serif', Georgia, serif;
   font-style: italic;
   font-weight: 400;
@@ -44,302 +38,224 @@
   color: #FFFFFF;
 }
 
-.team-section__sub {
-  font-size: 16.5px;
-  color: rgba(245, 245, 243, 0.65);
-  line-height: 1.6;
-  margin: 0;
-  max-width: 640px;
-}
-
-/* ── 2x2 Bento Grid ── */
-.team-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 24px;
-  margin-bottom: 48px;
-}
-
-/* ── Double-Bezel (Doppelrand) Card Architecture ── */
-.team-card-shell {
-  position: relative;
-  padding: 1px;
-  border-radius: 16px;
-  background: rgba(255, 255, 255, 0.08);
-  transition: background 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-              box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.team-card-shell:hover {
-  background: linear-gradient(135deg, rgba(45, 91, 227, 0.6) 0%, rgba(255, 255, 255, 0.15) 50%, rgba(45, 91, 227, 0.3) 100%);
-  transform: translateY(-4px);
-  box-shadow: 0 24px 50px -12px rgba(0, 0, 0, 0.8),
-              0 0 32px -8px rgba(45, 91, 227, 0.35);
-}
-
-.team-card-core {
-  position: relative;
-  padding: 36px 32px;
-  border-radius: 15px;
-  background: rgba(14, 14, 18, 0.94);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
+/* ── Editorial Roster List ── */
+.team-roster__list {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  min-height: 320px;
-  overflow: hidden;
-  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.12);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-/* Dynamic Spotlight Radial Layer */
-.team-card-core::before {
+.team-roster__row {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(80px, 140px) 1fr;
+  gap: clamp(24px, 4vw, 64px);
+  padding: clamp(48px, 5.5vw, 76px) 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+  cursor: default;
+  transition: background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Bottom Blue Accent Sweep on Hover */
+.team-roster__row::after {
   content: '';
   position: absolute;
-  inset: 0;
-  background: radial-gradient(circle 280px at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(45, 91, 227, 0.15), transparent 75%);
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--blue, #2D5BE3);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
   pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.35s ease;
 }
 
-.team-card-shell:hover .team-card-core::before {
-  opacity: 1;
+.team-roster__row:hover::after,
+.team-roster__row.is-hovered::after {
+  transform: scaleX(1);
 }
 
-/* ── Top Meta Bar ── */
-.team-card__meta {
+/* Subtle Kinetic Right Nudge */
+.team-roster__main,
+.team-roster__index {
+  transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.team-roster__row:hover .team-roster__main,
+.team-roster__row.is-hovered .team-roster__main {
+  transform: translateX(14px);
+}
+
+.team-roster__row:hover .team-roster__index,
+.team-roster__row.is-hovered .team-roster__index {
+  transform: translateX(4px);
+}
+
+/* Background Artistic Initials Watermark */
+.team-roster__watermark {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: clamp(120px, 20vw, 280px);
+  font-weight: 400;
+  font-style: italic;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.025);
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+  letter-spacing: -0.04em;
+  transition: color 0.45s ease, transform 0.45s ease;
+}
+
+.team-roster__row:hover .team-roster__watermark,
+.team-roster__row.is-hovered .team-roster__watermark {
+  color: rgba(45, 91, 227, 0.08);
+  transform: translateY(-50%) scale(1.04);
+}
+
+/* Index Numbers */
+.team-roster__index {
   position: relative;
   z-index: 2;
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  padding-top: 10px;
+}
+
+.team-roster__num {
+  font-family: 'JetBrains Mono', monospace, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--blue, #2D5BE3);
+  letter-spacing: 0.04em;
+}
+
+.team-roster__total {
+  font-family: 'JetBrains Mono', monospace, sans-serif;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.35);
+  letter-spacing: 0.04em;
+}
+
+/* Main Content Column */
+.team-roster__main {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 1040px;
+}
+
+.team-roster__name-wrap {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 24px;
+  gap: 24px;
 }
 
-.team-card__num {
-  font-family: 'JetBrains Mono', monospace, sans-serif;
-  font-size: 12px;
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.4);
-  letter-spacing: 0.08em;
-}
-
-.team-card__tag {
-  font-family: 'JetBrains Mono', monospace, sans-serif;
-  font-size: 10px;
+.team-roster__name {
+  font-size: clamp(34px, 4.2vw, 64px);
   font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  padding: 4px 10px;
-  border-radius: 9999px;
-  background: rgba(45, 91, 227, 0.16);
-  color: #60A5FA;
-  border: 1px solid rgba(45, 91, 227, 0.35);
-  transition: background 0.3s, color 0.3s, border-color 0.3s, box-shadow 0.3s;
-}
-
-.team-card__link {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 26px;
-  height: 26px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.05);
-  color: rgba(255, 255, 255, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  font-size: 12px;
-  text-decoration: none;
-  transition: all 0.25s ease;
-}
-
-.team-card__link:hover {
-  background: #2D5BE3;
+  letter-spacing: -0.03em;
   color: #FFFFFF;
-  border-color: #2D5BE3;
-  transform: scale(1.1);
-}
-
-.team-card-shell:hover .team-card__tag {
-  background: rgba(45, 91, 227, 0.28);
-  color: #93C5FD;
-  border-color: rgba(45, 91, 227, 0.6);
-  box-shadow: 0 0 14px rgba(45, 91, 227, 0.4);
-}
-
-/* ── Profile Header ── */
-.team-card__profile {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  align-items: flex-start;
-  gap: 18px;
-  margin-bottom: 18px;
-}
-
-.team-card__avatar {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: 'JetBrains Mono', monospace, sans-serif;
-  font-size: 13px;
-  font-weight: 700;
-  background: rgba(255, 255, 255, 0.06);
-  color: #FFFFFF;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  flex-shrink: 0;
-  transition: background 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-              border-color 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-              box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.team-card-shell:hover .team-card__avatar {
-  background: #2D5BE3;
-  border-color: #2D5BE3;
-  box-shadow: 0 0 20px rgba(45, 91, 227, 0.65);
-  transform: scale(1.04);
-}
-
-.team-card__details {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-}
-
-.team-card__name {
-  font-size: 22px;
-  font-weight: 600;
-  color: #FFFFFF;
-  letter-spacing: -0.02em;
   margin: 0;
+  line-height: 1.05;
+  transition: color 0.3s ease;
 }
 
-.team-card__role {
-  font-size: 13.5px;
+.team-roster__row:hover .team-roster__name,
+.team-roster__row.is-hovered .team-roster__name {
+  color: #FFFFFF;
+}
+
+.team-roster__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 12px;
+  font-family: 'JetBrains Mono', monospace, sans-serif;
   font-weight: 500;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  opacity: 0.6;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  flex-shrink: 0;
+}
+
+.team-roster__row:hover .team-roster__link,
+.team-roster__row.is-hovered .team-roster__link {
+  opacity: 1;
+  background: rgba(45, 91, 227, 0.2);
+  border-color: rgba(45, 91, 227, 0.5);
   color: #93C5FD;
-  letter-spacing: -0.01em;
+  transform: translateX(4px);
 }
 
-.team-card__discipline {
-  font-size: 12.5px;
-  color: rgba(255, 255, 255, 0.45);
-  margin-top: 1px;
+.team-roster__link-arrow {
+  font-size: 13px;
+  transition: transform 0.3s ease;
 }
 
-/* ── Statement Quote ── */
-.team-card__quote {
-  position: relative;
-  z-index: 2;
+.team-roster__link:hover .team-roster__link-arrow {
+  transform: translate(2px, -2px);
+}
+
+/* Conviction Point of View Quote */
+.team-roster__quote {
   font-family: 'Instrument Serif', Georgia, serif;
   font-style: italic;
-  font-size: 17px;
+  font-size: clamp(20px, 2.2vw, 30px);
   color: rgba(245, 245, 243, 0.85);
-  line-height: 1.45;
-  margin: 0 0 24px 0;
-  padding-left: 12px;
-  border-left: 2px solid rgba(45, 91, 227, 0.5);
+  line-height: 1.35;
+  margin: 0;
+  max-width: 860px;
+  letter-spacing: -0.01em;
+  transition: color 0.3s ease;
 }
 
-/* ── Practice Pillar Chips ── */
-.team-card__skills {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  padding-top: 16px;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.team-card__skill {
-  font-family: 'JetBrains Mono', monospace, sans-serif;
-  font-size: 11px;
-  color: rgba(255, 255, 255, 0.55);
-  padding: 3.5px 9px;
-  border-radius: 4px;
-  background: rgba(255, 255, 255, 0.035);
-  border: 1px solid rgba(255, 255, 255, 0.07);
-  letter-spacing: 0.02em;
-  transition: color 0.25s, border-color 0.25s, background-color 0.25s;
-}
-
-.team-card-shell:hover .team-card__skill {
+.team-roster__row:hover .team-roster__quote,
+.team-roster__row.is-hovered .team-roster__quote {
   color: #FFFFFF;
-  background: rgba(255, 255, 255, 0.07);
-  border-color: rgba(255, 255, 255, 0.15);
 }
 
-/* ── Studio Standards Footprint Strip ── */
-.team-footprint {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
-  padding: 28px 32px;
-  border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(18, 18, 22, 0.5);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-}
+/* ── Responsive Adaptations ── */
+@media (max-width: 880px) {
+  .team-roster-section {
+    padding: 90px 0;
+  }
 
-.team-footprint__item {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-}
+  .team-roster__head {
+    margin-bottom: 48px;
+  }
 
-.team-footprint__label {
-  font-family: 'JetBrains Mono', monospace, sans-serif;
-  font-size: 10.5px;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: #60A5FA;
-}
-
-.team-footprint__value {
-  font-size: 14px;
-  font-weight: 500;
-  color: #FFFFFF;
-  line-height: 1.4;
-}
-
-/* ── Responsive Architecture ── */
-@media (max-width: 960px) {
-  .team-grid {
+  .team-roster__row {
     grid-template-columns: 1fr;
-    gap: 20px;
-  }
-
-  .team-footprint {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-  }
-}
-
-@media (max-width: 640px) {
-  .team-section {
-    padding: 80px 0;
-  }
-
-  .team-card-core {
-    padding: 28px 22px;
-    min-height: auto;
-  }
-
-  .team-card__profile {
-    gap: 14px;
-  }
-
-  .team-footprint {
-    grid-template-columns: 1fr;
-    padding: 22px;
     gap: 16px;
+    padding: 36px 0;
+  }
+
+  .team-roster__index {
+    padding-top: 0;
+  }
+
+  .team-roster__name {
+    font-size: clamp(26px, 6vw, 42px);
+  }
+
+  .team-roster__watermark {
+    font-size: 110px;
+    right: -10px;
   }
 }

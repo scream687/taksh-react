@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef, useCallback } from 'react';
+import React, { useState } from 'react';
 import './team.css';
 import { motion } from 'framer-motion';
 
@@ -9,175 +9,110 @@ export const TEAM_MEMBERS = [
     id: 'rishabh',
     num: '01',
     name: 'Rishabh Sharma',
-    role: 'Founder & Creative Director',
-    discipline: 'Brand Architecture · Strategic Direction',
-    tag: 'Founder',
     initials: 'RS',
-    quote: 'Strategy without intent is just noise. We build sharp points of view that endure in the market.',
-    skills: ['Brand Architecture', 'Creative Direction', 'Positioning', 'GTM Strategy'],
+    quote: 'Strategy without intent is just noise. We build points of view that outlast market cycles.',
     social: 'https://linkedin.com',
   },
   {
     id: 'yogita',
-    name: 'Yogita Fulara',
     num: '02',
-    role: 'Lead Designer',
-    discipline: 'Identity Systems · Visual Architecture',
-    tag: 'Design',
+    name: 'Yogita Fulara',
     initials: 'YF',
-    quote: 'Identity is an operating system. Every typeface, grid, and token must communicate with purpose.',
-    skills: ['Identity Systems', 'Art Direction', 'Typography', 'Design Tokens'],
+    quote: 'Every typeface, grid, and token must communicate with deliberate aesthetic conviction.',
     social: 'https://linkedin.com',
   },
   {
     id: 'tanmay',
-    name: 'Tanmay Pania',
     num: '03',
-    role: 'Full-Stack Engineer',
-    discipline: 'Creative Engineering · Systems Architecture',
-    tag: 'Engineering',
+    name: 'Tanmay Pania',
     initials: 'TP',
-    quote: 'Modern interfaces should feel tactile, weightless, and engineered with mathematical precision.',
-    skills: ['Next.js / React', 'Creative Dev', 'Motion Physics', 'Performance'],
+    quote: 'Digital spaces should feel tactile, weightless, and engineered with mathematical precision.',
     social: 'https://linkedin.com',
   },
   {
     id: 'ritika',
-    name: 'Ritika Fulara',
     num: '04',
-    role: 'Brand Strategist',
-    discipline: 'GTM Planning · Narrative Architecture',
-    tag: 'Strategy',
+    name: 'Ritika Fulara',
     initials: 'RF',
-    quote: 'Clear messaging cuts through any crowded market. We align brand narrative directly with growth.',
-    skills: ['Messaging Strategy', 'GTM Roadmaps', 'Copy Direction', 'Market Research'],
+    quote: 'Clear messaging cuts through any crowded category. Narrative directly drives compounding growth.',
     social: 'https://linkedin.com',
   },
 ];
 
-const STUDIO_STANDARDS = [
-  { label: 'Studio Model', value: 'Senior Lead Practitioners Only' },
-  { label: 'Sprint Cadence', value: '4-Week Fixed-Scope Delivery' },
-  { label: 'Studio Base', value: 'Vrindavan · Indian Roots' },
-  { label: 'Client Reach', value: 'Global Growth-Stage Brands' },
-];
-
-function TeamCardItem({ member, index }: { member: typeof TEAM_MEMBERS[0]; index: number }) {
-  const cardRef = useRef<HTMLDivElement | null>(null);
-
-  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
-    if (!cardRef.current) return;
-    const rect = cardRef.current.getBoundingClientRect();
-    const x = `${e.clientX - rect.left}px`;
-    const y = `${e.clientY - rect.top}px`;
-    cardRef.current.style.setProperty('--mouse-x', x);
-    cardRef.current.style.setProperty('--mouse-y', y);
-  }, []);
-
-  return (
-    <motion.article
-      className="team-card-shell"
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.15 }}
-      transition={{
-        duration: 0.55,
-        delay: index * 0.08,
-        ease: [0.16, 1, 0.3, 1],
-      }}
-      onMouseMove={handleMouseMove}
-    >
-      <div ref={cardRef} className="team-card-core">
-        <div>
-          {/* Top Meta Bar */}
-          <div className="team-card__meta">
-            <span className="team-card__num">{member.num} / 04</span>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <span className="team-card__tag">{member.tag}</span>
-              <a
-                href={member.social}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="team-card__link"
-                aria-label={`Connect with ${member.name}`}
-              >
-                ↗
-              </a>
-            </div>
-          </div>
-
-          {/* Profile Header */}
-          <div className="team-card__profile">
-            <div className="team-card__avatar">{member.initials}</div>
-            <div className="team-card__details">
-              <h3 className="team-card__name">{member.name}</h3>
-              <div className="team-card__role">{member.role}</div>
-              <div className="team-card__discipline">{member.discipline}</div>
-            </div>
-          </div>
-
-          {/* Conviction Quote */}
-          <blockquote className="team-card__quote">
-            &ldquo;{member.quote}&rdquo;
-          </blockquote>
-        </div>
-
-        {/* Practice Capabilities */}
-        <div className="team-card__skills">
-          {member.skills.map((skill) => (
-            <span key={skill} className="team-card__skill">
-              {skill}
-            </span>
-          ))}
-        </div>
-      </div>
-    </motion.article>
-  );
-}
-
 export function TeamSection() {
+  const [hoveredId, setHoveredId] = useState<string | null>(null);
+
   return (
-    <section className="section section--void team-section" id="team">
-      <div className="team-section__inner container">
+    <section className="section section--void team-roster-section" id="team">
+      <div className="container">
         {/* Section Head */}
         <motion.div
-          className="team-section__head"
+          className="team-roster__head"
           initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
         >
           <span className="label label--paper">The studio · 05</span>
-          <h2 className="team-section__title">
+          <h2 className="team-roster__title">
             The people behind the <em>point of view.</em>
           </h2>
-          <p className="team-section__sub">
-            A lean, senior-led multidisciplinary practice. No account layers, no junior handoffs — direct collaboration with the partners shaping your category position.
-          </p>
         </motion.div>
 
-        {/* 2x2 Bento Team Grid */}
-        <div className="team-grid">
-          {TEAM_MEMBERS.map((member, index) => (
-            <TeamCardItem key={member.id} member={member} index={index} />
-          ))}
+        {/* Editorial Roster List */}
+        <div className="team-roster__list">
+          {TEAM_MEMBERS.map((member, index) => {
+            const isHovered = hoveredId === member.id;
+            return (
+              <motion.article
+                key={member.id}
+                className={`team-roster__row ${isHovered ? 'is-hovered' : ''}`}
+                onMouseEnter={() => setHoveredId(member.id)}
+                onMouseLeave={() => setHoveredId(null)}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{
+                  duration: 0.5,
+                  delay: index * 0.08,
+                  ease: [0.16, 1, 0.3, 1],
+                }}
+              >
+                {/* Background Artistic Initials Watermark */}
+                <span className="team-roster__watermark" aria-hidden="true">
+                  {member.initials}
+                </span>
+
+                {/* Left Telemetry Number */}
+                <div className="team-roster__index">
+                  <span className="team-roster__num">{member.num}</span>
+                  <span className="team-roster__total">/ 04</span>
+                </div>
+
+                {/* Main Content: Name & Italic Conviction */}
+                <div className="team-roster__main">
+                  <div className="team-roster__name-wrap">
+                    <h3 className="team-roster__name">{member.name}</h3>
+                    <a
+                      href={member.social}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="team-roster__link"
+                      aria-label={`Connect with ${member.name}`}
+                    >
+                      <span className="team-roster__link-text">Connect</span>
+                      <span className="team-roster__link-arrow">↗</span>
+                    </a>
+                  </div>
+
+                  <blockquote className="team-roster__quote">
+                    &ldquo;{member.quote}&rdquo;
+                  </blockquote>
+                </div>
+              </motion.article>
+            );
+          })}
         </div>
-
-        {/* Studio Standards Strip */}
-        <motion.div
-          className="team-footprint"
-          initial={{ opacity: 0, y: 14 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.5, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
-        >
-          {STUDIO_STANDARDS.map((standard) => (
-            <div key={standard.label} className="team-footprint__item">
-              <span className="team-footprint__label">{standard.label}</span>
-              <span className="team-footprint__value">{standard.value}</span>
-            </div>
-          ))}
-        </motion.div>
       </div>
     </section>
   );
