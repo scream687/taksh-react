@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
+import { MagnetButton } from '@/components/motion/MagnetButton';
 
 export function ContactSection() {
   return (
@@ -53,9 +54,11 @@ export function ContactSection() {
             </div>
           </div>
 
-          <a className="contact-cta__btn magnetic" href="mailto:hello@taksh.in">
-            Start a project <span style={{ fontSize: '20px' }}>→</span>
-          </a>
+          <MagnetButton strength={12}>
+            <a className="contact-cta__btn" href="mailto:hello@taksh.in">
+              Start a project <span style={{ fontSize: '20px' }}>→</span>
+            </a>
+          </MagnetButton>
         </motion.div>
       </div>
     </section>

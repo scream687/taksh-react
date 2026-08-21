@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { MagnetButton } from '@/components/motion/MagnetButton';
 
 export function HeroSection({ onOpenWaitlist }: { onOpenWaitlist?: () => void }) {
   const [timeString, setTimeString] = useState<string>('—');
@@ -84,19 +85,27 @@ export function HeroSection({ onOpenWaitlist }: { onOpenWaitlist?: () => void })
               Taksh is a strategy &amp; marketing studio for growth-stage businesses — built to help brands think sharper, move faster, and grow with intent.
             </p>
             <div className="hero__cta">
-              <a className="btn btn--primary magnetic" href="#contact">
-                Start a project <span className="arrow">→</span>
-              </a>
-              <a className="btn btn--ghost magnetic" href="#services">
-                See the work
-              </a>
-              <button
-                type="button"
-                className="btn-waitlist magnetic"
-                onClick={onOpenWaitlist}
-              >
-                Join waitlist
-              </button>
+              <MagnetButton strength={10}>
+                <a className="btn btn--primary" href="#contact">
+                  Start a project <span className="arrow">→</span>
+                </a>
+              </MagnetButton>
+
+              <MagnetButton strength={8}>
+                <a className="btn btn--ghost" href="#services">
+                  See the work
+                </a>
+              </MagnetButton>
+
+              <MagnetButton strength={8}>
+                <button
+                  type="button"
+                  className="btn-waitlist"
+                  onClick={onOpenWaitlist}
+                >
+                  Join waitlist
+                </button>
+              </MagnetButton>
             </div>
           </motion.div>
         </div>

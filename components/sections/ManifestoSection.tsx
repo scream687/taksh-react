@@ -2,43 +2,44 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
+import { ScrollRevealSentence } from '@/components/motion/ScrollRevealText';
 
 const PRINCIPLES = [
   {
     num: '01',
-    name: 'Precise',
-    not: 'Not sloppy',
-    desc: "Every word and pixel is intentional. We don't ship rough drafts to clients — we ship answers.",
+    lead: 'Precise —',
+    italicText: 'never sloppy.',
+    rest: "Every word and pixel is intentional. We do not ship rough drafts to clients — we ship unequivocal answers.",
   },
   {
     num: '02',
-    name: 'Confident',
-    not: 'Not arrogant',
-    desc: "We know what we do. We don't oversell it. The work makes the case.",
+    lead: 'Confident —',
+    italicText: 'never arrogant.',
+    rest: "We know what we do and we refuse to oversell it. The work makes the case on its own merit.",
   },
   {
     num: '03',
-    name: 'Minimal',
-    not: 'Not cold',
-    desc: "Less noise, more signal. If a section has to argue for itself, it doesn't belong.",
+    lead: 'Minimal —',
+    italicText: 'never cold.',
+    rest: "Less noise, more signal. If a paragraph or design token has to argue for its own existence, it gets deleted.",
   },
   {
     num: '04',
-    name: 'Sharp',
-    not: 'Not aggressive',
-    desc: "Direct, clear, no fluff. We don't hide behind jargon — and we won't let your brand either.",
+    lead: 'Sharp —',
+    italicText: 'never aggressive.',
+    rest: "Direct, clear, no fluff. We do not hide behind consultant jargon — and we will not let your brand do so either.",
   },
   {
     num: '05',
-    name: 'Young',
-    not: 'Not immature',
-    desc: "Energy of a founder. Thinking of a veteran. We're new but we're not green.",
+    lead: 'Young —',
+    italicText: 'never green.',
+    rest: "The relentless pace of a growth founder paired with the tactical clarity of veteran operators.",
   },
   {
     num: '06',
-    name: 'Grounded',
-    not: 'Not pretentious',
-    desc: 'Indian roots, global standards. Built for the world.',
+    lead: 'Grounded —',
+    italicText: 'built for the world.',
+    rest: 'Indian roots, global standards. Engineered for growth-stage businesses competing at international scale.',
   },
 ];
 
@@ -62,26 +63,16 @@ export function ManifestoSection() {
           </h2>
         </motion.div>
 
-        {/* 6 Principles Grid */}
-        <div className="principles">
-          {PRINCIPLES.map((item, index) => (
-            <motion.div
+        {/* Kinetic Scroll-Revealed Principles */}
+        <div style={{ marginTop: '32px' }}>
+          {PRINCIPLES.map((item) => (
+            <ScrollRevealSentence
               key={item.num}
-              className="principle"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.15 }}
-              transition={{
-                duration: 0.5,
-                delay: index * 0.06,
-                ease: [0.16, 1, 0.3, 1],
-              }}
-            >
-              <div className="principle__num">{item.num}</div>
-              <div className="principle__name">{item.name}</div>
-              <div className="principle__not">{item.not}</div>
-              <div className="principle__desc">{item.desc}</div>
-            </motion.div>
+              num={item.num}
+              lead={item.lead}
+              italicText={item.italicText}
+              rest={item.rest}
+            />
           ))}
         </div>
       </div>

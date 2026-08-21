@@ -1,45 +1,63 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import { FlowingPreview, PreviewData } from '@/components/motion/FlowingPreview';
 
 const SERVICES = [
   {
     num: '01',
     name: 'Brand Strategy',
     desc: 'Positioning, narrative, and the architecture that makes every next decision easier.',
+    category: 'Core Strategy',
+    output: 'Brand Architecture & Thesis',
   },
   {
     num: '02',
     name: 'Go-to-Market',
     desc: 'Audience, channel, and launch plan — sequenced to actually ship, not just to look good in a deck.',
+    category: 'Commercial GTM',
+    output: 'Launch Playbook & Sequencing',
   },
   {
     num: '03',
-    name: 'Content',
+    name: 'Content & Systems',
     desc: 'Words and assets with a point of view, produced on a rhythm that compounds.',
+    category: 'Creative Direction',
+    output: 'High-Impact Editorial Collateral',
   },
   {
     num: '04',
-    name: 'Consultancy',
+    name: 'Executive Advisory',
     desc: "Founder-level thinking, on retainer, for teams that don't need a full agency.",
+    category: 'Strategic Retainer',
+    output: 'Weekly 1-on-1 Partner Sessions',
   },
   {
     num: '05',
-    name: 'Performance',
+    name: 'Performance Design',
     desc: 'Paid media and funnel work — judged on revenue, not impressions.',
+    category: 'Growth Architecture',
+    output: 'High-Converting Funnel Assets',
   },
   {
     num: '06',
-    name: 'Positioning',
+    name: 'Category Positioning',
     desc: "Who you're for, what you stand for, and why it's you — in one sentence you can defend.",
+    category: 'Market Positioning',
+    output: 'Singular Category Doctrine',
   },
 ];
 
 export function ServicesSection() {
+  const [activePreview, setActivePreview] = useState<PreviewData | null>(null);
+
   return (
     <section className="section" id="services">
       <div className="container">
+        {/* Floating Cursor Preview Portal */}
+        <FlowingPreview activePreview={activePreview} />
+
         {/* Section Head */}
         <motion.div
           className="section__head"
@@ -63,6 +81,14 @@ export function ServicesSection() {
               key={service.num}
               className="service"
               href="#contact"
+              onMouseEnter={() =>
+                setActivePreview({
+                  title: service.name,
+                  category: service.category,
+                  output: service.output,
+                })
+              }
+              onMouseLeave={() => setActivePreview(null)}
               initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.15 }}

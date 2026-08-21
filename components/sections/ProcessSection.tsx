@@ -1,11 +1,13 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
+import { ScrollStack } from '@/components/motion/ScrollStack';
 
-const SPRINT_PHASES = [
+export const SPRINT_PHASES = [
   {
     num: '01',
+    phase: 'PHASE 01',
     week: 'WEEK 01 · DIAGNOSTICS',
     name: 'Interrogate & Diagnose',
     thesis: 'We extract the unvarnished truth before writing a single word of positioning.',
@@ -15,6 +17,7 @@ const SPRINT_PHASES = [
   },
   {
     num: '02',
+    phase: 'PHASE 02',
     week: 'WEEK 02 · POSITIONING',
     name: 'Carve & Articulate',
     thesis: 'The single sentence that holds your entire commercial strategy together.',
@@ -24,6 +27,7 @@ const SPRINT_PHASES = [
   },
   {
     num: '03',
+    phase: 'PHASE 03',
     week: 'WEEK 03 · IDENTITY SYSTEM',
     name: 'Shape & Systemize',
     thesis: 'A living design language engineered for instant category recognition.',
@@ -33,6 +37,7 @@ const SPRINT_PHASES = [
   },
   {
     num: '04',
+    phase: 'PHASE 04',
     week: 'WEEK 04 · EXECUTION',
     name: 'Ship & Calibrate',
     thesis: 'Handover with zero ambiguity and 90 days of commercial momentum.',
@@ -43,10 +48,8 @@ const SPRINT_PHASES = [
 ];
 
 export function ProcessSection() {
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-
   return (
-    <section className="section process-editorial-section" id="process">
+    <section className="section process-stack-section" id="process">
       <div className="container">
         {/* Section Header */}
         <motion.div
@@ -74,66 +77,56 @@ export function ProcessSection() {
           </p>
         </motion.div>
 
-        {/* Editorial Monograph Rows */}
-        <div className="proc-mono__list">
-          {SPRINT_PHASES.map((phase, index) => {
-            const isHovered = hoveredIndex === index;
-            return (
-              <motion.article
-                key={phase.num}
-                className={`proc-mono__row ${isHovered ? 'is-active' : ''}`}
-                onMouseEnter={() => setHoveredIndex(index)}
-                onMouseLeave={() => setHoveredIndex(null)}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.15 }}
-                transition={{
-                  duration: 0.5,
-                  delay: index * 0.08,
-                  ease: [0.16, 1, 0.3, 1],
-                }}
-              >
-                {/* Left Phase Telemetry */}
-                <div className="proc-mono__left">
-                  <span className="proc-mono__num">{phase.num}</span>
-                  <span className="proc-mono__week">{phase.week}</span>
+        {/* Irregular Scroll Stack Deck */}
+        <ScrollStack
+          rotations={[-1.8, 1.6, -1.2, 1.8]}
+          topOffset={100}
+          className="proc-stack__deck"
+        >
+          {SPRINT_PHASES.map((phase) => (
+            <article key={phase.num} className="proc-stack__card">
+              {/* Top Phase Header */}
+              <div className="proc-stack__card-top">
+                <div className="proc-stack__num-badge">
+                  <span className="proc-stack__num">{phase.num}</span>
+                  <span className="proc-stack__week">{phase.week}</span>
                 </div>
+                <div className="proc-stack__live-badge">
+                  <span className="proc-stack__dot" />
+                  <span>Sprint Milestone</span>
+                </div>
+              </div>
 
-                {/* Center Content Column */}
-                <div className="proc-mono__center">
-                  <h3 className="proc-mono__title">{phase.name}</h3>
-                  <blockquote className="proc-mono__thesis">
+              {/* Center Content: Headline & Thesis */}
+              <div className="proc-stack__content">
+                <div className="proc-stack__main-col">
+                  <h3 className="proc-stack__title">{phase.name}</h3>
+                  <blockquote className="proc-stack__thesis">
                     &ldquo;{phase.thesis}&rdquo;
                   </blockquote>
-                  <p className="proc-mono__body">{phase.body}</p>
+                  <p className="proc-stack__body">{phase.body}</p>
                 </div>
 
                 {/* Right Artifact Capsule */}
-                <div className="proc-mono__right">
-                  <div className="proc-mono__artifact-box">
-                    <span className="proc-mono__artifact-label">Shipped Output</span>
-                    <span className="proc-mono__artifact-title">{phase.artifact}</span>
-                    <span className="proc-mono__artifact-format">{phase.format}</span>
+                <div className="proc-stack__artifact-col">
+                  <div className="proc-stack__artifact-box">
+                    <span className="proc-stack__artifact-label">Shipped Output</span>
+                    <span className="proc-stack__artifact-title">{phase.artifact}</span>
+                    <span className="proc-stack__artifact-format">{phase.format}</span>
                   </div>
                 </div>
-              </motion.article>
-            );
-          })}
-        </div>
+              </div>
+            </article>
+          ))}
+        </ScrollStack>
 
         {/* Bottom Studio Standards Note */}
-        <motion.div
-          className="proc-mono__footer"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-        >
+        <div className="proc-stack__footer">
           <div className="proc-mono__footer-pill">
             <span className="proc-mono__footer-dot" />
             <span>TWO ENGAGEMENTS PER SPRINT CADENCE · NO JUNIOR LAYERS · FIXED 28-DAY SCOPE</span>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
