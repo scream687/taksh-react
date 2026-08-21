@@ -3,6 +3,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ScrollRevealSentence } from '@/components/motion/ScrollRevealText';
+import { GradualBlur } from '@/components/motion/GradualBlur';
 
 const PRINCIPLES = [
   {
@@ -45,8 +46,11 @@ const PRINCIPLES = [
 
 export function ManifestoSection() {
   return (
-    <section className="section section--void" id="manifesto">
-      <div className="container">
+    <section className="section section--void" id="manifesto" style={{ position: 'relative' }}>
+      {/* Top & Bottom Gradual Scroll Blur */}
+      <GradualBlur position="both" height="60px" strength={8} />
+
+      <div className="container" style={{ position: 'relative', zIndex: 2 }}>
         {/* Section Head */}
         <motion.div
           className="section__head"

@@ -77,17 +77,13 @@ export function ProcessSection() {
           </p>
         </motion.div>
 
-        {/* Official React Bits ScrollStack */}
+        {/* Precision Hardware ScrollStack */}
         <div style={{ marginTop: '48px', marginBottom: '40px' }}>
           <ScrollStack
-            useWindowScroll={true}
-            itemDistance={56}
             itemScale={0.03}
-            itemStackDistance={26}
-            stackPosition="16%"
-            scaleEndPosition="8%"
             baseScale={0.88}
             rotationAmount={0.8}
+            blurAmount={2.5}
           >
             {SPRINT_PHASES.map((phase) => (
               <ScrollStackItem key={phase.num} itemClassName="proc-stack-item">

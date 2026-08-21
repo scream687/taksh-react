@@ -1,13 +1,16 @@
-/* ── React Bits Official ScrollStack Styles ─────────────────── */
+/* ── React Bits ScrollStack — Precision Hardware Stack ───── */
 
 .scroll-stack-scroller {
   position: relative;
   width: 100%;
-  overflow: visible;
 }
 
 .scroll-stack-inner {
   position: relative;
+  width: 100%;
+}
+
+.scroll-stack-sticky-pin {
   width: 100%;
 }
 
@@ -28,11 +31,9 @@
   box-shadow: 0 32px 72px -12px rgba(45, 91, 227, 0.12), 0 0 0 1px var(--blue, #2D5BE3);
 }
 
-.scroll-stack-end {
-  height: 80px;
+.scroll-stack-card-inner {
+  position: relative;
   width: 100%;
-  pointer-events: none;
-  visibility: hidden;
 }
 
 /* ── Process Card Content Architecture ── */
