@@ -162,16 +162,23 @@ export function Footer() {
             </div>
 
             <div className="footer__bottom-bar">
-              <span>© 2026 Taksh Studio</span>
-              <span>Strategy &amp; marketing for growth-stage businesses.</span>
-              <span>
-                <a
+              <span>© 2026 Taksh Studio. All Rights Reserved.</span>
+              <span>Strategy &amp; brand positioning for growth-stage businesses.</span>
+              <span style={{ display: 'inline-flex', gap: '16px' }}>
+                <Link
                   className="magnetic"
-                  href="#"
+                  href="/terms"
                   style={{ color: 'inherit', textDecoration: 'underline', textUnderlineOffset: '4px' }}
                 >
-                  Brand Bible
-                </a>
+                  Terms
+                </Link>
+                <Link
+                  className="magnetic"
+                  href="/privacy"
+                  style={{ color: 'inherit', textDecoration: 'underline', textUnderlineOffset: '4px' }}
+                >
+                  Privacy
+                </Link>
               </span>
             </div>
           </div>
