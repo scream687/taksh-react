@@ -50,7 +50,7 @@ const PinnedCard: React.FC<PinnedCardProps> = ({
       : [0, enterStart, enterEnd, 0.84, 1],
     isFirst
       ? [0, 0, targetY, targetY]
-      : [650, 650, 0, targetY, targetY]
+      : [750, 750, 0, targetY, targetY]
   );
 
   const scale = useTransform(
@@ -113,16 +113,16 @@ export const ScrollStack: React.FC<ScrollStackProps> = ({
         height: `${total * 70}vh`,
       }}
     >
-      {/* Pinned Stage that stays locked in viewport while user scrolls the track */}
+      {/* Centered Pinned Stage positioned in the middle of the viewport */}
       <div
         className="scroll-stack-stage"
         style={{
           position: 'sticky',
-          top: 'clamp(90px, 14vh, 130px)',
+          top: 'clamp(140px, 18vh, 220px)',
           width: '100%',
           maxWidth: '1080px',
           margin: '0 auto',
-          minHeight: '440px',
+          minHeight: '480px',
         }}
       >
         {cards.map((child, index) => (
