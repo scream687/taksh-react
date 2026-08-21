@@ -1,0 +1,211 @@
+/* ── React Bits Official ScrollStack Styles ─────────────────── */
+
+.scroll-stack-scroller {
+  position: relative;
+  width: 100%;
+  overflow: visible;
+}
+
+.scroll-stack-inner {
+  position: relative;
+  width: 100%;
+}
+
+.scroll-stack-card {
+  position: relative;
+  width: 100%;
+  background: var(--white, #FFFFFF);
+  border: 1px solid var(--border, #E0DDD6);
+  border-radius: 16px;
+  box-shadow: 0 24px 60px -15px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(0, 0, 0, 0.03);
+  box-sizing: border-box;
+  overflow: hidden;
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.scroll-stack-card:hover {
+  border-color: var(--blue, #2D5BE3);
+  box-shadow: 0 32px 72px -12px rgba(45, 91, 227, 0.12), 0 0 0 1px var(--blue, #2D5BE3);
+}
+
+.scroll-stack-end {
+  height: 80px;
+  width: 100%;
+  pointer-events: none;
+  visibility: hidden;
+}
+
+/* ── Process Card Content Architecture ── */
+.proc-stack__card-content {
+  padding: clamp(32px, 4.2vw, 54px);
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  min-height: 340px;
+  position: relative;
+  overflow: hidden;
+}
+
+.proc-stack__card-content::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--blue, #2D5BE3) 0%, transparent 80%);
+}
+
+.proc-stack__card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border, #E0DDD6);
+  padding-bottom: 18px;
+}
+
+.proc-stack__num-badge {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.proc-stack__num {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: clamp(38px, 4.5vw, 54px);
+  font-style: italic;
+  line-height: 0.9;
+  color: var(--blue, #2D5BE3);
+}
+
+.proc-stack__week {
+  font-family: 'JetBrains Mono', monospace, sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted, #6E6E6E);
+}
+
+.proc-stack__live-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'JetBrains Mono', monospace, sans-serif;
+  font-size: 11px;
+  color: var(--muted, #6E6E6E);
+  font-weight: 500;
+}
+
+.proc-stack__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--blue, #2D5BE3);
+  box-shadow: 0 0 8px var(--blue, #2D5BE3);
+}
+
+.proc-stack__content {
+  display: grid;
+  grid-template-columns: 1fr minmax(240px, 320px);
+  gap: clamp(24px, 4vw, 56px);
+  align-items: flex-start;
+}
+
+.proc-stack__main-col {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.proc-stack__title {
+  font-size: clamp(26px, 3vw, 38px);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  color: var(--ink, #1A1A1A);
+  margin: 0;
+  line-height: 1.15;
+}
+
+.proc-stack__thesis {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-style: italic;
+  font-size: clamp(18px, 1.8vw, 24px);
+  color: var(--blue, #2D5BE3);
+  line-height: 1.35;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.proc-stack__body {
+  font-size: 15px;
+  color: var(--muted, #6E6E6E);
+  line-height: 1.65;
+  margin: 4px 0 0 0;
+}
+
+.proc-stack__artifact-col {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.proc-stack__artifact-box {
+  background: var(--paper, #F5F5F3);
+  border: 1px solid var(--border, #E0DDD6);
+  border-radius: 10px;
+  padding: 22px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+}
+
+.proc-stack__artifact-label {
+  font-family: 'JetBrains Mono', monospace, sans-serif;
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--blue, #2D5BE3);
+}
+
+.proc-stack__artifact-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink, #1A1A1A);
+  line-height: 1.3;
+}
+
+.proc-stack__artifact-format {
+  font-family: 'JetBrains Mono', monospace, sans-serif;
+  font-size: 11px;
+  color: var(--muted, #6E6E6E);
+}
+
+.proc-stack__footer {
+  display: flex;
+  justify-content: center;
+  margin-top: 48px;
+}
+
+@media (max-width: 1024px) {
+  .proc-stack__content {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .proc-stack__artifact-col {
+    justify-content: flex-start;
+  }
+
+  .proc-stack__artifact-box {
+    max-width: 360px;
+  }
+}
+
+@media (max-width: 640px) {
+  .proc-stack__card-content {
+    padding: 24px 20px;
+    gap: 20px;
+  }
+}

@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ScrollStack } from '@/components/motion/ScrollStack';
+import ScrollStack, { ScrollStackItem } from '@/components/motion/ScrollStack';
 
 export const SPRINT_PHASES = [
   {
@@ -77,48 +77,57 @@ export function ProcessSection() {
           </p>
         </motion.div>
 
-        {/* Irregular Scroll Stack Deck */}
-        <ScrollStack
-          rotations={[-1.8, 1.6, -1.2, 1.8]}
-          topOffset={100}
-          className="proc-stack__deck"
-        >
-          {SPRINT_PHASES.map((phase) => (
-            <article key={phase.num} className="proc-stack__card">
-              {/* Top Phase Header */}
-              <div className="proc-stack__card-top">
-                <div className="proc-stack__num-badge">
-                  <span className="proc-stack__num">{phase.num}</span>
-                  <span className="proc-stack__week">{phase.week}</span>
-                </div>
-                <div className="proc-stack__live-badge">
-                  <span className="proc-stack__dot" />
-                  <span>Sprint Milestone</span>
-                </div>
-              </div>
+        {/* Official React Bits ScrollStack */}
+        <div style={{ marginTop: '48px', marginBottom: '40px' }}>
+          <ScrollStack
+            useWindowScroll={true}
+            itemDistance={56}
+            itemScale={0.03}
+            itemStackDistance={26}
+            stackPosition="16%"
+            scaleEndPosition="8%"
+            baseScale={0.88}
+            rotationAmount={0.8}
+          >
+            {SPRINT_PHASES.map((phase) => (
+              <ScrollStackItem key={phase.num} itemClassName="proc-stack-item">
+                <div className="proc-stack__card-content">
+                  {/* Top Phase Header */}
+                  <div className="proc-stack__card-top">
+                    <div className="proc-stack__num-badge">
+                      <span className="proc-stack__num">{phase.num}</span>
+                      <span className="proc-stack__week">{phase.week}</span>
+                    </div>
+                    <div className="proc-stack__live-badge">
+                      <span className="proc-stack__dot" />
+                      <span>Sprint Milestone</span>
+                    </div>
+                  </div>
 
-              {/* Center Content: Headline & Thesis */}
-              <div className="proc-stack__content">
-                <div className="proc-stack__main-col">
-                  <h3 className="proc-stack__title">{phase.name}</h3>
-                  <blockquote className="proc-stack__thesis">
-                    &ldquo;{phase.thesis}&rdquo;
-                  </blockquote>
-                  <p className="proc-stack__body">{phase.body}</p>
-                </div>
+                  {/* Center Content: Headline & Thesis */}
+                  <div className="proc-stack__content">
+                    <div className="proc-stack__main-col">
+                      <h3 className="proc-stack__title">{phase.name}</h3>
+                      <blockquote className="proc-stack__thesis">
+                        &ldquo;{phase.thesis}&rdquo;
+                      </blockquote>
+                      <p className="proc-stack__body">{phase.body}</p>
+                    </div>
 
-                {/* Right Artifact Capsule */}
-                <div className="proc-stack__artifact-col">
-                  <div className="proc-stack__artifact-box">
-                    <span className="proc-stack__artifact-label">Shipped Output</span>
-                    <span className="proc-stack__artifact-title">{phase.artifact}</span>
-                    <span className="proc-stack__artifact-format">{phase.format}</span>
+                    {/* Right Artifact Capsule */}
+                    <div className="proc-stack__artifact-col">
+                      <div className="proc-stack__artifact-box">
+                        <span className="proc-stack__artifact-label">Shipped Output</span>
+                        <span className="proc-stack__artifact-title">{phase.artifact}</span>
+                        <span className="proc-stack__artifact-format">{phase.format}</span>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </article>
-          ))}
-        </ScrollStack>
+              </ScrollStackItem>
+            ))}
+          </ScrollStack>
+        </div>
 
         {/* Bottom Studio Standards Note */}
         <div className="proc-stack__footer">
