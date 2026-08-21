@@ -559,89 +559,49 @@ body.dark-mode .btn--ghost:hover {
 }
 
 /* ═══════════════════════════════════════════════════
-   PAIN POINTS
+   PAIN POINTS — MONUMENTAL TYPOGRAPHIC TENSION STREAM
 ═══════════════════════════════════════════════════ */
-/* ── Pain Points Section — Diagnostic Tension Matrix ──────── */
-.pain-section {
+.tension-section {
   background: var(--void, #0D0D0D);
   color: var(--on-dark);
   padding: clamp(100px, 11vw, 150px) 0;
 }
 
-.pain__header {
-  display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
-  gap: clamp(32px, 5vw, 64px);
-  align-items: flex-end;
-  margin-bottom: 56px;
-}
-
-.pain__header-desc {
-  font-size: clamp(16px, 1.2vw, 19px);
-  line-height: 1.6;
-  color: rgba(245, 245, 243, 0.65);
-  margin: 0 0 16px 0;
-}
-
-.pain__live-status {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-family: 'JetBrains Mono', monospace, sans-serif;
-  font-size: 11px;
-  font-weight: 600;
-  color: #EF4444;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  background: rgba(239, 68, 68, 0.08);
-  padding: 6px 14px;
-  border-radius: 999px;
-  border: 1px solid rgba(239, 68, 68, 0.2);
-}
-
-.pain__pulse-node {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #EF4444;
-  box-shadow: 0 0 8px #EF4444;
-}
-
-.pain__grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 24px;
+.tension-stream {
+  border-top: 1px solid var(--border-dark, #2A2A2A);
+  margin-top: 48px;
   margin-bottom: 48px;
 }
 
-.pain-card {
+.tension-row {
+  border-bottom: 1px solid var(--border-dark, #2A2A2A);
+  transition: background 0.3s ease;
+}
+
+.tension-row:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.tension-row.is-open {
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.tension-row__trigger {
   width: 100%;
-  height: 100%;
+  display: grid;
+  grid-template-columns: minmax(44px, 60px) 1fr auto;
+  gap: clamp(16px, 3vw, 40px);
+  align-items: baseline;
+  padding: clamp(30px, 3.6vw, 44px) 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  color: inherit;
+  font-family: inherit;
 }
 
-.pain-card__inner {
-  padding: clamp(36px, 4vw, 48px);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  min-height: 320px;
-  gap: 24px;
-  box-sizing: border-box;
-}
-
-.pain-card__top {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-}
-
-.pain-card__badge-group {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.pain-card__num {
+.tension-row__num {
   font-family: 'JetBrains Mono', monospace, sans-serif;
   font-size: 13px;
   font-weight: 600;
@@ -649,59 +609,63 @@ body.dark-mode .btn--ghost:hover {
   letter-spacing: 0.1em;
 }
 
-.pain-card__symptom-pill {
-  font-family: 'JetBrains Mono', monospace, sans-serif;
-  font-size: 10.5px;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: rgba(245, 245, 243, 0.85);
-  background: rgba(255, 255, 255, 0.06);
-  padding: 4px 10px;
-  border-radius: 6px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.pain-card__graphic-frame {
-  width: 44px;
-  height: 44px;
-  border-radius: 12px;
-  background: rgba(45, 91, 227, 0.1);
-  border: 1px solid rgba(45, 91, 227, 0.25);
+.tension-row__quote-wrap {
   display: flex;
   align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  box-shadow: 0 0 16px rgba(45, 91, 227, 0.12);
 }
 
-.pain-card__lead {
-  font-size: clamp(22px, 2.2vw, 28px);
-  font-weight: 600;
+.tension-row__quote {
+  font-size: clamp(22px, 2.6vw, 36px);
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  line-height: 1.25;
+  color: rgba(245, 245, 243, 0.85);
+  transition: color 0.2s ease;
+}
+
+.tension-row:hover .tension-row__quote {
   color: #FFFFFF;
-  letter-spacing: -0.02em;
-  line-height: 1.2;
-  margin: 0 0 8px 0;
 }
 
-.pain-card__thesis {
+.tension-row__quote em {
   font-family: 'Instrument Serif', Georgia, serif;
   font-style: italic;
-  font-size: clamp(18px, 1.8vw, 22px);
+  font-weight: 400;
   color: var(--blue, #2D5BE3);
-  line-height: 1.35;
-  margin: 0 0 12px 0;
   letter-spacing: -0.01em;
 }
 
-.pain-card__desc {
-  font-size: 14.5px;
-  line-height: 1.6;
-  color: rgba(245, 245, 243, 0.65);
-  margin: 0;
+.tension-row__toggle-icon {
+  font-family: 'Inter', sans-serif;
+  font-size: 28px;
+  font-weight: 300;
+  color: var(--blue, #2D5BE3);
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
 }
 
-.pain-card__tag {
+.tension-row__drawer {
+  overflow: hidden;
+}
+
+.tension-row__drawer-inner {
+  padding: 0 0 clamp(32px, 4vw, 48px) clamp(44px, 5vw, 60px);
+  display: grid;
+  grid-template-columns: 1fr 1.2fr 1fr;
+  gap: clamp(24px, 3.5vw, 48px);
+}
+
+.tension-col {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.tension-col__label {
   font-family: 'JetBrains Mono', monospace, sans-serif;
   font-size: 10px;
   font-weight: 600;
@@ -710,26 +674,61 @@ body.dark-mode .btn--ghost:hover {
   color: rgba(245, 245, 243, 0.4);
 }
 
-.pain__footer-bridge {
+.tension-col__label--blue {
+  color: var(--blue, #2D5BE3);
+}
+
+.tension-col__text {
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: rgba(245, 245, 243, 0.65);
+  margin: 0;
+}
+
+.tension-col__text--bold {
+  color: #FFFFFF;
+  font-weight: 500;
+}
+
+.tension-col__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  background: rgba(45, 91, 227, 0.12);
+  border: 1px solid rgba(45, 91, 227, 0.25);
+  font-family: 'JetBrains Mono', monospace, sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  color: #93C5FD;
+  width: fit-content;
+  margin-top: 4px;
+}
+
+.tension-col__badge-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--blue, #2D5BE3);
+}
+
+.tension-footer {
   display: flex;
   justify-content: center;
   margin-top: 48px;
 }
 
-@media (max-width: 960px) {
-  .pain__header {
+@media (max-width: 900px) {
+  .tension-row__drawer-inner {
     grid-template-columns: 1fr;
-    gap: 24px;
+    padding-left: 0;
+    gap: 18px;
   }
 
-  .pain__grid {
-    grid-template-columns: 1fr;
+  .tension-row__trigger {
+    grid-template-columns: 36px 1fr auto;
     gap: 16px;
-  }
-
-  .pain-card__inner {
-    padding: 28px 22px;
-    min-height: auto;
   }
 }
 
