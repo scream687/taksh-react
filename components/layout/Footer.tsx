@@ -28,182 +28,92 @@ export function Footer() {
   }, []);
 
   return (
-    <>
-      <footer className="footer" id="footer">
-        <div className="container">
-          <div className="footer__top">
-            <div>
-              <h2 className="footer__cta">
-                Ready to make
-                <br />
-                your <em>move?</em>
-              </h2>
-              <a
-                className="btn btn--blue magnetic"
-                href="mailto:hello@taksh.in"
-                style={{ marginTop: '40px', display: 'inline-flex' }}
-              >
-                Start a project <span className="arrow">→</span>
-              </a>
-            </div>
-
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '40px' }}>
-              <div className="footer__col">
-                <h4>Navigation</h4>
-                <ul>
-                  <li>
-                    <a className="magnetic" href="#services">
-                      Services
-                    </a>
-                  </li>
-                  <li>
-                    <a className="magnetic" href="#process">
-                      Process
-                    </a>
-                  </li>
-                  <li>
-                    <a className="magnetic" href="#industries">
-                      Industries
-                    </a>
-                  </li>
-                  <li>
-                    <a className="magnetic" href="#team">
-                      Team
-                    </a>
-                  </li>
-                  <li>
-                    <Link className="magnetic" href="/real-estate">
-                      Real Estate
-                    </Link>
-                  </li>
-                  <li>
-                    <a className="magnetic" href="#manifesto">
-                      Manifesto
-                    </a>
-                  </li>
-                </ul>
-              </div>
-
-              <div className="footer__col">
-                <h4>Socials</h4>
-                <ul>
-                  <li>
-                    <a
-                      className="magnetic"
-                      href="https://instagram.com"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Instagram
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      className="magnetic"
-                      href="https://linkedin.com"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      LinkedIn
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      className="magnetic"
-                      href="https://read.cv"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Read.cv
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      className="magnetic"
-                      href="https://x.com"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Twitter
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <div className="footer__huge">
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
-              <div className="footer__info">
-                <span>India</span>
-                <span className="clock" id="clock-foot">
-                  {timeString}
-                </span>
-              </div>
-              <a href="#nav" className="footer__back-top magnetic" aria-label="Back to top">
-                ↑
-              </a>
-            </div>
-
-            <div className="footer__logo-wrap">
-              <p
-                style={{
-                  fontSize: 'clamp(80px, 18vw, 320px)',
-                  lineHeight: 0.8,
-                  letterSpacing: '-0.05em',
-                  margin: 0,
-                  color: 'var(--on-dark, #FFFFFF)',
-                  fontWeight: 700,
-                  userSelect: 'none',
-                }}
-              >
-                TΛKSH
-              </p>
-            </div>
-
-            <div className="footer__bottom-bar">
-              <span>© 2026 Taksh Studio. All Rights Reserved.</span>
-              <span>Strategy &amp; brand positioning for growth-stage businesses.</span>
-              <span style={{ display: 'inline-flex', gap: '16px' }}>
-                <Link
-                  className="magnetic"
-                  href="/terms"
-                  style={{ color: 'inherit', textDecoration: 'underline', textUnderlineOffset: '4px' }}
-                >
-                  Terms
-                </Link>
-                <Link
-                  className="magnetic"
-                  href="/privacy"
-                  style={{ color: 'inherit', textDecoration: 'underline', textUnderlineOffset: '4px' }}
-                >
-                  Privacy
-                </Link>
+    <footer className="footer" id="footer" style={{ background: '#000000', color: '#FFFFFF', paddingTop: '60px', paddingBottom: '40px', borderTop: '1px solid rgba(255, 255, 255, 0.08)' }}>
+      <div className="container">
+        <div className="footer__huge">
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '24px' }}>
+            <div className="footer__info" style={{ display: 'flex', alignItems: 'center', gap: '16px', fontFamily: 'var(--font-mono, monospace)', fontSize: '13px', color: 'rgba(255, 255, 255, 0.6)' }}>
+              <span>India</span>
+              <span className="clock" id="clock-foot" style={{ color: '#FFFFFF', fontWeight: 500 }}>
+                {timeString}
               </span>
             </div>
+            <a
+              href="#nav"
+              className="footer__back-top magnetic"
+              aria-label="Back to top"
+              style={{
+                width: '44px',
+                height: '44px',
+                borderRadius: '50%',
+                border: '1px solid rgba(255, 255, 255, 0.2)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: '#FFFFFF',
+                textDecoration: 'none',
+                fontSize: '18px',
+                transition: 'all 0.2s',
+              }}
+            >
+              ↑
+            </a>
           </div>
-        </div>
-      </footer>
 
-      {/* Project Marquee */}
-      <section className="project-marquee">
-        <div className="project-marquee__track">
-          <div className="project-marquee__item">
-            Start a project <span className="arrow">→</span>
+          {/* Monumental Taksh Wordmark */}
+          <div className="footer__logo-wrap" style={{ textAlign: 'center', margin: '40px 0' }}>
+            <p
+              style={{
+                fontSize: 'clamp(80px, 18vw, 320px)',
+                lineHeight: 0.8,
+                letterSpacing: '-0.05em',
+                margin: 0,
+                color: '#FFFFFF',
+                fontWeight: 700,
+                userSelect: 'none',
+              }}
+            >
+              TΛKSH
+            </p>
           </div>
-          <div className="project-marquee__item">
-            Start a project <span className="arrow">→</span>
-          </div>
-          <div className="project-marquee__item">
-            Start a project <span className="arrow">→</span>
-          </div>
-          <div className="project-marquee__item">
-            Start a project <span className="arrow">→</span>
+
+          {/* Bottom Bar */}
+          <div
+            className="footer__bottom-bar"
+            style={{
+              borderTop: '1px solid rgba(255, 255, 255, 0.1)',
+              paddingTop: '28px',
+              display: 'flex',
+              flexWrap: 'wrap',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              gap: '16px',
+              fontSize: '13px',
+              color: 'rgba(255, 255, 255, 0.55)',
+            }}
+          >
+            <span>© 2026 Taksh Studio. All Rights Reserved.</span>
+            <span>Strategy &amp; brand positioning for growth-stage businesses.</span>
+            <span style={{ display: 'inline-flex', gap: '20px' }}>
+              <Link
+                className="magnetic"
+                href="/terms"
+                style={{ color: 'inherit', textDecoration: 'underline', textUnderlineOffset: '4px' }}
+              >
+                Terms
+              </Link>
+              <Link
+                className="magnetic"
+                href="/privacy"
+                style={{ color: 'inherit', textDecoration: 'underline', textUnderlineOffset: '4px' }}
+              >
+                Privacy
+              </Link>
+            </span>
           </div>
         </div>
-        <a href="mailto:hello@taksh.in" className="project-marquee__overlay" aria-label="Start a project" />
-      </section>
-    </>
+      </div>
+    </footer>
   );
 }
 
