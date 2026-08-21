@@ -586,8 +586,6 @@ p {
   letter-spacing: -0.015em;
   display: inline;
 }
-  }
-}
 
 /* ── Manifesto principles ─────────────────────────────────── */
 .principles {
@@ -1449,6 +1447,13 @@ p {
     background: var(--white);
     mix-blend-mode: exclusion;
   }
+}
+
+/* ── Touch targets ───────────────────────────────────────── */
+/* ponytail: enforce 44px minimum for interactive elements */
+button, a, [role="button"] {
+  min-height: 44px;
+  min-width: 44px;
 }
 
 /* ── Magnetic Elements ────────────────────────────────────── */

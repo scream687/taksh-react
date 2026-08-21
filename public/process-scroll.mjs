@@ -3,28 +3,33 @@ import { animate, scroll } from 'https://cdn.jsdelivr.net/npm/motion@13/+esm';
 try {
   const section = document.getElementById('process');
   const fill = document.getElementById('proc-fill');
+  const fillV = document.getElementById('proc-fill-v');
   const steps = [...document.querySelectorAll('.process__step')];
   const nodes = [...document.querySelectorAll('.proc-node')];
 
-  if (!section || !fill || !steps.length) {
+  if (!section || !steps.length) {
     throw null;
   }
 
   const THRESHOLDS = [0.05, 0.32, 0.62, 0.90];
   const done = new Set();
 
-  // Motion calls this as (progress, info). Older builds passed the info
-  // object first, which is why `({ y })` used to work — under motion@latest
-  // it destructures a number, yields undefined, and the rail never moves.
-  // Accept both shapes so a future CDN bump cannot silently kill it again.
   scroll((progress, info) => {
     const p = typeof progress === 'number'
       ? progress
       : (progress && progress.y && progress.y.progress);
     if (typeof p !== 'number' || Number.isNaN(p)) return;
 
-    fill.style.width = `${Math.min(100, Math.max(0, p * 100))}%`;
-    fill.classList.toggle('orb-on', p > 0.02 && p < 0.98);
+    // Horizontal rail (legacy, hidden by CSS but JS still drives it)
+    if (fill) {
+      fill.style.width = `${Math.min(100, Math.max(0, p * 100))}%`;
+      fill.classList.toggle('orb-on', p > 0.02 && p < 0.98);
+    }
+
+    // Vertical timeline fill
+    if (fillV) {
+      fillV.style.height = `${Math.min(100, Math.max(0, p * 100))}%`;
+    }
 
     steps.forEach((step, i) => {
       if (p >= THRESHOLDS[i] && !done.has(i)) {

@@ -1,121 +1,111 @@
-'use client'
+'use client';
 
-import Script from 'next/script'
-import dynamic from 'next/dynamic'
-
-const TeamIsland = dynamic(() => import('@/components/team/TeamIsland'), { ssr: false })
-
-const htmlContent = `<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Taksh — Strategy & Marketing for Growth-Stage Businesses</title>
-<meta name="title" content="Taksh — Strategy & Marketing for Growth-Stage Businesses">
-<meta name="description" content="Taksh is a strategy & marketing studio for growth-stage businesses. We help brands think sharper, move faster, and grow with intent. Based in India.">
-<meta name="keywords" content="brand strategy, marketing agency, growth marketing, positioning, go-to-market, content marketing, India, startup marketing">
-<meta name="author" content="Rishabh Sharma">
-<meta name="robots" content="index, follow">
-<link rel="canonical" href="https://taksh.in/">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://taksh.in/">
-<meta property="og:title" content="Taksh — Strategy & Marketing for Growth-Stage Businesses">
-<meta property="og:description" content="Strategy & marketing studio for growth-stage brands. Think sharper, move faster, grow with intent.">
-<meta property="og:image" content="https://taksh.in/og-image.jpg">
-<meta property="twitter:card" content="summary_large_image">
-<meta property="twitter:title" content="Taksh — Strategy & Marketing for Growth-Stage Businesses">
-<meta property="twitter:description" content="Strategy & marketing studio for growth-stage brands.">
-<link rel="icon" href="/logo-symbol.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap">
-<link rel="stylesheet" href="/site.css">
-<link rel="stylesheet" href="/effects.css">
-<link rel="stylesheet" href="/mobile.css">
-<style>
-  .hero__title em { font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-weight: 400; letter-spacing: -0.015em; }
-  .section__title em { font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-weight: 400; letter-spacing: -0.015em; }
-  .cta-band__title em { font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-weight: 400; letter-spacing: -0.015em; }
-  .clock { font-variant-numeric: tabular-nums; font-feature-settings: 'tnum'; }
-  .pulse { width: 8px; height: 8px; border-radius: 50%; background: var(--blue); box-shadow: 0 0 0 0 rgba(45,91,227,0.6); animation: pulse 1.8s infinite; display: inline-block; }
-  @keyframes pulse { 70% { box-shadow: 0 0 0 12px rgba(45,91,227,0); } 100% { box-shadow: 0 0 0 0 rgba(45,91,227,0); } }
-</style>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "Taksh Studio",
-  "alternateName": "Taksh",
-  "url": "https://taksh.in",
-  "description": "Strategy & marketing studio for growth-stage businesses",
-  "founder": {
-    "@type": "Person",
-    "name": "Rishabh Sharma",
-    "jobTitle": "Founder"
-  },
-  "address": {
-    "@type": "PostalAddress",    "addressCountry": "IN"
-  },
-  "contactPoint": {
-    "@type": "ContactPoint",
-    "email": "hello@taksh.in",
-    "contactType": "customer service"
-  }
-}
-</script>
-<!-- Google tag (gtag.js) - REPLACE G-G7V8S8G6L3 WITH YOUR GA4 ID -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-G7V8S8G6L3"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-G7V8S8G6L3');
-</script>
-<!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-XXXXXXX');</script>
-</head>
-<body>
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<div id="preloader" aria-hidden="true"><img class="preloader__logo" src="/logo-symbol.png" alt=""><div class="preloader__bar"></div></div>
-<div class="liquid-bg" aria-hidden="true"><div class="liquid-bg__blob liquid-bg__blob--1"></div><div class="liquid-bg__blob liquid-bg__blob--2"></div><div class="liquid-bg__blob liquid-bg__blob--3"></div></div>
-<button id="theme-toggle" aria-label="Toggle theme" title="Toggle light / dark"><svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z"/></svg><svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="12" y1="21" x2="12" y2="23" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="1" y1="12" x2="3" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="21" y1="12" x2="23" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
-<div class="drawer-overlay" id="drawer-overlay"></div>
-<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Join the waitlist"><button class="drawer__close" id="drawer-close" aria-label="Close">×</button><span class="drawer__eyebrow">Early access</span><h2 class="drawer__title">Join the<br>waitlist.</h2><p class="drawer__body">We're selective about who we take on. Drop your details and we'll reach out when the fit looks right.</p><form id="waitlist-form" novalidate><input type="text" name="name" placeholder="Your name" autocomplete="name"/><input type="email" name="email" placeholder="Work email" autocomplete="email" required/><input type="text" name="company" placeholder="Company / project"/><button type="submit">Join the waitlist →</button></form><div id="waitlist-success">You're on the list. We'll be in touch within 48 hours.</div><div style="margin-top:auto;padding-top:32px;border-top:1px solid rgba(255,255,255,0.07)"><p style="font-size:13px;color:rgba(245,245,243,0.62);margin-bottom:12px">Share with your network</p><button class="fb-share-btn" data-fb-share="https://taksh.in"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>Share on Facebook</button></div></aside>
-<svg style="position: absolute; width: 0; height: 0;" aria-hidden="true"><filter id="directional-blur"><feGaussianBlur in="SourceGraphic" stdDeviation="120 0" /></filter><filter id="directional-blur-v"><feGaussianBlur in="SourceGraphic" stdDeviation="0 120" /></filter></svg>
-<div class="ambient-mesh"><div class="orb orb-1"></div><div class="orb orb-2 orb-v"></div><div class="orb orb-3"></div><div class="streak" style="left: 20%; animation-delay: 0s;"></div><div class="streak" style="left: 50%; animation-delay: -5s;"></div><div class="streak" style="left: 80%; animation-delay: -10s;"></div></div>
-<div class="cursor" id="cursor"></div>
-<nav class="nav" id="nav"><div class="nav__inner"><a class="nav__brand" href="index.html" aria-label="Taksh — home"><img src="/logo-wordmark.png" alt="Taksh" style="height:28px;width:auto;display:block"></a><div class="nav__links"><a href="#services" class="magnetic">Services</a><a href="#process" class="magnetic">Process</a><a href="#industries" class="magnetic">Industries</a><a href="#team" class="magnetic">Team</a><a href="#manifesto" class="magnetic">Manifesto</a><a href="/real-estate.html" class="magnetic">Real Estate</a></div><a class="nav__cta magnetic" href="#contact">Start a project <span class="arrow">→</span></a></div></nav>
-<header class="hero"><div class="container"><div class="hero__meta reveal"><div class="hero__meta-item"><span class="label">Founder</span><span class="v">Rishabh Sharma</span></div><div class="hero__meta-item"><span class="label">Studio</span><span class="v">India</span></div><div class="hero__meta-item"><span class="label">Established</span><span class="v">2026 · v1.0</span></div><div class="hero__meta-item"><span class="label">Local time</span><span class="v clock" id="clock">—</span></div><div class="hero__meta-item"><span class="label">Status</span><span class="v" style="display:inline-flex;align-items:center;gap:10px"><span class="pulse"></span>Booking Q3 · 2026</span></div></div><h1 class="hero__title reveal kinetic-text">Strategy &amp;<br>marketing,<br><em>shaped</em> with <span class="blue">intent.</span></h1><div class="hero__bottom reveal"><p class="hero__statement text-embed">Taksh is a strategy &amp; marketing studio for growth-stage businesses — built to help brands think sharper, move faster, and grow with intent.</p><div class="hero__cta"><a class="btn btn--primary magnetic" href="#contact">Start a project <span class="arrow">→</span></a><a class="btn btn--ghost magnetic" href="#services">See the work</a><button class="btn-waitlist magnetic" data-drawer-open>Join waitlist</button></div></div></div></header>
-<div class="marquee" aria-hidden="true"><div class="marquee__track"><span>Strategy<span class="blue-tri"></span></span><span>Positioning<span class="blue-tri"></span></span><span>Go-to-Market<span class="blue-tri"></span></span><span>Content<span class="blue-tri"></span></span><span>Performance<span class="blue-tri"></span></span><span>Consultancy<span class="blue-tri"></span></span><span>Strategy<span class="blue-tri"></span></span><span>Positioning<span class="blue-tri"></span></span><span>Go-to-Market<span class="blue-tri"></span></span><span>Content<span class="blue-tri"></span></span><span>Performance<span class="blue-tri"></span></span><span>Consultancy<span class="blue-tri"></span></span></div></div>
-<div class="stats-strip" aria-label="Studio at a glance"><div class="stats-strip__inner"><div class="stats-strip__item"><div class="stats-strip__val"><span class="stats-strip__num" data-count="6">6</span><span class="stats-strip__suffix">+</span></div><span class="stats-strip__label">Brands shaped</span></div><div class="stats-strip__item"><div class="stats-strip__val"><span class="stats-strip__num">4</span><span class="stats-strip__suffix">wk</span></div><span class="stats-strip__label">Sprint delivery</span></div><div class="stats-strip__item"><div class="stats-strip__val"><span class="stats-strip__num" data-count="100">100</span><span class="stats-strip__suffix">%</span></div><span class="stats-strip__label">Fixed-price engagements</span></div><div class="stats-strip__item"><div class="stats-strip__val"><span class="stats-strip__num">3</span></div><span class="stats-strip__label">Industries served</span></div></div></div>
-<section class="section pain-section" id="pain"><div class="container"><div class="pain__head reveal"><span class="label label--paper" style="opacity:.55">Sound familiar? ·</span><h2 class="section__title" style="color:var(--on-dark);margin-top:16px">The problem isn't<br>the <em style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-weight:400">product.</em></h2></div><div class="pain__grid"><div class="pain__item reveal stagger-1"><span class="pain__num">01</span><div class="pain__icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div><h3 class="pain__title">No clear positioning</h3><p class="pain__desc">You look and sound like every other brand in the room. The product is solid — but nobody can explain why you, not them.</p></div><div class="pain__item reveal stagger-2"><span class="pain__num">02</span><div class="pain__icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div><h3 class="pain__title">Wasted ad spend</h3><p class="pain__desc">Campaigns launch before the strategy does. Budget burns fast without a brand foundation — and the numbers never lie about it.</p></div><div class="pain__item reveal stagger-3"><span class="pain__num">03</span><div class="pain__icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div><h3 class="pain__title">Inconsistent messaging</h3><p class="pain__desc">Your website, pitch deck, and sales calls each tell a different story. Buyers feel the gap even if they can't name it.</p></div><div class="pain__item reveal stagger-4"><span class="pain__num">04</span><div class="pain__icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg></div><h3 class="pain__title">Stalled growth</h3><p class="pain__desc">Revenue has plateaued and you know it's a brand problem, not a product problem. The ceiling is real — and it's made of perception.</p></div></div></div></section>
-<section class="section section--void" id="manifesto"><div class="container"><div class="section__head reveal"><span class="label label--paper">Manifesto · 01</span><h2 class="section__title kinetic-text">The brand is not a veneer.<br>It is the <em>operating system</em>.</h2></div><div class="principles"><div class="principle reveal stagger-1"><div class="principle__num">01</div><div class="principle__name">Precise</div><div class="principle__not">Not sloppy</div><div class="principle__desc">Every word and pixel is intentional. We don't ship rough drafts to clients — we ship answers.</div></div><div class="principle reveal stagger-2"><div class="principle__num">02</div><div class="principle__name">Confident</div><div class="principle__not">Not arrogant</div><div class="principle__desc">We know what we do. We don't oversell it. The work makes the case.</div></div><div class="principle reveal stagger-3"><div class="principle__num">03</div><div class="principle__name">Minimal</div><div class="principle__not">Not cold</div><div class="principle__desc">Less noise, more signal. If a section has to argue for itself, it doesn't belong.</div></div><div class="principle reveal stagger-4"><div class="principle__num">04</div><div class="principle__name">Sharp</div><div class="principle__not">Not aggressive</div><div class="principle__desc">Direct, clear, no fluff. We don't hide behind jargon — and we won't let your brand either.</div></div><div class="principle reveal stagger-5"><div class="principle__num">05</div><div class="principle__name">Young</div><div class="principle__not">Not immature</div><div class="principle__desc">Energy of a founder. Thinking of a veteran. We're new but we're not green.</div></div><div class="principle reveal stagger-6"><div class="principle__num">06</div><div class="principle__name">Grounded</div><div class="principle__not">Not pretentious</div><div class="principle__desc">Indian roots, global standards. Built for the world.</div></div></div></div></section>
-<section class="section" id="services"><div class="container"><div class="section__head reveal"><span class="label">Services · 02</span><h2 class="section__title kinetic-text">Six services.<br><em>One</em> standard.</h2></div><div class="services"><a class="service reveal stagger-1" href="#contact"><span class="service__num">01</span><span class="service__name">Brand Strategy</span><span class="service__desc">Positioning, narrative, and the architecture that makes every next decision easier.</span><span class="service__arrow">→</span></a><a class="service reveal stagger-2" href="#contact"><span class="service__num">02</span><span class="service__name">Go-to-Market</span><span class="service__desc">Audience, channel, and launch plan — sequenced to actually ship, not just to look good in a deck.</span><span class="service__arrow">→</span></a><a class="service reveal stagger-3" href="#contact"><span class="service__num">03</span><span class="service__name">Content</span><span class="service__desc">Words and assets with a point of view, produced on a rhythm that compounds.</span><span class="service__arrow">→</span></a><a class="service reveal stagger-4" href="#contact"><span class="service__num">04</span><span class="service__name">Consultancy</span><span class="service__desc">Founder-level thinking, on retainer, for teams that don't need a full agency.</span><span class="service__arrow">→</span></a><a class="service reveal stagger-5" href="#contact"><span class="service__num">05</span><span class="service__name">Performance</span><span class="service__desc">Paid media and funnel work — judged on revenue, not impressions.</span><span class="service__arrow">→</span></a><a class="service reveal stagger-6" href="#contact"><span class="service__num">06</span><span class="service__name">Positioning</span><span class="service__desc">Who you're for, what you stand for, and why it's you — in one sentence you can defend.</span><span class="service__arrow">→</span></a></div></div></section>
-<section class="section" id="process" style="background:var(--white);border-top:1px solid var(--border);border-bottom:1px solid var(--border);"><div class="container"><div class="section__head reveal"><span class="label">Process · 03</span><h2 class="section__title">Four weeks to a<br>brand you can <em>defend.</em></h2></div><div class="process-wrapper"><div class="proc-rail" aria-hidden="true"><div class="proc-rail__fill" id="proc-fill"></div></div><div class="process"><div class="process__step" data-step="0"><div class="proc-node"><span class="proc-node__num">01</span><span class="proc-node__ring" aria-hidden="true"></span></div><div class="proc-body"><div class="process__week">Week 01</div><div class="process__name">Listen</div><div class="process__desc">Founder calls, market scan, customer interviews. We ask the questions you've stopped asking yourself.</div></div></div><div class="process__step" data-step="1"><div class="proc-node"><span class="proc-node__num">02</span><span class="proc-node__ring" aria-hidden="true"></span></div><div class="proc-body"><div class="process__week">Week 02</div><div class="process__name">Carve</div><div class="process__desc">Positioning, narrative, naming where needed. The sentence that holds everything else together.</div></div></div><div class="process__step" data-step="2"><div class="proc-node"><span class="proc-node__num">03</span><span class="proc-node__ring" aria-hidden="true"></span></div><div class="proc-body"><div class="process__week">Week 03</div><div class="process__name">Shape</div><div class="process__desc">Identity system, voice guide, the first piece of work that proves it. Not a deck — a thing you can use.</div></div></div><div class="process__step" data-step="3"><div class="proc-node"><span class="proc-node__num">04</span><span class="proc-node__ring" aria-hidden="true"></span></div><div class="proc-body"><div class="process__week">Week 04</div><div class="process__name">Ship</div><div class="process__desc">Handover, GTM plan, and the first 90 days mapped. We don't disappear — we calibrate.</div></div></div></div></div></div></section>
-<section class="section" id="industries"><div class="container"><div class="section__head reveal"><span class="label">Who we serve · 04</span><h2 class="section__title kinetic-text">Built for brands that have <em>outgrown</em><br>their first identity.</h2></div><div class="industries reveal"><div class="industry industry--primary"><div class="industry__top"><span class="industry__num">01</span><span class="industry__tag">Primary focus</span></div><div class="industry__name">Real Estate</div><div class="industry__desc">Developers, brokers, and property brands ready to stop looking like every other listing on the page. <a href="/real-estate.html" style="color:var(--blue-text);text-decoration:underline;text-underline-offset:3px">See how →</a></div></div><div class="industry"><div class="industry__top"><span class="industry__num">02</span></div><div class="industry__name">D2C &amp; Retail</div><div class="industry__desc">Product companies crossing from founder-led to brand-led — before paid spend stops working.</div></div><div class="industry"><div class="industry__top"><span class="industry__num">03</span></div><div class="industry__name">Services</div><div class="industry__desc">Studios, clinics, firms that sell outcomes, not hours — and need the positioning to prove it.</div></div><div class="industry"><div class="industry__top"><span class="industry__num">04</span></div><div class="industry__name">Founders</div><div class="industry__desc">Builders who need sharper thinking before the next deck, hire, or launch.</div></div></div></div></section>
-<section class="section section--void team-section" id="team"><div id="team-mount"></div></section>
-<section class="section" id="faq" style="background:var(--white);border-top:1px solid var(--border);"><div class="container"><div class="section__head reveal"><span class="label">Questions · 06</span><h2 class="section__title kinetic-text">Things people ask<br><em>before</em> they ask.</h2></div><div class="faq reveal" id="faq-list"><div class="faq__item"><div class="faq__q"><span class="num">01</span><span>How is Taksh different from a typical agency?</span><span class="faq__plus"></span></div><div class="faq__a"><div class="faq__a-text">Most agencies sell production. We sell the thinking that decides what to produce. Every engagement starts with the sentence that holds your brand together — then the work follows. We're small by design, founder-led, and the same person who pitched you will be in your Slack on day 30.</div></div></div><div class="faq__item"><div class="faq__q"><span class="num">02</span><span>What size of business do you work with?</span><span class="faq__plus"></span></div><div class="faq__a"><div class="faq__a-text">Growth-stage. That means past zero-to-one — you have customers, revenue, and a thing that works — but the brand is the bottleneck. Real-estate developers, D2C brands, services firms, and founders prepping to raise are typical fits.</div></div></div><div class="faq__item"><div class="faq__q"><span class="num">03</span><span>What does an engagement look like?</span><span class="faq__plus"></span></div><div class="faq__a"><div class="faq__a-text">Four weeks for a positioning + identity sprint. Three months for a full GTM. Or an ongoing retainer if you need a strategy partner on the inside. We send a fixed scope, fixed price, and a published timeline before you sign anything.</div></div></div><div class="faq__item"><div class="faq__q"><span class="num">04</span><span>Do you do design and execution, or just strategy?</span><span class="faq__plus"></span></div><div class="faq__a"><div class="faq__a-text">Both. Strategy without execution is a PDF. We ship the identity, the site, the first campaign — whatever proves the thinking. You're not handed a deck and a goodbye.</div></div></div><div class="faq__item"><div class="faq__q"><span class="num">05</span><span>What does it cost?</span><span class="faq__plus"></span></div><div class="faq__a"><div class="faq__a-text">Sprints start at ₹3.5L. Retainers start at ₹1.5L/month. Performance work is scoped to budget. We publish a number with the proposal — no "let's get on a call to discuss pricing" theatre.</div></div></div><div class="faq__item"><div class="faq__q"><span class="num">06</span><span>How do we start?</span><span class="faq__plus"></span></div><div class="faq__a"><div class="faq__a-text">Fill the form below or email Rishabh directly. We reply within 48 hours with either a 30-min intro call or a polite "not the right fit." Both are wins.</div></div></div></div></div></section>
-<section class="contact-cta" id="contact"><div class="container"><span class="label label--paper">Let's talk · 07</span><h2 class="contact-cta__title reveal">Let's talk about<br>your <em class="contact-cta__accent">brand.</em></h2><div class="contact-cta__row reveal"><div class="contact-cta__details"><div><div class="label label--paper" style="margin-bottom:8px">Email</div><a href="mailto:hello@taksh.in" style="color:var(--on-dark);font-size:18px;font-weight:500">hello@taksh.in</a></div><div><div class="label label--paper" style="margin-bottom:8px">Web</div><a href="#" style="color:var(--on-dark);font-size:18px;font-weight:500">taksh.in</a></div></div><a class="contact-cta__btn magnetic" href="mailto:hello@taksh.in">Start a project <span style="font-size:20px">→</span></a></div></div></section>
-<footer class="footer" id="footer"><div class="container"><div class="footer__top reveal"><div><h2 class="footer__cta">Ready to make<br>your <em>move?</em></h2><a class="btn btn--blue magnetic" href="mailto:hello@taksh.in" style="margin-top:40px">Start a project <span class="arrow">→</span></a></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:40px"><div class="footer__col"><h4>Navigation</h4><ul><li><a class="magnetic" href="#services">Services</a></li><li><a class="magnetic" href="#process">Process</a></li><li><a class="magnetic" href="#industries">Industries</a></li><li><a class="magnetic" href="#team">Team</a></li><li><a class="magnetic" href="/real-estate.html">Real Estate</a></li><li><a class="magnetic" href="#manifesto">Manifesto</a></li></ul></div><div class="footer__col"><h4>Socials</h4><ul><li><a class="magnetic" href="#">Instagram</a></li><li><a class="magnetic" href="#">LinkedIn</a></li><li><a class="magnetic" href="#">Read.cv</a></li><li><a class="magnetic" href="#">Twitter</a></li></ul></div></div></div><div class="footer__huge reveal"><div style="display:flex;justify-content:space-between;align-items:flex-end"><div class="footer__info"><span>India</span><span class="clock" id="clock-foot">—</span></div><a href="#nav" class="footer__back-top magnetic">↑</a></div><div class="footer__logo-wrap"><h1 style="font-size:clamp(80px, 18vw, 320px);line-height:0.8;letter-spacing:-0.05em;margin:0;color:var(--on-dark)">TΛKSH</h1></div><div class="footer__bottom-bar"><span>© 2026 Taksh Studio</span><span>Strategy &amp; marketing for growth-stage businesses.</span><span><a class="magnetic" href="#" style="color:inherit;text-decoration:underline;text-underline-offset:4px">Brand Bible</a></span></div></div></div></footer>
-<section class="project-marquee"><div class="project-marquee__track"><div class="project-marquee__item">Start a project <span class="arrow">→</span></div><div class="project-marquee__item">Start a project <span class="arrow">→</span></div><div class="project-marquee__item">Start a project <span class="arrow">→</span></div><div class="project-marquee__item">Start a project <span class="arrow">→</span></div></div><a href="#contact" class="project-marquee__overlay" aria-label="Start a project"></a></section>
-</body>
-</html>`
+import React, { useState } from 'react';
+import Image from 'next/image';
+import Script from 'next/script';
+import { Navbar } from '@/components/layout/Navbar';
+import { Footer } from '@/components/layout/Footer';
+import { WaitlistDrawer } from '@/components/layout/WaitlistDrawer';
+import { ThemeToggle } from '@/components/layout/ThemeToggle';
+import { HeroSection } from '@/components/sections/HeroSection';
+import { StatsStrip } from '@/components/sections/StatsStrip';
+import { PainPointsSection } from '@/components/sections/PainPointsSection';
+import { ManifestoSection } from '@/components/sections/ManifestoSection';
+import { ServicesSection } from '@/components/sections/ServicesSection';
+import { ProcessSection } from '@/components/sections/ProcessSection';
+import { IndustriesSection } from '@/components/sections/IndustriesSection';
+import { TeamSection } from '@/components/team/TeamSection';
+import { FAQSection } from '@/components/sections/FAQSection';
+import { ContactSection } from '@/components/sections/ContactSection';
 
 export default function Home() {
+  const [isWaitlistOpen, setIsWaitlistOpen] = useState(false);
+
   return (
     <>
-      <div dangerouslySetInnerHTML={{ __html: htmlContent }} />
-      <TeamIsland />
-      <Script src="https://unpkg.com/@studio-freight/lenis@1.0.34/dist/lenis.min.js" strategy="afterInteractive" />
+      {/* Skip to Content for Accessibility */}
+      <a
+        href="#services"
+        style={{
+          position: 'absolute',
+          top: '-100%',
+          left: '16px',
+          zIndex: 10000,
+          padding: '12px 24px',
+          background: 'var(--ink, #121212)',
+          color: 'var(--paper, #F5F5F3)',
+          fontSize: '14px',
+          fontWeight: 500,
+          textDecoration: 'none',
+          transition: 'top 0.2s',
+        }}
+        onFocus={(e) => {
+          e.currentTarget.style.top = '16px';
+        }}
+        onBlur={(e) => {
+          e.currentTarget.style.top = '-100%';
+        }}
+      >
+        Skip to content
+      </a>
+
+      {/* Preloader & Ambient Liquid Canvas */}
+      <div id="preloader" aria-hidden="true">
+        <Image className="preloader__logo" src="/logo-symbol.png" alt="Taksh" width={64} height={64} priority />
+        <div className="preloader__bar" />
+      </div>
+
+      <div className="liquid-bg" aria-hidden="true">
+        <div className="liquid-bg__blob liquid-bg__blob--1" />
+        <div className="liquid-bg__blob liquid-bg__blob--2" />
+        <div className="liquid-bg__blob liquid-bg__blob--3" />
+      </div>
+
+      <div className="ambient-mesh">
+        <div className="orb orb-1" />
+        <div className="orb orb-2 orb-v" />
+        <div className="orb orb-3" />
+        <div className="streak" style={{ left: '20%', animationDelay: '0s' }} />
+        <div className="streak" style={{ left: '50%', animationDelay: '-5s' }} />
+        <div className="streak" style={{ left: '80%', animationDelay: '-10s' }} />
+      </div>
+
+      {/* Interactive Theme Switcher */}
+      <ThemeToggle />
+
+      {/* Custom Context Cursor */}
+      <div className="cursor" id="cursor" />
+
+      {/* Floating Pill Navigation */}
+      <Navbar />
+
+      {/* Page Content Layout */}
+      <main id="main-content" className="overflow-x-hidden w-full max-w-full">
+        <HeroSection onOpenWaitlist={() => setIsWaitlistOpen(true)} />
+        <StatsStrip />
+        <PainPointsSection />
+        <ManifestoSection />
+        <ServicesSection />
+        <ProcessSection />
+        <IndustriesSection />
+        <TeamSection />
+        <FAQSection />
+        <ContactSection />
+      </main>
+
+      {/* Footer & Bottom Banner */}
+      <Footer />
+
+      {/* Early Access Waitlist Drawer */}
+      <WaitlistDrawer
+        isOpen={isWaitlistOpen}
+        onClose={() => setIsWaitlistOpen(false)}
+      />
+
+      {/* Client Motion & Interactive Scripts */}
       <Script src="/site-init.js" strategy="afterInteractive" />
       <Script src="/effects.js" strategy="afterInteractive" />
-      <Script src="/process-scroll.mjs" type="module" strategy="afterInteractive" />
+      <Script src="/taksh.js" strategy="lazyOnload" />
     </>
-  )
+  );
 }

@@ -623,92 +623,92 @@ body.dark-mode .btn--ghost:hover {
 .process-line { display: none; }
 
 /* ═══════════════════════════════════════════════════
-   PROCESS — REDESIGNED TIMELINE
+   PROCESS — VERTICAL TIMELINE REDESIGN
+   Watermark week numbers, animated rail, staggered reveals
 ═══════════════════════════════════════════════════ */
 
-/* Override existing step layout */
-.process-wrapper { position: relative; padding-top: 48px; }
+/* ── Wrapper ── */
+.process-wrapper {
+  position: relative;
+  padding-top: 6rem;
+}
 
-.process { gap: 0 !important; }
+/* ── Hide horizontal rail (JS still targets it) ── */
+.proc-rail { display: none !important; }
 
-.process__step {
-  display: flex !important;
-  flex-direction: column !important;
-  align-items: flex-start !important;
-  padding-top: 0 !important;
-  text-align: left;
+/* ── Timeline container ── */
+.process-timeline {
+  position: relative;
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 0 4.8rem;
+}
+
+/* ── Vertical line ── */
+.process-timeline__line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 68px;
+  width: 2px;
+  background: #E5E2DD;
+  z-index: 1;
+}
+
+.process-timeline__fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 0%;
+  background: var(--blue);
+  border-radius: 1px;
+  box-shadow: 0 0 8px rgba(45, 91, 227, 0.3);
+  transition: height 0.1s linear;
+}
+
+/* ── Grid ── */
+.process {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
   gap: 0;
 }
 
-/* Kill the old tiny ::before dot and ::after pulse */
-.process__step::before,
-.process__step::after { display: none !important; }
-
-/* ── Rail ── */
-.proc-rail {
-  position: absolute;
-  /* JS will set top precisely after layout; this is the fallback */
-  top: 68px;
-  left: 12.5%;
-  right: 12.5%;
-  height: 3px;
-  background: #CAC7C0;
-  border-radius: 2px;
-  z-index: 1;
-  overflow: visible;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+/* ── Step row ── */
+.process__step {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 0 4.8rem;
+  align-items: start;
+  padding: 4rem 0;
+  position: relative;
 }
 
-.proc-rail__fill {
-  position: absolute;
-  top: 0; left: 0; bottom: 0;
-  width: 0%;
-  background: linear-gradient(90deg, #2D5BE3 0%, #7C3AED 100%);
-  border-radius: 2px;
-  box-shadow: 0 0 10px rgba(45,91,227,0.5), 0 0 24px rgba(45,91,227,0.2);
-  transition: box-shadow 0.3s;
-}
+.process__step:first-child { padding-top: 0; }
+.process__step:last-child { padding-bottom: 0; }
 
-/* Glowing orb at the leading edge */
-.proc-rail__fill::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  right: 0;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: #7C3AED;
-  box-shadow: 0 0 0 4px rgba(124,58,237,0.2),
-              0 0 20px 5px rgba(124,58,237,0.6);
-  transform: translate(50%, -50%);
-  transition: opacity 0.2s;
-  opacity: 0;
-}
-.proc-rail__fill.orb-on::after { opacity: 1; }
-
-/* ── Dot ── */
+/* ── Node ── */
 .proc-node {
-  width: 40px;
-  height: 40px;
+  width: 56px;
+  height: 56px;
   border-radius: 50%;
-  border: 1.5px solid var(--border);
+  border: 2px solid #E5E2DD;
   background: var(--white);
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
   z-index: 2;
-  margin-bottom: 24px;
-  flex-shrink: 0;
-  transition: background    0.45s cubic-bezier(0.23,1,0.32,1),
-              border-color  0.45s cubic-bezier(0.23,1,0.32,1),
-              box-shadow    0.45s cubic-bezier(0.23,1,0.32,1);
+  justify-self: center;
+  transition: background 0.45s cubic-bezier(0.23,1,0.32,1),
+              border-color 0.45s cubic-bezier(0.23,1,0.32,1),
+              box-shadow 0.45s cubic-bezier(0.23,1,0.32,1);
   will-change: transform;
 }
 
 .proc-node__num {
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 600;
   letter-spacing: 0.06em;
   color: var(--muted);
@@ -717,46 +717,49 @@ body.dark-mode .btn--ghost:hover {
   user-select: none;
 }
 
-/* Halo ring */
 .proc-node__ring {
   position: absolute;
-  inset: -9px;
+  inset: -10px;
   border-radius: 50%;
-  border: 1px solid transparent;
+  border: 1.5px solid transparent;
   pointer-events: none;
   transform: scale(0.6);
   opacity: 0;
   transition: border-color 0.4s,
-              transform    0.5s cubic-bezier(0.23,1,0.32,1),
-              opacity      0.4s;
+              transform 0.5s cubic-bezier(0.23,1,0.32,1),
+              opacity 0.4s;
 }
 
-/* Active dot state */
-.process__step.is-active .proc-node {
-  background: var(--blue);
-  border-color: var(--blue);
-  box-shadow: 0 0 0 5px rgba(45,91,227,0.1),
-              0 0 22px rgba(45,91,227,0.28);
-}
-.process__step.is-active .proc-node__num { color: #fff; }
-.process__step.is-active .proc-node__ring {
-  border-color: rgba(45,91,227,0.28);
-  transform: scale(1);
-  opacity: 1;
-  animation: proc-halo 2.2s ease-in-out infinite;
-}
-@keyframes proc-halo {
-  0%,100% { transform: scale(1);   opacity: 0.55; }
-  50%      { transform: scale(1.5); opacity: 0;    }
-}
-
-/* ── Step body ── */
+/* ── Body ── */
 .proc-body {
+  position: relative;
+  padding-top: 0.4rem;
+}
+
+/* Watermark week number */
+.proc-body::before {
+  content: attr(data-week);
+  position: absolute;
+  top: -2.4rem;
+  right: 0;
+  font-family: var(--font-heading);
+  font-size: clamp(7rem, 10vw, 10rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: rgba(45, 91, 227, 0.04);
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.process__step.is-active .proc-body::before {
   opacity: 1;
-  transform: none;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  transform: translateY(0);
 }
 
 .process__week {
@@ -765,32 +768,84 @@ body.dark-mode .btn--ghost:hover {
   text-transform: uppercase;
   color: var(--blue-text);
   font-weight: 600;
-  margin-bottom: 8px;
+  margin-bottom: 1rem;
 }
 
 .process__name {
-  font-size: clamp(20px, 2vw, 26px);
+  font-family: var(--font-heading);
+  font-size: clamp(2.4rem, 3vw, 3.2rem);
   font-weight: 600;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.025em;
   color: var(--ink);
-  margin-bottom: 12px;
-  text-align: left;
+  margin-bottom: 1.2rem;
+  line-height: 1.1;
 }
 
 .process__desc {
-  font-size: 14.5px;
+  font-size: 15px;
   color: var(--muted);
-  line-height: 1.6;
-  text-align: left;
-  max-width: 30ch;
+  line-height: 1.65;
+  max-width: 38ch;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.process__step.is-active .process__desc {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Active states ── */
+.process__step.is-active .proc-node {
+  background: var(--blue);
+  border-color: var(--blue);
+  box-shadow: 0 0 0 5px rgba(45, 91, 227, 0.1),
+              0 0 22px rgba(45, 91, 227, 0.28);
+}
+
+.process__step.is-active .proc-node__num { color: #fff; }
+
+.process__step.is-active .proc-node__ring {
+  border-color: rgba(45, 91, 227, 0.28);
+  transform: scale(1);
+  opacity: 1;
+  animation: proc-halo 2.2s ease-in-out infinite;
+}
+
+@keyframes proc-halo {
+  0%, 100% { transform: scale(1);   opacity: 0.55; }
+  50%      { transform: scale(1.5); opacity: 0;    }
 }
 
 /* ── Mobile ── */
 @media (max-width: 880px) {
-  .proc-rail { display: none; }
-  .process { grid-template-columns: 1fr 1fr !important; gap: 40px 20px !important; }
-  .proc-body { opacity: 1 !important; transform: none !important; }
-}
-@media (max-width: 560px) {
-  .process { grid-template-columns: 1fr !important; gap: 36px 0 !important; }
+  .process-wrapper { padding-top: 0; }
+
+  .process-timeline {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .process-timeline__line { display: none; }
+
+  .process__step {
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+    padding: 2.4rem 0;
+  }
+
+  .proc-node { justify-self: start; }
+
+  .proc-body::before { display: none; }
+
+  .proc-body { padding-top: 0; }
+
+  .process__desc {
+    opacity: 1;
+    transform: none;
+    max-width: 100%;
+  }
 }
