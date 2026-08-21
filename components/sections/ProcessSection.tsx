@@ -9,55 +9,86 @@ export const SPRINT_PHASES = [
     num: '01',
     week: 'WEEK 01 · DIAGNOSTICS',
     name: 'Interrogate & Diagnose',
-    thesis: 'Uncovering the tension before writing a single word.',
-    points: [
-      '1-on-1 Founder & Customer Deep-Dives',
-      'Competitor Blindspot & Churn Teardowns',
-      'Category Failure Vector Analysis',
-    ],
-    artifact: 'The Tension Matrix',
-    format: '30-Page Analytical Dossier',
+    thesis: 'Extracting unvarnished commercial truth.',
+    tag: 'Tension Matrix',
+    theme: 'card-theme-01',
+    iconType: 'diagnostics',
   },
   {
     num: '02',
     week: 'WEEK 02 · POSITIONING',
     name: 'Carve & Articulate',
-    thesis: 'The single sentence that defends your entire category.',
-    points: [
-      'Singular Category Point of View',
-      'Defensible Messaging Architecture',
-      'Anti-Orthodoxy Category Manifesto',
-    ],
-    artifact: 'Category Doctrine',
-    format: 'Core Narrative Framework',
+    thesis: 'The single sentence holding strategy together.',
+    tag: 'Category Doctrine',
+    theme: 'card-theme-02',
+    iconType: 'positioning',
   },
   {
     num: '03',
     week: 'WEEK 03 · IDENTITY SYSTEM',
     name: 'Shape & Systemize',
-    thesis: 'A living design language engineered for instant recognition.',
-    points: [
-      'Bespoke Typographic & Layout Scale',
-      'Calibrated Color & Token Architecture',
-      'Digital Collateral & Visual Standards',
-    ],
-    artifact: 'Tokenized Identity',
-    format: 'Production Asset Library',
+    thesis: 'A living design language for instant category authority.',
+    tag: 'Tokenized Identity',
+    theme: 'card-theme-03',
+    iconType: 'identity',
   },
   {
     num: '04',
     week: 'WEEK 04 · EXECUTION',
     name: 'Ship & Calibrate',
-    thesis: 'Handover with zero ambiguity and immediate commercial momentum.',
-    points: [
-      'Production-Ready Launch Kit',
-      'Executive & Team Delivery Walkthrough',
-      '90-Day Go-to-Market Execution Plan',
-    ],
-    artifact: 'GTM War-Chest',
-    format: 'Market-Ready Launch Kit',
+    thesis: 'Production handover with zero ambiguity and 90-day momentum.',
+    tag: 'GTM War-Chest',
+    theme: 'card-theme-04',
+    iconType: 'execution',
   },
 ];
+
+function RenderCardIcon({ type }: { type: string }) {
+  if (type === 'diagnostics') {
+    return (
+      <div className="proc-ref__icon-frame">
+        <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="3" y="3" width="18" height="18" rx="4" />
+          <line x1="7" y1="8" x2="17" y2="8" />
+          <line x1="7" y1="12" x2="15" y2="12" />
+          <line x1="7" y1="16" x2="12" y2="16" />
+        </svg>
+      </div>
+    );
+  }
+  if (type === 'positioning') {
+    return (
+      <div className="proc-ref__icon-frame">
+        <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+          <circle cx="12" cy="12" r="10" />
+          <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" />
+        </svg>
+      </div>
+    );
+  }
+  if (type === 'identity') {
+    return (
+      <div className="proc-ref__icon-frame">
+        <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="3" y="3" width="7" height="7" rx="2" />
+          <rect x="14" y="3" width="7" height="7" rx="2" />
+          <rect x="14" y="14" width="7" height="7" rx="2" />
+          <rect x="3" y="14" width="7" height="7" rx="2" />
+        </svg>
+      </div>
+    );
+  }
+  return (
+    <div className="proc-ref__icon-frame">
+      <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z" />
+        <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z" />
+        <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0" />
+        <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5" />
+      </svg>
+    </div>
+  );
+}
 
 export function ProcessSection() {
   return (
@@ -89,56 +120,34 @@ export function ProcessSection() {
           </p>
         </motion.div>
 
-        {/* Precision Hardware ScrollStack */}
-        <div style={{ marginTop: '48px', marginBottom: '40px' }}>
-          <ScrollStack
-            itemScale={0.02}
-            baseScale={0.92}
-            rotationAmount={0.6}
-            blurAmount={1.5}
-          >
+        {/* Reference-Styled ScrollStack */}
+        <div style={{ marginTop: '48px', marginBottom: '32px' }}>
+          <ScrollStack>
             {SPRINT_PHASES.map((phase) => (
-              <ScrollStackItem key={phase.num} itemClassName="proc-stack-item">
-                <div className="proc-stack__card-content">
-                  {/* Top Phase Header */}
-                  <div className="proc-stack__card-top">
-                    <div className="proc-stack__num-badge">
-                      <span className="proc-stack__num">{phase.num}</span>
-                      <span className="proc-stack__week">{phase.week}</span>
+              <ScrollStackItem key={phase.num} itemClassName={`proc-ref-card ${phase.theme}`}>
+                <div className="proc-ref__inner">
+                  {/* Left Column: Bold Typography & Minimal Subtitle */}
+                  <div className="proc-ref__text-side">
+                    <div className="proc-ref__pill-badge">
+                      <span className="proc-ref__pill-dot" />
+                      <span>{phase.week}</span>
                     </div>
-                    <div className="proc-stack__live-badge">
-                      <span className="proc-stack__dot" />
-                      <span>Sprint Milestone</span>
+
+                    <h3 className="proc-ref__title">{phase.name}</h3>
+
+                    <p className="proc-ref__thesis">
+                      &ldquo;{phase.thesis}&rdquo;
+                    </p>
+
+                    <div className="proc-ref__tag-badge">
+                      <span>Shipped Output:</span>
+                      <strong>{phase.tag}</strong>
                     </div>
                   </div>
 
-                  {/* Center Content: Headline, Thesis & 3 Bullet Deliverables */}
-                  <div className="proc-stack__content">
-                    <div className="proc-stack__main-col">
-                      <h3 className="proc-stack__title">{phase.name}</h3>
-                      <p className="proc-stack__thesis">
-                        &ldquo;{phase.thesis}&rdquo;
-                      </p>
-
-                      {/* 3 Ultra-Clean Key Deliverables */}
-                      <ul className="proc-stack__points">
-                        {phase.points.map((point, i) => (
-                          <li key={i} className="proc-stack__point">
-                            <span className="proc-stack__point-bullet">✦</span>
-                            <span>{point}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    {/* Right Artifact Capsule */}
-                    <div className="proc-stack__artifact-col">
-                      <div className="proc-stack__artifact-box">
-                        <span className="proc-stack__artifact-label">Shipped Output</span>
-                        <span className="proc-stack__artifact-title">{phase.artifact}</span>
-                        <span className="proc-stack__artifact-format">{phase.format}</span>
-                      </div>
-                    </div>
+                  {/* Right Column: Large Minimal Icon Frame */}
+                  <div className="proc-ref__icon-side">
+                    <RenderCardIcon type={phase.iconType} />
                   </div>
                 </div>
               </ScrollStackItem>

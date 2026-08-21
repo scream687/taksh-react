@@ -1,4 +1,4 @@
-/* ── React Bits ScrollStack — Precision Opaque Stage Pinning ───── */
+/* ── React Bits Reference ScrollStack Styles ─────────────────── */
 
 .scroll-stack-track {
   position: relative;
@@ -7,9 +7,11 @@
 
 .scroll-stack-stage {
   position: sticky;
-  top: clamp(90px, 12vh, 120px);
+  top: clamp(90px, 14vh, 130px);
   width: 100%;
-  min-height: 420px;
+  max-width: 1080px;
+  margin: 0 auto;
+  min-height: 440px;
 }
 
 .scroll-stack-stage-card {
@@ -19,24 +21,11 @@
 .scroll-stack-card {
   position: relative;
   width: 100%;
-  background: #FFFFFF !important;
-  border: 1px solid var(--border, #E0DDD6);
-  border-radius: 20px;
-  box-shadow: 0 28px 70px -15px rgba(0, 0, 0, 0.09), 0 0 0 1px rgba(0, 0, 0, 0.03);
+  border-radius: 32px;
+  box-shadow: 0 32px 80px -20px rgba(0, 0, 0, 0.28), 0 0 0 1px rgba(255, 255, 255, 0.08);
   box-sizing: border-box;
   overflow: hidden;
-  transition: box-shadow 0.3s ease, border-color 0.3s ease;
-}
-
-:root[data-theme='dark'] .scroll-stack-card {
-  background: #141414 !important;
-  border-color: rgba(255, 255, 255, 0.12);
-  box-shadow: 0 28px 70px -15px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.05);
-}
-
-.scroll-stack-card:hover {
-  border-color: var(--blue, #2D5BE3);
-  box-shadow: 0 32px 72px -12px rgba(45, 91, 227, 0.14), 0 0 0 1px var(--blue, #2D5BE3);
+  transition: box-shadow 0.3s ease;
 }
 
 .scroll-stack-card-inner {
@@ -44,217 +33,145 @@
   width: 100%;
 }
 
-/* ── Process Card Content Architecture ── */
-.proc-stack__card-content {
-  padding: clamp(28px, 3.8vw, 48px);
+/* ── Card Color Themes (Distinct Reference Tonal Layers) ── */
+
+.card-theme-01 {
+  background: #18181B !important;
+  color: #FFFFFF !important;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.card-theme-02 {
+  background: #2563EB !important;
+  color: #FFFFFF !important;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.card-theme-03 {
+  background: #1E1B4B !important;
+  color: #FFFFFF !important;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.card-theme-04 {
+  background: #0F172A !important;
+  color: #FFFFFF !important;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* ── Card Interior Structure ── */
+
+.proc-ref__inner {
+  padding: clamp(36px, 4.5vw, 64px);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: clamp(24px, 4vw, 56px);
+  align-items: center;
+  min-height: 380px;
+}
+
+.proc-ref__text-side {
   display: flex;
   flex-direction: column;
-  gap: 22px;
-  min-height: 320px;
-  position: relative;
-  overflow: hidden;
-  background: transparent;
+  gap: 16px;
 }
 
-.proc-stack__card-content::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, var(--blue, #2D5BE3) 0%, transparent 80%);
-}
-
-.proc-stack__card-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid var(--border, #E0DDD6);
-  padding-bottom: 16px;
-}
-
-:root[data-theme='dark'] .proc-stack__card-top {
-  border-bottom-color: rgba(255, 255, 255, 0.08);
-}
-
-.proc-stack__num-badge {
-  display: flex;
-  align-items: baseline;
-  gap: 12px;
-}
-
-.proc-stack__num {
-  font-family: 'Instrument Serif', Georgia, serif;
-  font-size: clamp(34px, 4vw, 48px);
-  font-style: italic;
-  line-height: 0.9;
-  color: var(--blue, #2D5BE3);
-}
-
-.proc-stack__week {
-  font-family: 'JetBrains Mono', monospace, sans-serif;
-  font-size: 10.5px;
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--muted, #6E6E6E);
-}
-
-.proc-stack__live-badge {
-  display: flex;
+.proc-ref__pill-badge {
+  display: inline-flex;
   align-items: center;
   gap: 8px;
   font-family: 'JetBrains Mono', monospace, sans-serif;
   font-size: 11px;
-  color: var(--muted, #6E6E6E);
-  font-weight: 500;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.75);
+  background: rgba(255, 255, 255, 0.08);
+  padding: 6px 14px;
+  border-radius: 999px;
+  width: fit-content;
+  border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
-.proc-stack__dot {
+.proc-ref__pill-dot {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: var(--blue, #2D5BE3);
-  box-shadow: 0 0 8px var(--blue, #2D5BE3);
+  background: #60A5FA;
+  box-shadow: 0 0 8px #60A5FA;
 }
 
-.proc-stack__content {
-  display: grid;
-  grid-template-columns: 1fr minmax(220px, 280px);
-  gap: clamp(20px, 3.5vw, 48px);
-  align-items: center;
-}
-
-.proc-stack__main-col {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.proc-stack__title {
-  font-size: clamp(24px, 2.8vw, 34px);
-  font-weight: 600;
-  letter-spacing: -0.025em;
-  color: var(--ink, #1A1A1A);
-  margin: 0;
-  line-height: 1.15;
-}
-
-:root[data-theme='dark'] .proc-stack__title {
+.proc-ref__title {
+  font-size: clamp(32px, 3.8vw, 52px);
+  font-weight: 700;
+  letter-spacing: -0.03em;
   color: #FFFFFF;
+  margin: 0;
+  line-height: 1.1;
 }
 
-.proc-stack__thesis {
+.proc-ref__thesis {
   font-family: 'Instrument Serif', Georgia, serif;
   font-style: italic;
-  font-size: clamp(17px, 1.6vw, 22px);
-  color: var(--blue, #2D5BE3);
+  font-size: clamp(20px, 2vw, 26px);
+  color: rgba(255, 255, 255, 0.85);
   line-height: 1.35;
   margin: 0;
   letter-spacing: -0.01em;
 }
 
-/* Minimalist Bullet Points */
-.proc-stack__points {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin: 6px 0 0 0;
-  padding: 0;
-  list-style: none;
-}
-
-.proc-stack__point {
+.proc-ref__tag-badge {
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-family: 'Inter', sans-serif;
-  font-size: 14px;
-  color: var(--muted, #6E6E6E);
-  line-height: 1.4;
-}
-
-:root[data-theme='dark'] .proc-stack__point {
-  color: rgba(245, 245, 243, 0.7);
-}
-
-.proc-stack__point-bullet {
-  color: var(--blue, #2D5BE3);
-  font-size: 11px;
-}
-
-.proc-stack__artifact-col {
-  display: flex;
-  justify-content: flex-end;
-}
-
-.proc-stack__artifact-box {
-  background: var(--paper, #F5F5F3);
-  border: 1px solid var(--border, #E0DDD6);
-  border-radius: 12px;
-  padding: 20px 22px;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  width: 100%;
-}
-
-:root[data-theme='dark'] .proc-stack__artifact-box {
-  background: rgba(255, 255, 255, 0.04);
-  border-color: rgba(255, 255, 255, 0.1);
-}
-
-.proc-stack__artifact-label {
+  gap: 8px;
   font-family: 'JetBrains Mono', monospace, sans-serif;
-  font-size: 9px;
-  font-weight: 600;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--blue, #2D5BE3);
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.7);
+  margin-top: 8px;
 }
 
-.proc-stack__artifact-title {
-  font-size: 14.5px;
-  font-weight: 600;
-  color: var(--ink, #1A1A1A);
-  line-height: 1.3;
-}
-
-:root[data-theme='dark'] .proc-stack__artifact-title {
+.proc-ref__tag-badge strong {
   color: #FFFFFF;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.12);
+  padding: 4px 10px;
+  border-radius: 6px;
 }
 
-.proc-stack__artifact-format {
-  font-family: 'JetBrains Mono', monospace, sans-serif;
-  font-size: 11px;
-  color: var(--muted, #6E6E6E);
-}
+/* ── Right Large Outline Icon Frame ── */
 
-.proc-stack__footer {
+.proc-ref__icon-side {
   display: flex;
+  align-items: center;
   justify-content: center;
-  margin-top: 40px;
 }
 
-@media (max-width: 1024px) {
-  .proc-stack__content {
+.proc-ref__icon-frame {
+  width: clamp(100px, 12vw, 140px);
+  height: clamp(100px, 12vw, 140px);
+  border: 3px solid rgba(255, 255, 255, 0.75);
+  border-radius: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+  background: rgba(255, 255, 255, 0.04);
+  box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.05);
+}
+
+.proc-ref__icon-frame svg {
+  width: clamp(48px, 6vw, 64px);
+  height: clamp(48px, 6vw, 64px);
+}
+
+@media (max-width: 768px) {
+  .proc-ref__inner {
     grid-template-columns: 1fr;
+    padding: 28px 24px;
     gap: 20px;
   }
 
-  .proc-stack__artifact-col {
-    justify-content: flex-start;
-  }
-
-  .proc-stack__artifact-box {
-    max-width: 340px;
-  }
-}
-
-@media (max-width: 640px) {
-  .proc-stack__card-content {
-    padding: 22px 18px;
-    gap: 16px;
+  .proc-ref__icon-side {
+    display: none;
   }
 }

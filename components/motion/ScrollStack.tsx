@@ -19,8 +19,6 @@ export const ScrollStackItem: React.FC<ScrollStackItemProps> = ({
 interface PinnedCardProps {
   index: number;
   total: number;
-  rotation: number;
-  blurAmount: number;
   progress: MotionValue<number>;
   children: React.ReactNode;
 }
@@ -28,47 +26,42 @@ interface PinnedCardProps {
 const PinnedCard: React.FC<PinnedCardProps> = ({
   index,
   total,
-  rotation,
-  blurAmount,
   progress,
   children,
 }) => {
   const isFirst = index === 0;
 
-  // Staggered pacing for 4 cards across the scroll track:
-  // Card 0: 0.0 -> 0.22
-  // Card 1: enters 0.20 -> 0.46, lands at y = 24px
-  // Card 2: enters 0.46 -> 0.72, lands at y = 48px
-  // Card 3: enters 0.72 -> 0.96, lands at y = 72px
-  const enterStart = isFirst ? 0 : 0.20 + (index - 1) * 0.26;
-  const enterEnd = isFirst ? 0 : 0.20 + index * 0.26;
+  // Stagger intervals for 4 cards across scroll track:
+  // Card 0: initially in place at y=0, scale=1
+  // Card 1: enters 0.12 -> 0.36
+  // Card 2: enters 0.36 -> 0.60
+  // Card 3: enters 0.60 -> 0.84
+  const enterStart = isFirst ? 0 : 0.12 + (index - 1) * 0.24;
+  const enterEnd = isFirst ? 0 : 0.12 + index * 0.24;
 
-  const finalY = index * 24;
+  const subsequentCards = total - index - 1;
+  const targetY = -(subsequentCards * 18);
+  const targetScale = Math.max(0.86, 1 - subsequentCards * 0.045);
+
   const y = useTransform(
     progress,
-    [0, enterStart, enterEnd, 1],
-    isFirst ? [0, 0, 0, 0] : [600, 600, finalY, finalY]
+    isFirst
+      ? [0, 0.12, 0.84, 1]
+      : [0, enterStart, enterEnd, 0.84, 1],
+    isFirst
+      ? [0, 0, targetY, targetY]
+      : [650, 650, 0, targetY, targetY]
   );
 
-  const opacity = useTransform(
-    progress,
-    [0, enterStart, enterStart + 0.04, 1],
-    isFirst ? [1, 1, 1, 1] : [0, 0, 1, 1]
-  );
-
-  const scaleEnd = 0.92 + index * 0.02;
   const scale = useTransform(
     progress,
-    [enterEnd, 0.96],
-    [1, index === total - 1 ? 1 : scaleEnd]
+    isFirst
+      ? [0, 0.12, 0.84, 1]
+      : [0, enterStart, enterEnd, 0.84, 1],
+    isFirst
+      ? [1, 1, targetScale, targetScale]
+      : [1, 1, 1, targetScale, targetScale]
   );
-
-  const blurVal = useTransform(
-    progress,
-    [enterEnd, 0.96],
-    [0, index === total - 1 ? 0 : blurAmount]
-  );
-  const filter = useTransform(blurVal, (v) => (v > 0.2 ? `blur(${v.toFixed(1)}px)` : 'none'));
 
   return (
     <motion.div
@@ -81,11 +74,8 @@ const PinnedCard: React.FC<PinnedCardProps> = ({
         zIndex: index + 1,
         y,
         scale,
-        opacity,
-        filter,
-        rotate: `${rotation}deg`,
         transformOrigin: 'top center',
-        willChange: 'transform, opacity, filter',
+        willChange: 'transform',
       }}
     >
       <div className="scroll-stack-card">
@@ -98,19 +88,11 @@ const PinnedCard: React.FC<PinnedCardProps> = ({
 export interface ScrollStackProps {
   children: React.ReactNode;
   className?: string;
-  itemScale?: number;
-  baseScale?: number;
-  rotationAmount?: number;
-  blurAmount?: number;
 }
 
 export const ScrollStack: React.FC<ScrollStackProps> = ({
   children,
   className = '',
-  itemScale = 0.02,
-  baseScale = 0.92,
-  rotationAmount = 0.6,
-  blurAmount = 1.5,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
@@ -128,7 +110,7 @@ export const ScrollStack: React.FC<ScrollStackProps> = ({
       style={{
         position: 'relative',
         width: '100%',
-        height: `${total * 80}vh`,
+        height: `${total * 70}vh`,
       }}
     >
       {/* Pinned Stage that stays locked in viewport while user scrolls the track */}
@@ -136,28 +118,23 @@ export const ScrollStack: React.FC<ScrollStackProps> = ({
         className="scroll-stack-stage"
         style={{
           position: 'sticky',
-          top: 'clamp(90px, 12vh, 120px)',
+          top: 'clamp(90px, 14vh, 130px)',
           width: '100%',
+          maxWidth: '1080px',
+          margin: '0 auto',
           minHeight: '440px',
-          perspective: '1200px',
         }}
       >
-        {cards.map((child, index) => {
-          const rotSign = index % 2 === 0 ? -1 : 1;
-          const rotation = rotationAmount ? rotSign * rotationAmount * (1 + index * 0.2) : 0;
-          return (
-            <PinnedCard
-              key={index}
-              index={index}
-              total={total}
-              rotation={rotation}
-              blurAmount={blurAmount}
-              progress={scrollYProgress}
-            >
-              {child}
-            </PinnedCard>
-          );
-        })}
+        {cards.map((child, index) => (
+          <PinnedCard
+            key={index}
+            index={index}
+            total={total}
+            progress={scrollYProgress}
+          >
+            {child}
+          </PinnedCard>
+        ))}
       </div>
     </div>
   );
