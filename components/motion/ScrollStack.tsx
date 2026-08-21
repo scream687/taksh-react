@@ -35,33 +35,37 @@ const PinnedCard: React.FC<PinnedCardProps> = ({
 }) => {
   const isFirst = index === 0;
 
-  // Segment thresholds for 4 cards (snappy 0.0 -> 0.85):
-  const enterStart = isFirst ? 0 : 0.15 + (index - 1) * 0.22;
-  const enterEnd = isFirst ? 0 : 0.15 + index * 0.22;
+  // Generous, measured pacing across 320vh track:
+  // Card 0: 0.0 -> 0.22
+  // Card 1: 0.22 -> 0.48
+  // Card 2: 0.48 -> 0.74
+  // Card 3: 0.74 -> 0.96
+  const enterStart = isFirst ? 0 : 0.22 + (index - 1) * 0.26;
+  const enterEnd = isFirst ? 0 : 0.22 + index * 0.26;
 
-  const finalY = index * 20;
+  const finalY = index * 22;
   const y = useTransform(
     progress,
     [0, enterStart, enterEnd, 1],
-    isFirst ? [0, 0, 0, 0] : [450, 450, finalY, finalY]
+    isFirst ? [0, 0, 0, 0] : [600, 600, finalY, finalY]
   );
 
   const opacity = useTransform(
     progress,
-    [0, enterStart, enterStart + 0.05, 1],
+    [0, enterStart, enterStart + 0.08, 1],
     isFirst ? [1, 1, 1, 1] : [0, 0, 1, 1]
   );
 
   const scaleEnd = 0.90 + index * 0.025;
   const scale = useTransform(
     progress,
-    [enterEnd, 0.92],
+    [enterEnd, 0.96],
     [1, index === total - 1 ? 1 : scaleEnd]
   );
 
   const blurVal = useTransform(
     progress,
-    [enterEnd, 0.92],
+    [enterEnd, 0.96],
     [0, index === total - 1 ? 0 : blurAmount]
   );
   const filter = useTransform(blurVal, (v) => (v > 0.2 ? `blur(${v.toFixed(1)}px)` : 'none'));
@@ -124,7 +128,7 @@ export const ScrollStack: React.FC<ScrollStackProps> = ({
       style={{
         position: 'relative',
         width: '100%',
-        height: `${Math.max(160, total * 45)}vh`,
+        height: `${total * 80}vh`,
       }}
     >
       {/* Pinned Stage that stays locked in viewport while user scrolls the track */}
