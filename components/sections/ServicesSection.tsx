@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { FlowingPreview, PreviewData } from '@/components/motion/FlowingPreview';
+import { BlurText } from '@/components/motion/BlurText';
 
 const SERVICES = [
   {
@@ -68,9 +69,9 @@ export function ServicesSection() {
         >
           <span className="label">Services · 02</span>
           <h2 className="section__title">
-            Six services.
+            <BlurText text="Six services." delay={0.05} />
             <br />
-            <em>One</em> standard.
+            <em>One</em> <BlurText text="standard." delay={0.15} />
           </h2>
         </motion.div>
 

@@ -3,6 +3,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { TiltedCard } from '@/components/motion/TiltedCard';
+import { BlurText } from '@/components/motion/BlurText';
 
 const INDUSTRIES = [
   {
@@ -47,9 +48,9 @@ export function IndustriesSection() {
         >
           <span className="label">Who we serve · 04</span>
           <h2 className="section__title">
-            Built for brands that have <em>outgrown</em>
+            <BlurText text="Built for brands that have" delay={0.05} /> <em>outgrown</em>
             <br />
-            their first identity.
+            <BlurText text="their first identity." delay={0.15} />
           </h2>
         </motion.div>
 

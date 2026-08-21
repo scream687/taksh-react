@@ -3,23 +3,18 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { MagnetButton } from '@/components/motion/MagnetButton';
+import { BlurText } from '@/components/motion/BlurText';
 
 export function ContactSection() {
   return (
     <section className="contact-cta" id="contact">
       <div className="container">
         <span className="label label--paper">Let&apos;s talk · 07</span>
-        <motion.h2
-          className="contact-cta__title"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-        >
-          Let&apos;s talk about
+        <h2 className="contact-cta__title">
+          <BlurText text="Let's talk about" delay={0.05} />
           <br />
-          your <em className="contact-cta__accent">brand.</em>
-        </motion.h2>
+          <BlurText text="your" delay={0.15} /> <em className="contact-cta__accent">brand.</em>
+        </h2>
 
         <motion.div
           className="contact-cta__row"

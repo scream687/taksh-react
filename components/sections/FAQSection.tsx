@@ -3,6 +3,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { FluidAccordion, AccordionItemData } from '@/components/motion/FluidAccordion';
+import { BlurText } from '@/components/motion/BlurText';
 
 const FAQ_ITEMS: AccordionItemData[] = [
   {
@@ -70,9 +71,9 @@ export function FAQSection() {
         >
           <span className="label">Questions · 06</span>
           <h2 className="section__title">
-            Things people ask
+            <BlurText text="Things people ask" delay={0.05} />
             <br />
-            <em>before</em> they ask.
+            <em>before</em> <BlurText text="they ask." delay={0.15} />
           </h2>
         </motion.div>
 
