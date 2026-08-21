@@ -1,28 +1,52 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
+
+function applyThemeToDOM(dark: boolean) {
+  if (typeof document === 'undefined') return;
+  const html = document.documentElement;
+  const body = document.body;
+
+  if (dark) {
+    html.setAttribute('data-theme', 'dark');
+    html.classList.add('dark-mode', 'dark-theme', 'dark');
+    body.setAttribute('data-theme', 'dark');
+    body.classList.add('dark-mode', 'dark-theme', 'dark');
+    localStorage.setItem('taksh-theme', 'dark');
+    localStorage.setItem('theme', 'dark');
+  } else {
+    html.removeAttribute('data-theme');
+    html.classList.remove('dark-mode', 'dark-theme', 'dark');
+    body.removeAttribute('data-theme');
+    body.classList.remove('dark-mode', 'dark-theme', 'dark');
+    localStorage.setItem('taksh-theme', 'light');
+    localStorage.setItem('theme', 'light');
+  }
+}
 
 export function ThemeToggle() {
   const [isDark, setIsDark] = useState(false);
 
   useEffect(() => {
-    const saved = localStorage.getItem('theme');
-    if (saved === 'dark') {
-      document.documentElement.classList.add('dark-theme');
-    }
+    const saved = localStorage.getItem('taksh-theme') || localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const shouldBeDark = saved === 'dark' || (!saved && prefersDark);
+    applyThemeToDOM(shouldBeDark);
+
+    const timer = setTimeout(() => {
+      setIsDark(shouldBeDark);
+    }, 0);
+
+    return () => clearTimeout(timer);
   }, []);
 
-  const toggleTheme = () => {
-    const next = !isDark;
-    setIsDark(next);
-    if (next) {
-      document.documentElement.classList.add('dark-theme');
-      localStorage.setItem('theme', 'dark');
-    } else {
-      document.documentElement.classList.remove('dark-theme');
-      localStorage.setItem('theme', 'light');
-    }
-  };
+  const toggleTheme = useCallback(() => {
+    setIsDark((prev) => {
+      const next = !prev;
+      applyThemeToDOM(next);
+      return next;
+    });
+  }, []);
 
   return (
     <button

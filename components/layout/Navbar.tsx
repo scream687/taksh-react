@@ -14,7 +14,6 @@ export function Navbar() {
             alt="Taksh"
             width={120}
             height={28}
-            style={{ height: '28px', width: 'auto', display: 'block' }}
             priority
           />
         </Link>

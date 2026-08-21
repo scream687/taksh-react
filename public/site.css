@@ -39,6 +39,174 @@
   --t-label: 11px;
 }
 
+/* ── Universal Dark Mode Token System ──────────────────────── */
+:root[data-theme="dark"],
+html.dark-mode,
+html.dark-theme,
+html.dark,
+body.dark-mode,
+body.dark-theme,
+body.dark {
+  --paper: #0D0D0D;
+  --ink: #F5F5F3;
+  --void: #050505;
+  --white: #141414;
+  --border: #262626;
+  --border-dark: #333333;
+  --muted: rgba(245, 245, 243, 0.6);
+  --blue-light: rgba(45, 91, 227, 0.16);
+  --on-dark: #F5F5F3;
+  --on-light: #0D0D0D;
+  --blue-on-dark: #4E7BF0;
+  --blue-text: #4E7BF0;
+
+  --color-paper: #0D0D0D;
+  --color-ink: #F5F5F3;
+  --color-void: #050505;
+  --color-white: #141414;
+  --color-border: #262626;
+  --color-border-dark: #333333;
+  --color-muted: rgba(245, 245, 243, 0.6);
+  --color-blue-light: rgba(45, 91, 227, 0.16);
+}
+
+:root[data-theme="dark"] body,
+html.dark-mode body,
+html.dark-theme body,
+body.dark-mode,
+body.dark-theme {
+  background: #0D0D0D !important;
+  color: #F5F5F3 !important;
+}
+
+:root[data-theme="dark"] .liquid-bg,
+html.dark-mode .liquid-bg,
+body.dark-mode .liquid-bg {
+  opacity: 0.12;
+}
+
+:root[data-theme="dark"] .ambient-mesh,
+html.dark-mode .ambient-mesh,
+body.dark-mode .ambient-mesh {
+  background: #0D0D0D;
+}
+
+:root[data-theme="dark"] .nav__brand img,
+html.dark-mode .nav__brand img,
+body.dark-mode .nav__brand img {
+  filter: brightness(0) invert(1);
+}
+
+:root[data-theme="dark"] .section,
+html.dark-mode .section,
+body.dark-mode .section {
+  background: #0D0D0D;
+}
+
+:root[data-theme="dark"] .service,
+html.dark-mode .service,
+body.dark-mode .service {
+  border-color: #262626;
+  color: #F5F5F3;
+}
+
+:root[data-theme="dark"] .service:hover,
+html.dark-mode .service:hover,
+body.dark-mode .service:hover {
+  background: #181818;
+}
+
+:root[data-theme="dark"] .industry,
+html.dark-mode .industry,
+body.dark-mode .industry {
+  background: #141414;
+  border-color: #262626;
+  color: #F5F5F3;
+}
+
+:root[data-theme="dark"] .stats-strip,
+html.dark-mode .stats-strip,
+body.dark-mode .stats-strip {
+  background: #0D0D0D;
+  border-color: #262626;
+}
+
+:root[data-theme="dark"] .stats-strip__item,
+html.dark-mode .stats-strip__item,
+body.dark-mode .stats-strip__item {
+  border-color: #262626;
+}
+
+:root[data-theme="dark"] .faq__item,
+html.dark-mode .faq__item,
+body.dark-mode .faq__item {
+  border-color: #262626;
+  color: #F5F5F3;
+}
+
+:root[data-theme="dark"] .legal-page,
+html.dark-mode .legal-page,
+body.dark-mode .legal-page {
+  background: #0D0D0D;
+  color: #F5F5F3;
+}
+
+:root[data-theme="dark"] .legal-nav,
+html.dark-mode .legal-nav,
+body.dark-mode .legal-nav {
+  background: rgba(13, 13, 13, 0.9);
+  border-color: #262626;
+}
+
+:root[data-theme="dark"] .legal-nav__back,
+html.dark-mode .legal-nav__back,
+body.dark-mode .legal-nav__back,
+:root[data-theme="dark"] .legal-nav__logo-text,
+html.dark-mode .legal-nav__logo-text,
+body.dark-mode .legal-nav__logo-text {
+  color: #F5F5F3;
+}
+
+:root[data-theme="dark"] .legal-toc,
+html.dark-mode .legal-toc,
+body.dark-mode .legal-toc,
+:root[data-theme="dark"] .legal-contact-box,
+html.dark-mode .legal-contact-box,
+body.dark-mode .legal-contact-box {
+  background: #141414;
+  border-color: #262626;
+}
+
+:root[data-theme="dark"] .legal-toc__link,
+html.dark-mode .legal-toc__link,
+body.dark-mode .legal-toc__link,
+:root[data-theme="dark"] .legal-block__title,
+html.dark-mode .legal-block__title,
+body.dark-mode .legal-block__title,
+:root[data-theme="dark"] .legal-contact-box__name,
+html.dark-mode .legal-contact-box__name,
+body.dark-mode .legal-contact-box__name {
+  color: #FFFFFF;
+}
+
+:root[data-theme="dark"] .legal-block p,
+html.dark-mode .legal-block p,
+body.dark-mode .legal-block p,
+:root[data-theme="dark"] .legal-list li,
+html.dark-mode .legal-list li,
+body.dark-mode .legal-list li {
+  color: rgba(245, 245, 243, 0.75);
+}
+
+:root[data-theme="dark"] .legal-hero,
+html.dark-mode .legal-hero,
+body.dark-mode .legal-hero,
+:root[data-theme="dark"] .legal-block,
+html.dark-mode .legal-block,
+body.dark-mode .legal-block {
+  border-color: #262626;
+}
+
 * {
   box-sizing: border-box;
 }

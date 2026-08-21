@@ -1,6 +1,7 @@
 import React from 'react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { ThemeToggle } from '@/components/layout/ThemeToggle';
 
 export const metadata: Metadata = {
   title: 'Privacy Policy — Taksh Atelier & Commercial Brand Strategy',
@@ -74,8 +75,11 @@ export default function PrivacyPage() {
             <Link href="/" className="legal-nav__logo" aria-label="Taksh Studio">
               <span className="legal-nav__logo-text">TΛKSH</span>
             </Link>
-            <div className="legal-nav__badge">
-              <span>DOC REF · PRIVACY-2026</span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+              <div className="legal-nav__badge">
+                <span>DOC REF · PRIVACY-2026</span>
+              </div>
+              <ThemeToggle />
             </div>
           </div>
         </header>
