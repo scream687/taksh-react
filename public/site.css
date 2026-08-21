@@ -784,7 +784,7 @@ p {
   background: var(--paper);
   border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
-  padding: 140px 0 100px;
+  padding: 100px 0 60px;
   scroll-margin-top: 90px;
 }
 

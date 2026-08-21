@@ -35,37 +35,33 @@ const PinnedCard: React.FC<PinnedCardProps> = ({
 }) => {
   const isFirst = index === 0;
 
-  // Segment thresholds for 4 cards:
-  // Card 0: initially visible (0.0), scales down starting at 0.20
-  // Card 1: enters 0.20 -> 0.45, lands at y = 24px
-  // Card 2: enters 0.45 -> 0.70, lands at y = 48px
-  // Card 3: enters 0.70 -> 0.95, lands at y = 72px
-  const enterStart = isFirst ? 0 : 0.2 + (index - 1) * 0.25;
-  const enterEnd = isFirst ? 0 : 0.2 + index * 0.25;
+  // Segment thresholds for 4 cards (snappy 0.0 -> 0.85):
+  const enterStart = isFirst ? 0 : 0.15 + (index - 1) * 0.22;
+  const enterEnd = isFirst ? 0 : 0.15 + index * 0.22;
 
-  const finalY = index * 24;
+  const finalY = index * 20;
   const y = useTransform(
     progress,
     [0, enterStart, enterEnd, 1],
-    isFirst ? [0, 0, 0, 0] : [650, 650, finalY, finalY]
+    isFirst ? [0, 0, 0, 0] : [450, 450, finalY, finalY]
   );
 
   const opacity = useTransform(
     progress,
-    [0, enterStart, enterStart + 0.06, 1],
+    [0, enterStart, enterStart + 0.05, 1],
     isFirst ? [1, 1, 1, 1] : [0, 0, 1, 1]
   );
 
-  const scaleEnd = 0.88 + index * 0.03;
+  const scaleEnd = 0.90 + index * 0.025;
   const scale = useTransform(
     progress,
-    [enterEnd, 0.95],
+    [enterEnd, 0.92],
     [1, index === total - 1 ? 1 : scaleEnd]
   );
 
   const blurVal = useTransform(
     progress,
-    [enterEnd, 0.95],
+    [enterEnd, 0.92],
     [0, index === total - 1 ? 0 : blurAmount]
   );
   const filter = useTransform(blurVal, (v) => (v > 0.2 ? `blur(${v.toFixed(1)}px)` : 'none'));
@@ -107,8 +103,8 @@ export interface ScrollStackProps {
 export const ScrollStack: React.FC<ScrollStackProps> = ({
   children,
   className = '',
-  itemScale = 0.03,
-  baseScale = 0.88,
+  itemScale = 0.025,
+  baseScale = 0.90,
   rotationAmount = 0.8,
   blurAmount = 2.0,
 }) => {
@@ -128,7 +124,7 @@ export const ScrollStack: React.FC<ScrollStackProps> = ({
       style={{
         position: 'relative',
         width: '100%',
-        height: `${Math.max(260, total * 75)}vh`,
+        height: `${Math.max(160, total * 45)}vh`,
       }}
     >
       {/* Pinned Stage that stays locked in viewport while user scrolls the track */}
@@ -136,9 +132,9 @@ export const ScrollStack: React.FC<ScrollStackProps> = ({
         className="scroll-stack-stage"
         style={{
           position: 'sticky',
-          top: '110px',
+          top: 'clamp(90px, 12vh, 120px)',
           width: '100%',
-          minHeight: '480px',
+          minHeight: '440px',
           perspective: '1200px',
         }}
       >
