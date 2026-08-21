@@ -1,7 +1,7 @@
 'use client';
 
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { MagnetButton } from '@/components/motion/MagnetButton';
 import { BlurText } from '@/components/motion/BlurText';
 
@@ -12,7 +12,18 @@ const SOCIAL_LINKS = [
   { name: 'Twitter', url: 'https://x.com/' },
 ];
 
+const ROTATING_WORDS = ['brand.', 'thesis.', 'narrative.', 'category.', 'vision.', 'future.'];
+
 export function ContactSection() {
+  const [wordIndex, setWordIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setWordIndex((prev) => (prev + 1) % ROTATING_WORDS.length);
+    }, 2400);
+    return () => clearInterval(timer);
+  }, []);
+
   return (
     <section className="contact-cta" id="contact" style={{ position: 'relative', overflow: 'hidden' }}>
       {/* Cinematic Ambient Background Glow Orb */}
@@ -34,10 +45,37 @@ export function ContactSection() {
 
       <div className="container" style={{ position: 'relative', zIndex: 1 }}>
         <span className="label label--paper">Let&apos;s talk · 07</span>
-        <h2 className="contact-cta__title">
-          <BlurText text="Let's talk about" delay={0.05} />
-          <br />
-          <BlurText text="your" delay={0.15} /> <em className="contact-cta__accent">brand.</em>
+        <h2 className="contact-cta__title" style={{ display: 'flex', flexDirection: 'column' }}>
+          <div>
+            <BlurText text="Let's talk about" delay={0.05} />
+          </div>
+          <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.22em', flexWrap: 'wrap' }}>
+            <BlurText text="your" delay={0.15} />
+            <span
+              style={{
+                display: 'inline-block',
+                position: 'relative',
+                overflow: 'hidden',
+                verticalAlign: 'bottom',
+                height: '1.08em',
+                lineHeight: 1,
+              }}
+            >
+              <AnimatePresence mode="popLayout" initial={false}>
+                <motion.em
+                  key={ROTATING_WORDS[wordIndex]}
+                  initial={{ y: '100%', opacity: 0, filter: 'blur(8px)' }}
+                  animate={{ y: '0%', opacity: 1, filter: 'blur(0px)' }}
+                  exit={{ y: '-100%', opacity: 0, filter: 'blur(8px)' }}
+                  transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+                  className="contact-cta__accent"
+                  style={{ display: 'inline-block' }}
+                >
+                  {ROTATING_WORDS[wordIndex]}
+                </motion.em>
+              </AnimatePresence>
+            </span>
+          </div>
         </h2>
 
         <motion.div
