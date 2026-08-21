@@ -45,7 +45,8 @@ export function Preloader() {
               src="/logo-symbol.png"
               alt="Taksh"
               width={40}
-              height={40}
+              height={75}
+              style={{ width: '40px', height: 'auto', display: 'block' }}
               priority
             />
           </motion.div>

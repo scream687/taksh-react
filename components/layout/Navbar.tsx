@@ -12,8 +12,9 @@ export function Navbar() {
           <Image
             src="/logo-wordmark.png"
             alt="Taksh"
-            width={120}
-            height={28}
+            width={128}
+            height={36}
+            style={{ height: '32px', width: 'auto', display: 'block' }}
             priority
           />
         </Link>
