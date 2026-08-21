@@ -758,7 +758,7 @@
 <script src="effects.js" defer></script>
 
 <script type="module">
-import { animate, scroll } from 'https://cdn.jsdelivr.net/npm/motion@latest/+esm';
+import { animate, scroll } from 'https://cdn.jsdelivr.net/npm/motion@13/+esm';
 
 const section   = document.getElementById('process');
 const fill      = document.getElementById('proc-fill');
@@ -773,7 +773,9 @@ if (!section || !fill || !steps.length) throw new Error('process elements missin
 const THRESHOLDS = [0.02, 0.33, 0.65, 0.95];
 const done = new Set();
 
-scroll(({ y }) => {
+scroll((progress, info) => {
+  const _p = typeof progress === 'number' ? progress : (progress && progress.y && progress.y.progress);
+  const y = { progress: _p };
   const p = y.progress;
 
   // Drive fill bar

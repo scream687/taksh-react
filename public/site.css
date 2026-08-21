@@ -8,7 +8,7 @@
   --blue: #2D5BE3;
   --void: #0D0D0D;
   --white: #FFFFFF;
-  --muted: #888888;
+  --muted: #6E6E6E;
   --border: #E0DDD6;
   --border-dark: #2A2A2A;
   --blue-light: #EEF2FD;
@@ -18,6 +18,13 @@
   --on-dark: #F5F5F3;
   /* ...and its companion, for text on always-light surfaces. */
   --on-light: #0D0D0D;
+  /* Signal Blue is 3.44:1 on the void surface — fine for large text,
+     below AA under 24px. This tint clears AA while staying on-brand.
+     Use for small blue text on dark only; fills keep --blue. */
+  --blue-on-dark: #4E7BF0;
+  /* Signal Blue as small text on the default page surface. Flips,
+     because that surface flips. Fills always keep --blue. */
+  --blue-text: #2D5BE3;
 
   --container: 1480px;
   --gutter: clamp(20px, 4vw, 56px);
@@ -309,15 +316,18 @@ p {
   position: absolute;
   left: 0;
   bottom: 0;
-  width: 0;
+  width: 100%;
   height: 1px;
   background: var(--ink);
-  transition: width .25s ease;
+  /* scaleX rather than width: compositor-friendly, no layout thrash. */
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform .25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .nav__links a:hover::after,
 .nav__links a.is-active::after {
-  width: 100%;
+  transform: scaleX(1);
 }
 
 .nav__cta {
@@ -621,7 +631,7 @@ p {
   font-size: 11px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--blue);
+  color: var(--blue-on-dark);
   font-weight: 600;
   margin-bottom: 18px;
 }
@@ -847,7 +857,7 @@ p {
   font-size: 12px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--blue);
+  color: var(--blue-text);
   font-weight: 600;
   margin-bottom: 14px;
 }
@@ -956,7 +966,7 @@ p {
   font-size: 10px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--blue);
+  color: var(--blue-text);
   font-weight: 600;
 }
 

@@ -9,7 +9,7 @@ import { ParticleImage } from '@/components/motion/ParticleImage';
 import { AsciiCursorField } from '@/components/motion/AsciiCursorField';
 
 const BACKGROUND_PILLS: PillItem[] = [
-  { id: 'bg-1', label: 'Vrindavan · India', x: 4, y: 6, depth: 0.5, rotate: -3 },
+  { id: 'bg-1', label: 'Founder-Led · India', x: 4, y: 6, depth: 0.5, rotate: -3 },
   { id: 'bg-2', label: 'Fixed Scope · 4 Wk', x: 88, y: 16, depth: 0.6, rotate: 2 },
   { id: 'bg-3', label: 'Point of View', x: 78, y: 38, depth: 0.4, rotate: -2 },
   { id: 'bg-4', label: 'Studio 2026', x: 6, y: 52, depth: 0.55, rotate: 3 },

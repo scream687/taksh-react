@@ -76,8 +76,8 @@
   font-size: 11px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: rgba(245, 245, 243, 0.32);
-  border: 1px solid rgba(245, 245, 243, 0.1);
+  color: rgba(245, 245, 243, 0.55);
+  border: 1px solid rgba(245, 245, 243, 0.16);
   border-radius: 999px;
   padding: 6px 14px;
   white-space: nowrap;
@@ -179,7 +179,7 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.12em;
-  color: rgba(45, 91, 227, 0.9);
+  color: var(--blue-on-dark, #4E7BF0);
 }
 
 /* ── Identity Column ── */
@@ -203,7 +203,7 @@
 .team-row__role {
   font-size: 13.5px;
   font-weight: 500;
-  color: rgba(45, 91, 227, 0.75);
+  color: var(--blue-on-dark, #4E7BF0);
   letter-spacing: -0.01em;
 }
 

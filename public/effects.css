@@ -152,10 +152,12 @@ body.dark-mode {
   --white:       #141414;
   --border:      #2A2A2A;
   --border-dark: #3C3C3C;
-  --muted:       rgba(240,238,232,0.45);
+  --muted:       rgba(240,238,232,0.58);
   --blue-light:  #12214A;
   --on-dark:     #F5F5F3;
   --on-light:    #0D0D0D;
+  --blue-on-dark: #4E7BF0;
+  --blue-text:   #4E7BF0;
 }
 
 /* Sections that were light now go dark */
@@ -308,7 +310,7 @@ body.dark-mode .btn--ghost:hover {
   font-size: 11px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: #2D5BE3;
+  color: var(--blue-on-dark);
 }
 .drawer__title {
   font-size: clamp(28px, 4vw, 40px);
@@ -583,7 +585,7 @@ body.dark-mode .btn--ghost:hover {
 .pain__num {
   font-size: 11px;
   letter-spacing: 0.22em;
-  color: var(--blue);
+  color: var(--blue-on-dark);
   font-weight: 600;
   text-transform: uppercase;
 }
@@ -761,7 +763,7 @@ body.dark-mode .btn--ghost:hover {
   font-size: 11px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--blue);
+  color: var(--blue-text);
   font-weight: 600;
   margin-bottom: 8px;
 }

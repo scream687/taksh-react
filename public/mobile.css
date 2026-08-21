@@ -240,7 +240,7 @@ html, body {
 
   .pain__num {
     font-size: 10px;
-    color: var(--blue);
+    color: var(--blue-on-dark);
     display: block;
     margin-bottom: 8px;
   }
@@ -410,7 +410,7 @@ html, body {
 
   .process__week {
     font-size: 10px;
-    color: var(--blue);
+    color: var(--blue-text);
     text-transform: uppercase;
     margin-bottom: 4px;
   }
@@ -464,7 +464,7 @@ html, body {
 
   .industry__tag {
     font-size: 10px;
-    color: var(--blue);
+    color: var(--blue-text);
     background: var(--blue);
     color: white;
     padding: 2px 8px;

@@ -11,7 +11,7 @@ colors:
     void-ink: "#0D0D0D"
     deep-ink: "#1A1A1A"
     pure-white: "#FFFFFF"
-    faint-mute: "#888888"
+    faint-mute: "#6E6E6E"
     hairline: "#E0DDD6"
     hairline-dark: "#2A2A2A"
     blue-wash: "#EEF2FD"

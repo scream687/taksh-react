@@ -1,4 +1,4 @@
-import { animate, scroll } from 'https://cdn.jsdelivr.net/npm/motion@latest/+esm';
+import { animate, scroll } from 'https://cdn.jsdelivr.net/npm/motion@13/+esm';
 
 try {
   const section = document.getElementById('process');
