@@ -48,6 +48,7 @@ export function Preloader() {
               height={75}
               style={{ width: '40px', height: 'auto', display: 'block' }}
               priority
+              suppressHydrationWarning
             />
           </motion.div>
 

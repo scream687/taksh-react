@@ -16,6 +16,7 @@ export function Navbar() {
             height={36}
             style={{ height: '32px', width: 'auto', display: 'block' }}
             priority
+            suppressHydrationWarning
           />
         </Link>
         <div className="nav__links">
