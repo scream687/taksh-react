@@ -31,7 +31,7 @@ const PinnedCard: React.FC<PinnedCardProps> = ({
 }) => {
   const isFirst = index === 0;
 
-  // Stagger intervals for 4 cards across scroll track:
+  // Stagger intervals across scroll track:
   // Card 0: initially in place at y=0, scale=1
   // Card 1: enters 0.12 -> 0.36
   // Card 2: enters 0.36 -> 0.60
@@ -113,16 +113,16 @@ export const ScrollStack: React.FC<ScrollStackProps> = ({
         height: `${total * 70}vh`,
       }}
     >
-      {/* Pinned Stage that locks below header at top: 105px and stacks cards */}
+      {/* Pinned Stage positioned cleanly directly beneath the section header */}
       <div
         className="scroll-stack-stage"
         style={{
           position: 'sticky',
-          top: 'clamp(95px, 12vh, 115px)',
+          top: 'clamp(210px, 26vh, 260px)',
           width: '100%',
           maxWidth: '1080px',
           margin: '0 auto',
-          minHeight: '440px',
+          minHeight: '380px',
         }}
       >
         {cards.map((child, index) => (
