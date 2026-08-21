@@ -16,6 +16,7 @@ import { ServicesSection } from '@/components/sections/ServicesSection';
 import { ProcessSection } from '@/components/sections/ProcessSection';
 import { IndustriesSection } from '@/components/sections/IndustriesSection';
 import { TeamSection } from '@/components/team/TeamSection';
+import { TestimonialsSection } from '@/components/sections/TestimonialsSection';
 import { FAQSection } from '@/components/sections/FAQSection';
 import { ContactSection } from '@/components/sections/ContactSection';
 
@@ -87,6 +88,7 @@ export default function Home() {
           <ServicesSection />
           <ProcessSection />
           <IndustriesSection />
+          <TestimonialsSection />
           <TeamSection />
           <FAQSection />
           <ContactSection />

@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import './team.css';
 import { motion } from 'framer-motion';
+import { BlurText } from '@/components/motion/BlurText';
 
 export const TEAM_MEMBERS = [
   {
@@ -37,6 +38,15 @@ export const TEAM_MEMBERS = [
     quote: 'Clear messaging cuts through any crowded category. Narrative directly drives compounding growth.',
     social: 'https://linkedin.com',
   },
+  {
+    id: 'bhavit',
+    num: '05',
+    name: 'Bhavit Rao',
+    initials: 'BR',
+    role: 'Web Developer',
+    quote: 'High-performance interactive web systems built to translate sharp positioning into flawless digital craft.',
+    social: 'https://linkedin.com',
+  },
 ];
 
 export function TeamSection() {
@@ -55,7 +65,7 @@ export function TeamSection() {
         >
           <span className="label label--paper">The studio · 05</span>
           <h2 className="team-roster__title">
-            The people behind the <em>point of view.</em>
+            <BlurText text="The people behind the" delay={0.05} /> <em>point of view.</em>
           </h2>
         </motion.div>
 
@@ -86,13 +96,20 @@ export function TeamSection() {
                 {/* Left Telemetry Number */}
                 <div className="team-roster__index">
                   <span className="team-roster__num">{member.num}</span>
-                  <span className="team-roster__total">/ 04</span>
+                  <span className="team-roster__total">/ 05</span>
                 </div>
 
-                {/* Main Content: Name & Italic Conviction */}
+                {/* Main Content: Name, Role & Italic Conviction */}
                 <div className="team-roster__main">
                   <div className="team-roster__name-wrap">
-                    <h3 className="team-roster__name">{member.name}</h3>
+                    <div style={{ display: 'flex', alignItems: 'baseline', gap: '12px' }}>
+                      <h3 className="team-roster__name">{member.name}</h3>
+                      {'role' in member && (
+                        <span style={{ fontSize: '13px', color: 'var(--blue, #2D5BE3)', fontWeight: 500, letterSpacing: '0.05em', textTransform: 'uppercase' }}>
+                          {member.role}
+                        </span>
+                      )}
+                    </div>
                     <a
                       href={member.social}
                       target="_blank"

@@ -10,7 +10,7 @@ export interface WaitlistDrawerProps {
 
 export function WaitlistDrawer({ isOpen, onClose }: WaitlistDrawerProps) {
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [formData, setFormData] = useState({ name: '', email: '', company: '' });
+  const [formData, setFormData] = useState({ name: '', email: '', company: '', focus: 'Brand Positioning & GTM' });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -45,7 +45,7 @@ export function WaitlistDrawer({ isOpen, onClose }: WaitlistDrawerProps) {
             className="drawer-luxury"
             role="dialog"
             aria-modal="true"
-            aria-label="Join the waitlist"
+            aria-label="Schedule a strategy call"
             initial={{ x: '100%' }}
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
@@ -91,7 +91,7 @@ export function WaitlistDrawer({ isOpen, onClose }: WaitlistDrawerProps) {
                     color: '#93C5FD',
                   }}
                 >
-                  Early Access · Q3 2026
+                  Direct Partner Booking · Q3 2026
                 </span>
               </div>
 
@@ -138,9 +138,9 @@ export function WaitlistDrawer({ isOpen, onClose }: WaitlistDrawerProps) {
                 margin: '0 0 16px 0',
               }}
             >
-              Join the<br />
+              Schedule a<br />
               <span style={{ fontStyle: 'italic', fontFamily: "'Instrument Serif', Georgia, serif", fontWeight: 400 }}>
-                waitlist.
+                strategy call.
               </span>
             </h2>
 
@@ -152,15 +152,15 @@ export function WaitlistDrawer({ isOpen, onClose }: WaitlistDrawerProps) {
                 margin: '0 0 36px 0',
               }}
             >
-              We take on a maximum of two growth-stage engagements per sprint. Drop your details below and our partners will review your fit within 48 hours.
+              Direct 30-minute diagnostic session with Taksh partners. We&apos;ll audit your current positioning, identify market bottlenecks, and map your 28-day sprint roadmap.
             </p>
 
-            {/* Waitlist Form */}
+            {/* Booking Form */}
             {!isSubmitted ? (
               <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
                   <label
-                    htmlFor="waitlist-name"
+                    htmlFor="booking-name"
                     style={{
                       fontFamily: "'JetBrains Mono', monospace",
                       fontSize: '10.5px',
@@ -172,7 +172,7 @@ export function WaitlistDrawer({ isOpen, onClose }: WaitlistDrawerProps) {
                     Your Name *
                   </label>
                   <input
-                    id="waitlist-name"
+                    id="booking-name"
                     type="text"
                     placeholder="Rishabh Sharma"
                     autoComplete="name"
@@ -180,32 +180,23 @@ export function WaitlistDrawer({ isOpen, onClose }: WaitlistDrawerProps) {
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     required
                     style={{
-                      width: '100%',
-                      background: 'rgba(255, 255, 255, 0.04)',
+                      padding: '14px 18px',
+                      background: '#141414',
                       border: '1px solid rgba(255, 255, 255, 0.12)',
-                      borderRadius: '8px',
-                      padding: '16px 18px',
-                      fontSize: '15px',
+                      borderRadius: '4px',
                       color: '#FFFFFF',
+                      fontSize: '15px',
                       outline: 'none',
-                      transition: 'border-color 0.2s, background 0.2s, box-shadow 0.2s',
+                      transition: 'border-color 0.2s',
                     }}
-                    onFocus={(e) => {
-                      e.currentTarget.style.borderColor = '#2D5BE3';
-                      e.currentTarget.style.background = 'rgba(45, 91, 227, 0.05)';
-                      e.currentTarget.style.boxShadow = '0 0 0 3px rgba(45, 91, 227, 0.25)';
-                    }}
-                    onBlur={(e) => {
-                      e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.12)';
-                      e.currentTarget.style.background = 'rgba(255, 255, 255, 0.04)';
-                      e.currentTarget.style.boxShadow = 'none';
-                    }}
+                    onFocus={(e) => (e.target.style.borderColor = '#2D5BE3')}
+                    onBlur={(e) => (e.target.style.borderColor = 'rgba(255, 255, 255, 0.12)')}
                   />
                 </div>
 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
                   <label
-                    htmlFor="waitlist-email"
+                    htmlFor="booking-email"
                     style={{
                       fontFamily: "'JetBrains Mono', monospace",
                       fontSize: '10.5px',
@@ -214,43 +205,34 @@ export function WaitlistDrawer({ isOpen, onClose }: WaitlistDrawerProps) {
                       color: 'rgba(255, 255, 255, 0.45)',
                     }}
                   >
-                    Work Email *
+                    Executive Work Email *
                   </label>
                   <input
-                    id="waitlist-email"
+                    id="booking-email"
                     type="email"
-                    placeholder="name@company.com"
+                    placeholder="founder@company.com"
                     autoComplete="email"
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     required
                     style={{
-                      width: '100%',
-                      background: 'rgba(255, 255, 255, 0.04)',
+                      padding: '14px 18px',
+                      background: '#141414',
                       border: '1px solid rgba(255, 255, 255, 0.12)',
-                      borderRadius: '8px',
-                      padding: '16px 18px',
-                      fontSize: '15px',
+                      borderRadius: '4px',
                       color: '#FFFFFF',
+                      fontSize: '15px',
                       outline: 'none',
-                      transition: 'border-color 0.2s, background 0.2s, box-shadow 0.2s',
+                      transition: 'border-color 0.2s',
                     }}
-                    onFocus={(e) => {
-                      e.currentTarget.style.borderColor = '#2D5BE3';
-                      e.currentTarget.style.background = 'rgba(45, 91, 227, 0.05)';
-                      e.currentTarget.style.boxShadow = '0 0 0 3px rgba(45, 91, 227, 0.25)';
-                    }}
-                    onBlur={(e) => {
-                      e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.12)';
-                      e.currentTarget.style.background = 'rgba(255, 255, 255, 0.04)';
-                      e.currentTarget.style.boxShadow = 'none';
-                    }}
+                    onFocus={(e) => (e.target.style.borderColor = '#2D5BE3')}
+                    onBlur={(e) => (e.target.style.borderColor = 'rgba(255, 255, 255, 0.12)')}
                   />
                 </div>
 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
                   <label
-                    htmlFor="waitlist-company"
+                    htmlFor="booking-company"
                     style={{
                       fontFamily: "'JetBrains Mono', monospace",
                       fontSize: '10.5px',
@@ -259,71 +241,93 @@ export function WaitlistDrawer({ isOpen, onClose }: WaitlistDrawerProps) {
                       color: 'rgba(255, 255, 255, 0.45)',
                     }}
                   >
-                    Company &amp; Stage (Optional)
+                    Company / Venture *
                   </label>
                   <input
-                    id="waitlist-company"
+                    id="booking-company"
                     type="text"
-                    placeholder="Acme · Series A / Bootstrapped"
+                    placeholder="e.g. Vanguard Living / Series A D2C"
                     value={formData.company}
                     onChange={(e) => setFormData({ ...formData, company: e.target.value })}
                     style={{
-                      width: '100%',
-                      background: 'rgba(255, 255, 255, 0.04)',
+                      padding: '14px 18px',
+                      background: '#141414',
                       border: '1px solid rgba(255, 255, 255, 0.12)',
-                      borderRadius: '8px',
-                      padding: '16px 18px',
-                      fontSize: '15px',
+                      borderRadius: '4px',
                       color: '#FFFFFF',
+                      fontSize: '15px',
                       outline: 'none',
-                      transition: 'border-color 0.2s, background 0.2s, box-shadow 0.2s',
+                      transition: 'border-color 0.2s',
                     }}
-                    onFocus={(e) => {
-                      e.currentTarget.style.borderColor = '#2D5BE3';
-                      e.currentTarget.style.background = 'rgba(45, 91, 227, 0.05)';
-                      e.currentTarget.style.boxShadow = '0 0 0 3px rgba(45, 91, 227, 0.25)';
-                    }}
-                    onBlur={(e) => {
-                      e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.12)';
-                      e.currentTarget.style.background = 'rgba(255, 255, 255, 0.04)';
-                      e.currentTarget.style.boxShadow = 'none';
-                    }}
+                    onFocus={(e) => (e.target.style.borderColor = '#2D5BE3')}
+                    onBlur={(e) => (e.target.style.borderColor = 'rgba(255, 255, 255, 0.12)')}
                   />
+                </div>
+
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                  <label
+                    htmlFor="booking-focus"
+                    style={{
+                      fontFamily: "'JetBrains Mono', monospace",
+                      fontSize: '10.5px',
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.12em',
+                      color: 'rgba(255, 255, 255, 0.45)',
+                    }}
+                  >
+                    Primary Focus Area
+                  </label>
+                  <select
+                    id="booking-focus"
+                    value={formData.focus}
+                    onChange={(e) => setFormData({ ...formData, focus: e.target.value })}
+                    style={{
+                      padding: '14px 18px',
+                      background: '#141414',
+                      border: '1px solid rgba(255, 255, 255, 0.12)',
+                      borderRadius: '4px',
+                      color: '#FFFFFF',
+                      fontSize: '15px',
+                      outline: 'none',
+                      cursor: 'pointer',
+                    }}
+                  >
+                    <option value="Brand Positioning & GTM">Brand Positioning &amp; GTM</option>
+                    <option value="Real Estate Architecture Sprint">Real Estate Architecture Sprint</option>
+                    <option value="28-Day Identity & Digital System">28-Day Identity &amp; Digital System</option>
+                    <option value="Executive Strategy Retainer">Executive Strategy Retainer</option>
+                  </select>
                 </div>
 
                 <button
                   type="submit"
                   style={{
                     marginTop: '12px',
-                    width: '100%',
-                    padding: '18px 24px',
+                    padding: '16px 28px',
                     background: '#2D5BE3',
                     color: '#FFFFFF',
                     border: 'none',
-                    borderRadius: '8px',
-                    fontSize: '14px',
+                    borderRadius: '4px',
+                    fontSize: '15px',
                     fontWeight: 600,
-                    letterSpacing: '0.04em',
+                    letterSpacing: '0.02em',
                     cursor: 'pointer',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     gap: '10px',
-                    transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
+                    transition: 'all 0.2s ease',
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.background = '#1E47C2';
+                    e.currentTarget.style.background = '#406EF5';
                     e.currentTarget.style.transform = 'translateY(-2px)';
-                    e.currentTarget.style.boxShadow = '0 12px 28px rgba(45, 91, 227, 0.35)';
                   }}
                   onMouseLeave={(e) => {
                     e.currentTarget.style.background = '#2D5BE3';
                     e.currentTarget.style.transform = 'translateY(0)';
-                    e.currentTarget.style.boxShadow = 'none';
                   }}
                 >
-                  <span>Request Priority Access</span>
-                  <span style={{ fontSize: '16px' }}>→</span>
+                  Confirm Appointment Request <span>→</span>
                 </button>
               </form>
             ) : (
@@ -333,61 +337,52 @@ export function WaitlistDrawer({ isOpen, onClose }: WaitlistDrawerProps) {
                 style={{
                   padding: '32px 24px',
                   background: 'rgba(45, 91, 227, 0.12)',
-                  border: '1px solid rgba(45, 91, 227, 0.35)',
-                  borderRadius: '12px',
-                  color: '#FFFFFF',
-                  marginTop: '12px',
+                  border: '1px solid #2D5BE3',
+                  borderRadius: '6px',
                   textAlign: 'center',
+                  marginTop: '20px',
                 }}
               >
-                <div
+                <div style={{ fontSize: '32px', marginBottom: '12px' }}>✓</div>
+                <h3 style={{ fontSize: '20px', fontWeight: 600, color: '#FFFFFF', margin: '0 0 8px 0' }}>
+                  Appointment Requested
+                </h3>
+                <p style={{ fontSize: '14px', color: 'rgba(245, 245, 243, 0.8)', lineHeight: 1.5, margin: '0 0 20px 0' }}>
+                  Thank you, {formData.name}. Our partners will review your requirements and send a calendar invitation to {formData.email} within 24 hours.
+                </p>
+                <button
+                  type="button"
+                  onClick={onClose}
                   style={{
-                    width: '48px',
-                    height: '48px',
-                    borderRadius: '50%',
-                    background: '#2D5BE3',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    margin: '0 auto 16px',
-                    fontSize: '20px',
+                    padding: '10px 24px',
+                    background: '#FFFFFF',
+                    color: '#0D0D0D',
+                    border: 'none',
+                    borderRadius: '4px',
+                    fontSize: '13px',
+                    fontWeight: 600,
+                    cursor: 'pointer',
                   }}
                 >
-                  ✓
-                </div>
-                <h3 style={{ fontSize: '20px', fontWeight: 600, margin: '0 0 8px 0' }}>You&apos;re on the priority list</h3>
-                <p style={{ fontSize: '14px', color: 'rgba(245, 245, 243, 0.75)', lineHeight: 1.55, margin: 0 }}>
-                  We review incoming founder applications every Tuesday and Friday. We&apos;ll be in touch with private sprint availability.
-                </p>
+                  Close Window
+                </button>
               </motion.div>
             )}
 
-            {/* Studio Trust & Confidentiality Footprint */}
+            {/* Bottom Security / Direct SLA Badge */}
             <div
               style={{
                 marginTop: 'auto',
                 paddingTop: '32px',
                 borderTop: '1px solid rgba(255, 255, 255, 0.08)',
                 display: 'flex',
-                flexDirection: 'column',
+                alignItems: 'center',
                 gap: '12px',
               }}
             >
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'rgba(255, 255, 255, 0.5)', fontSize: '12.5px' }}>
-                <span style={{ color: '#2D5BE3' }}>🔒</span>
-                <span>Strict Confidentiality · NDA on Request</span>
-              </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '12.5px', color: 'rgba(255, 255, 255, 0.4)' }}>
-                <span>Direct Studio Line:</span>
-                <a
-                  href="mailto:hello@taksh.in"
-                  style={{ color: '#93C5FD', textDecoration: 'none', fontWeight: 500 }}
-                  onMouseEnter={(e) => (e.currentTarget.style.textDecoration = 'underline')}
-                  onMouseLeave={(e) => (e.currentTarget.style.textDecoration = 'none')}
-                >
-                  hello@taksh.in ↗
-                </a>
-              </div>
+              <span style={{ fontSize: '12px', fontFamily: "'JetBrains Mono', monospace", color: 'rgba(255, 255, 255, 0.45)' }}>
+                CONFIDENTIAL · 24-HR SLA · STRICT BILATERAL NDA
+              </span>
             </div>
           </motion.aside>
         </>

@@ -164,25 +164,20 @@ export function HeroSection({ onOpenWaitlist }: { onOpenWaitlist?: () => void })
               Taksh is a strategy &amp; marketing studio for growth-stage businesses — built to help brands think sharper, move faster, and grow with intent.
             </p>
             <div className="hero__cta">
-              <MagnetButton strength={10}>
-                <a className="btn btn--primary" href="#contact">
-                  Start a project <span className="arrow">→</span>
-                </a>
-              </MagnetButton>
-
               <MagnetButton strength={8}>
-                <a className="btn btn--ghost" href="#services">
-                  See the work
+                <a className="btn btn--primary" href="#testimonials">
+                  See the work &amp; testimonials <span className="arrow">↓</span>
                 </a>
               </MagnetButton>
 
               <MagnetButton strength={8}>
                 <button
                   type="button"
-                  className="btn-waitlist"
+                  className="btn btn--ghost"
                   onClick={onOpenWaitlist}
+                  style={{ cursor: 'pointer' }}
                 >
-                  Join Waitlist
+                  Schedule a call <span className="arrow">→</span>
                 </button>
               </MagnetButton>
             </div>
