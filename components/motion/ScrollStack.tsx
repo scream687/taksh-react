@@ -41,12 +41,12 @@ const InternalCardWrapper: React.FC<InternalCardWrapperProps> = ({
 }) => {
   const cardRef = useRef<HTMLDivElement>(null);
 
-  // Calculate entry and stacking thresholds
+  // Calculate the active scroll range for this card in the stack
   const step = 1 / total;
   const start = index * step;
   const end = Math.min(1, (index + 1) * step);
 
-  // GPU scale down as newer cards stack on top
+  // Progressive scale down as newer cards stack on top
   const targetScale = baseScale + index * itemScale;
   const scale = useTransform(
     containerProgress,
@@ -75,9 +75,9 @@ const InternalCardWrapper: React.FC<InternalCardWrapperProps> = ({
       className="scroll-stack-sticky-pin"
       style={{
         position: 'sticky',
-        top: `calc(${topOffset}px + ${index * 22}px)`,
+        top: `calc(${topOffset}px + ${index * 24}px)`,
         zIndex: index + 1,
-        marginBottom: index === total - 1 ? 0 : '72px',
+        marginBottom: index === total - 1 ? '40px' : '45vh',
         width: '100%',
       }}
     >
@@ -101,21 +101,17 @@ const InternalCardWrapper: React.FC<InternalCardWrapperProps> = ({
 export interface ScrollStackProps {
   children: React.ReactNode;
   className?: string;
-  itemDistance?: number;
   itemScale?: number;
-  itemStackDistance?: number;
-  stackPosition?: string | number;
   baseScale?: number;
   rotationAmount?: number;
   blurAmount?: number;
-  useWindowScroll?: boolean;
 }
 
 export const ScrollStack: React.FC<ScrollStackProps> = ({
   children,
   className = '',
   itemScale = 0.03,
-  baseScale = 0.9,
+  baseScale = 0.88,
   rotationAmount = 0.8,
   blurAmount = 2.5,
 }) => {
@@ -135,7 +131,7 @@ export const ScrollStack: React.FC<ScrollStackProps> = ({
       style={{
         position: 'relative',
         width: '100%',
-        paddingBottom: '80px',
+        paddingBottom: '60px',
       }}
     >
       <div className="scroll-stack-inner" style={{ position: 'relative', width: '100%' }}>
@@ -151,7 +147,7 @@ export const ScrollStack: React.FC<ScrollStackProps> = ({
               blurAmount={blurAmount}
               itemScale={itemScale}
               baseScale={baseScale}
-              topOffset={100}
+              topOffset={110}
               containerProgress={scrollYProgress}
             >
               {child}
