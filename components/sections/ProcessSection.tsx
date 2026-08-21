@@ -10,82 +10,144 @@ export const SPRINT_PHASES = [
     week: 'WEEK 01 · DIAGNOSTICS',
     name: 'Interrogate & Diagnose',
     thesis: 'Extracting unvarnished commercial truth.',
-    tag: 'Tension Matrix',
-    theme: 'card-theme-01',
-    iconType: 'diagnostics',
+    tag: 'Tension Matrix & Diagnostic Dossier',
+    visualType: 'diagnostics',
   },
   {
     num: '02',
     week: 'WEEK 02 · POSITIONING',
     name: 'Carve & Articulate',
     thesis: 'The single sentence holding strategy together.',
-    tag: 'Category Doctrine',
-    theme: 'card-theme-02',
-    iconType: 'positioning',
+    tag: 'Category Doctrine & Narrative Framework',
+    visualType: 'positioning',
   },
   {
     num: '03',
     week: 'WEEK 03 · IDENTITY SYSTEM',
     name: 'Shape & Systemize',
     thesis: 'A living design language for instant category authority.',
-    tag: 'Tokenized Identity',
-    theme: 'card-theme-03',
-    iconType: 'identity',
+    tag: 'Tokenized Identity & Production System',
+    visualType: 'identity',
   },
   {
     num: '04',
     week: 'WEEK 04 · EXECUTION',
     name: 'Ship & Calibrate',
     thesis: 'Production handover with zero ambiguity and 90-day momentum.',
-    tag: 'GTM War-Chest',
-    theme: 'card-theme-04',
-    iconType: 'execution',
+    tag: 'GTM War-Chest & 90-Day Execution Kit',
+    visualType: 'execution',
   },
 ];
 
-function RenderCardIcon({ type }: { type: string }) {
+function RenderCardVisual({ type }: { type: string }) {
   if (type === 'diagnostics') {
     return (
-      <div className="proc-ref__icon-frame">
-        <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-          <rect x="3" y="3" width="18" height="18" rx="4" />
-          <line x1="7" y1="8" x2="17" y2="8" />
-          <line x1="7" y1="12" x2="15" y2="12" />
-          <line x1="7" y1="16" x2="12" y2="16" />
-        </svg>
+      <div className="proc-studio__card-visual">
+        <div className="proc-studio__vis-top">
+          <span className="proc-studio__vis-tag">DIAGNOSTIC DOSSIER</span>
+          <span className="proc-studio__vis-live">
+            <span className="proc-studio__pulse-dot" />
+            LIVE
+          </span>
+        </div>
+        <div className="proc-studio__metrics">
+          <div className="proc-studio__metric-row">
+            <span className="proc-studio__metric-label">Founder Tension</span>
+            <span className="proc-studio__metric-val">100% Isolated</span>
+          </div>
+          <div className="proc-studio__metric-row">
+            <span className="proc-studio__metric-label">Churn Blindspot</span>
+            <span className="proc-studio__metric-val">Decoded</span>
+          </div>
+          <div className="proc-studio__metric-row">
+            <span className="proc-studio__metric-label">Category Failure</span>
+            <span className="proc-studio__metric-val">Audited</span>
+          </div>
+        </div>
       </div>
     );
   }
+
   if (type === 'positioning') {
     return (
-      <div className="proc-ref__icon-frame">
-        <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-          <circle cx="12" cy="12" r="10" />
-          <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" />
-        </svg>
+      <div className="proc-studio__card-visual">
+        <div className="proc-studio__vis-top">
+          <span className="proc-studio__vis-tag">CATEGORY DOCTRINE</span>
+          <span className="proc-studio__vis-live">
+            <span className="proc-studio__pulse-dot" />
+            VALIDATED
+          </span>
+        </div>
+        <div className="proc-studio__metrics">
+          <div className="proc-studio__metric-row">
+            <span className="proc-studio__metric-label">Singular POV</span>
+            <span className="proc-studio__metric-val">Defensible</span>
+          </div>
+          <div className="proc-studio__metric-row">
+            <span className="proc-studio__metric-label">Competitor Moat</span>
+            <span className="proc-studio__metric-val">Established</span>
+          </div>
+          <div className="proc-studio__metric-row">
+            <span className="proc-studio__metric-label">Commercial Thesis</span>
+            <span className="proc-studio__metric-val">Aligned</span>
+          </div>
+        </div>
       </div>
     );
   }
+
   if (type === 'identity') {
     return (
-      <div className="proc-ref__icon-frame">
-        <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-          <rect x="3" y="3" width="7" height="7" rx="2" />
-          <rect x="14" y="3" width="7" height="7" rx="2" />
-          <rect x="14" y="14" width="7" height="7" rx="2" />
-          <rect x="3" y="14" width="7" height="7" rx="2" />
-        </svg>
+      <div className="proc-studio__card-visual">
+        <div className="proc-studio__vis-top">
+          <span className="proc-studio__vis-tag">SYSTEM TOKENS</span>
+          <span className="proc-studio__vis-live">
+            <span className="proc-studio__pulse-dot" />
+            PRODUCTION
+          </span>
+        </div>
+        <div className="proc-studio__swatches">
+          <div className="proc-studio__swatch" style={{ background: '#2D5BE3' }}>
+            <span>Cobalt</span>
+          </div>
+          <div className="proc-studio__swatch" style={{ background: '#1A1A1A' }}>
+            <span>Ink</span>
+          </div>
+          <div className="proc-studio__swatch" style={{ background: '#E0DDD6', color: '#1A1A1A' }}>
+            <span>Border</span>
+          </div>
+        </div>
+        <div className="proc-studio__metric-row" style={{ marginTop: '8px' }}>
+          <span className="proc-studio__metric-label">Type System</span>
+          <span className="proc-studio__metric-val">Instrument & Inter</span>
+        </div>
       </div>
     );
   }
+
   return (
-    <div className="proc-ref__icon-frame">
-      <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z" />
-        <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z" />
-        <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0" />
-        <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5" />
-      </svg>
+    <div className="proc-studio__card-visual">
+      <div className="proc-studio__vis-top">
+        <span className="proc-studio__vis-tag">GTM WAR-CHEST</span>
+        <span className="proc-studio__vis-live" style={{ color: '#10B981' }}>
+          <span className="proc-studio__pulse-dot" style={{ background: '#10B981', boxShadow: '0 0 8px #10B981' }} />
+          READY
+        </span>
+      </div>
+      <div className="proc-studio__metrics">
+        <div className="proc-studio__metric-row">
+          <span className="proc-studio__metric-label">Figma System</span>
+          <span className="proc-studio__metric-val">Handed Over ↗</span>
+        </div>
+        <div className="proc-studio__metric-row">
+          <span className="proc-studio__metric-label">Sprint Timeline</span>
+          <span className="proc-studio__metric-val">Fixed 28 Days</span>
+        </div>
+        <div className="proc-studio__metric-row">
+          <span className="proc-studio__metric-label">GTM Execution</span>
+          <span className="proc-studio__metric-val">90-Day Trajectory</span>
+        </div>
+      </div>
     </div>
   );
 }
@@ -120,11 +182,11 @@ export function ProcessSection() {
           </p>
         </motion.div>
 
-        {/* Reference-Styled ScrollStack */}
+        {/* Studio-Grade ScrollStack */}
         <div style={{ marginTop: '48px', marginBottom: '32px' }}>
           <ScrollStack>
             {SPRINT_PHASES.map((phase) => (
-              <ScrollStackItem key={phase.num} itemClassName={`proc-ref-card ${phase.theme}`}>
+              <ScrollStackItem key={phase.num} itemClassName="proc-ref-card">
                 <div className="proc-ref__inner">
                   {/* Left Column: Bold Typography & Minimal Subtitle */}
                   <div className="proc-ref__text-side">
@@ -145,9 +207,9 @@ export function ProcessSection() {
                     </div>
                   </div>
 
-                  {/* Right Column: Large Minimal Icon Frame */}
-                  <div className="proc-ref__icon-side">
-                    <RenderCardIcon type={phase.iconType} />
+                  {/* Right Column: Studio Deliverable Specimen */}
+                  <div className="proc-ref__visual-side">
+                    <RenderCardVisual type={phase.visualType} />
                   </div>
                 </div>
               </ScrollStackItem>

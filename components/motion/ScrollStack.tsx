@@ -40,8 +40,8 @@ const PinnedCard: React.FC<PinnedCardProps> = ({
   const enterEnd = isFirst ? 0 : 0.12 + index * 0.24;
 
   const subsequentCards = total - index - 1;
-  const targetY = -(subsequentCards * 18);
-  const targetScale = Math.max(0.86, 1 - subsequentCards * 0.045);
+  const targetY = -(subsequentCards * 16);
+  const targetScale = Math.max(0.88, 1 - subsequentCards * 0.04);
 
   const y = useTransform(
     progress,
@@ -50,7 +50,7 @@ const PinnedCard: React.FC<PinnedCardProps> = ({
       : [0, enterStart, enterEnd, 0.84, 1],
     isFirst
       ? [0, 0, targetY, targetY]
-      : [750, 750, 0, targetY, targetY]
+      : [700, 700, 0, targetY, targetY]
   );
 
   const scale = useTransform(
@@ -113,16 +113,16 @@ export const ScrollStack: React.FC<ScrollStackProps> = ({
         height: `${total * 70}vh`,
       }}
     >
-      {/* Centered Pinned Stage positioned in the middle of the viewport */}
+      {/* Pinned Stage that locks below header at top: 105px and stacks cards */}
       <div
         className="scroll-stack-stage"
         style={{
           position: 'sticky',
-          top: 'clamp(140px, 18vh, 220px)',
+          top: 'clamp(95px, 12vh, 115px)',
           width: '100%',
           maxWidth: '1080px',
           margin: '0 auto',
-          minHeight: '480px',
+          minHeight: '440px',
         }}
       >
         {cards.map((child, index) => (
