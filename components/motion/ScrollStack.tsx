@@ -16,85 +16,82 @@ export const ScrollStackItem: React.FC<ScrollStackItemProps> = ({
   <div className={`scroll-stack-card-inner ${itemClassName}`.trim()}>{children}</div>
 );
 
-interface InternalCardWrapperProps {
+interface PinnedCardProps {
   index: number;
   total: number;
   rotation: number;
   blurAmount: number;
-  itemScale: number;
-  baseScale: number;
-  topOffset: number;
-  containerProgress: MotionValue<number>;
+  progress: MotionValue<number>;
   children: React.ReactNode;
 }
 
-const InternalCardWrapper: React.FC<InternalCardWrapperProps> = ({
+const PinnedCard: React.FC<PinnedCardProps> = ({
   index,
   total,
   rotation,
   blurAmount,
-  itemScale,
-  baseScale,
-  topOffset,
-  containerProgress,
+  progress,
   children,
 }) => {
-  const cardRef = useRef<HTMLDivElement>(null);
+  const isFirst = index === 0;
 
-  // Calculate the active scroll range for this card in the stack
-  const step = 1 / total;
-  const start = index * step;
-  const end = Math.min(1, (index + 1) * step);
+  // Segment thresholds for 4 cards:
+  // Card 0: initially visible (0.0), scales down starting at 0.20
+  // Card 1: enters 0.20 -> 0.45, lands at y = 24px
+  // Card 2: enters 0.45 -> 0.70, lands at y = 48px
+  // Card 3: enters 0.70 -> 0.95, lands at y = 72px
+  const enterStart = isFirst ? 0 : 0.2 + (index - 1) * 0.25;
+  const enterEnd = isFirst ? 0 : 0.2 + index * 0.25;
 
-  // Progressive scale down as newer cards stack on top
-  const targetScale = baseScale + index * itemScale;
+  const finalY = index * 24;
+  const y = useTransform(
+    progress,
+    [0, enterStart, enterEnd, 1],
+    isFirst ? [0, 0, 0, 0] : [650, 650, finalY, finalY]
+  );
+
+  const opacity = useTransform(
+    progress,
+    [0, enterStart, enterStart + 0.06, 1],
+    isFirst ? [1, 1, 1, 1] : [0, 0, 1, 1]
+  );
+
+  const scaleEnd = 0.88 + index * 0.03;
   const scale = useTransform(
-    containerProgress,
-    [start, end, 1],
-    [1, targetScale, targetScale]
+    progress,
+    [enterEnd, 0.95],
+    [1, index === total - 1 ? 1 : scaleEnd]
   );
 
-  // Progressive depth blur when covered
-  const blurValue = useTransform(
-    containerProgress,
-    [start, end, 1],
-    [0, index === total - 1 ? 0 : blurAmount, index === total - 1 ? 0 : blurAmount]
+  const blurVal = useTransform(
+    progress,
+    [enterEnd, 0.95],
+    [0, index === total - 1 ? 0 : blurAmount]
   );
-  const filter = useTransform(blurValue, (v) => (v > 0.1 ? `blur(${v.toFixed(1)}px)` : 'none'));
-
-  // Gentle brightness falloff for authentic depth
-  const brightness = useTransform(
-    containerProgress,
-    [start, end, 1],
-    [1, index === total - 1 ? 1 : 0.92, index === total - 1 ? 1 : 0.92]
-  );
+  const filter = useTransform(blurVal, (v) => (v > 0.2 ? `blur(${v.toFixed(1)}px)` : 'none'));
 
   return (
-    <div
-      ref={cardRef}
-      className="scroll-stack-sticky-pin"
+    <motion.div
+      className="scroll-stack-stage-card"
       style={{
-        position: 'sticky',
-        top: `calc(${topOffset}px + ${index * 24}px)`,
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
         zIndex: index + 1,
-        marginBottom: index === total - 1 ? '40px' : '45vh',
-        width: '100%',
+        y,
+        scale,
+        opacity,
+        filter,
+        rotate: `${rotation}deg`,
+        transformOrigin: 'top center',
+        willChange: 'transform, opacity, filter',
       }}
     >
-      <motion.div
-        className="scroll-stack-card"
-        style={{
-          scale,
-          filter,
-          opacity: brightness,
-          rotate: `${rotation}deg`,
-          transformOrigin: 'top center',
-          willChange: 'transform, filter',
-        }}
-      >
+      <div className="scroll-stack-card">
         {children}
-      </motion.div>
-    </div>
+      </div>
+    </motion.div>
   );
 };
 
@@ -113,7 +110,7 @@ export const ScrollStack: React.FC<ScrollStackProps> = ({
   itemScale = 0.03,
   baseScale = 0.88,
   rotationAmount = 0.8,
-  blurAmount = 2.5,
+  blurAmount = 2.0,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
@@ -127,31 +124,38 @@ export const ScrollStack: React.FC<ScrollStackProps> = ({
   return (
     <div
       ref={containerRef}
-      className={`scroll-stack-scroller ${className}`.trim()}
+      className={`scroll-stack-track ${className}`.trim()}
       style={{
         position: 'relative',
         width: '100%',
-        paddingBottom: '60px',
+        height: `${Math.max(260, total * 75)}vh`,
       }}
     >
-      <div className="scroll-stack-inner" style={{ position: 'relative', width: '100%' }}>
+      {/* Pinned Stage that stays locked in viewport while user scrolls the track */}
+      <div
+        className="scroll-stack-stage"
+        style={{
+          position: 'sticky',
+          top: '110px',
+          width: '100%',
+          minHeight: '480px',
+          perspective: '1200px',
+        }}
+      >
         {cards.map((child, index) => {
           const rotSign = index % 2 === 0 ? -1 : 1;
           const rotation = rotationAmount ? rotSign * rotationAmount * (1 + index * 0.25) : 0;
           return (
-            <InternalCardWrapper
+            <PinnedCard
               key={index}
               index={index}
               total={total}
               rotation={rotation}
               blurAmount={blurAmount}
-              itemScale={itemScale}
-              baseScale={baseScale}
-              topOffset={110}
-              containerProgress={scrollYProgress}
+              progress={scrollYProgress}
             >
               {child}
-            </InternalCardWrapper>
+            </PinnedCard>
           );
         })}
       </div>

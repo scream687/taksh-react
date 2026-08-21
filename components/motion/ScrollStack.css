@@ -1,16 +1,18 @@
-/* ── React Bits ScrollStack — Precision Hardware Stack ───── */
+/* ── React Bits ScrollStack — Absolute Stage Pinning ───── */
 
-.scroll-stack-scroller {
+.scroll-stack-track {
   position: relative;
   width: 100%;
 }
 
-.scroll-stack-inner {
-  position: relative;
+.scroll-stack-stage {
+  position: sticky;
+  top: 110px;
   width: 100%;
+  min-height: 440px;
 }
 
-.scroll-stack-sticky-pin {
+.scroll-stack-stage-card {
   width: 100%;
 }
 

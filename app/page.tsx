@@ -79,7 +79,7 @@ export default function Home() {
 
       {/* Page Content Layout with Smooth Scroll */}
       <SmoothScroll>
-        <main id="main-content" className="overflow-x-hidden w-full max-w-full">
+        <main id="main-content" className="overflow-x-clip w-full max-w-full">
           <HeroSection onOpenWaitlist={() => setIsWaitlistOpen(true)} />
           <StatsStrip />
           <PainPointsSection />

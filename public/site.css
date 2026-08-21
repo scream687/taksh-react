@@ -57,7 +57,7 @@ body {
 }
 
 body {
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 /* Subtle noise texture overlay */
