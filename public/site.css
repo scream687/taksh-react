@@ -411,8 +411,11 @@ p {
 }
 
 .hero__title em {
+  font-family: 'Instrument Serif', Georgia, serif;
   font-style: italic;
   font-weight: 400;
+  letter-spacing: -0.015em;
+  display: inline;
 }
 
 .hero__bottom {
