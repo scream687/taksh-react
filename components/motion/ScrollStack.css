@@ -1,4 +1,4 @@
-/* ── React Bits ScrollStack — Absolute Stage Pinning ───── */
+/* ── React Bits ScrollStack — Precision Opaque Stage Pinning ───── */
 
 .scroll-stack-track {
   position: relative;
@@ -7,9 +7,9 @@
 
 .scroll-stack-stage {
   position: sticky;
-  top: 110px;
+  top: clamp(90px, 12vh, 120px);
   width: 100%;
-  min-height: 440px;
+  min-height: 420px;
 }
 
 .scroll-stack-stage-card {
@@ -19,18 +19,24 @@
 .scroll-stack-card {
   position: relative;
   width: 100%;
-  background: var(--white, #FFFFFF);
+  background: #FFFFFF !important;
   border: 1px solid var(--border, #E0DDD6);
-  border-radius: 16px;
-  box-shadow: 0 24px 60px -15px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(0, 0, 0, 0.03);
+  border-radius: 20px;
+  box-shadow: 0 28px 70px -15px rgba(0, 0, 0, 0.09), 0 0 0 1px rgba(0, 0, 0, 0.03);
   box-sizing: border-box;
   overflow: hidden;
   transition: box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
+:root[data-theme='dark'] .scroll-stack-card {
+  background: #141414 !important;
+  border-color: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 28px 70px -15px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.05);
+}
+
 .scroll-stack-card:hover {
   border-color: var(--blue, #2D5BE3);
-  box-shadow: 0 32px 72px -12px rgba(45, 91, 227, 0.12), 0 0 0 1px var(--blue, #2D5BE3);
+  box-shadow: 0 32px 72px -12px rgba(45, 91, 227, 0.14), 0 0 0 1px var(--blue, #2D5BE3);
 }
 
 .scroll-stack-card-inner {
@@ -40,13 +46,14 @@
 
 /* ── Process Card Content Architecture ── */
 .proc-stack__card-content {
-  padding: clamp(32px, 4.2vw, 54px);
+  padding: clamp(28px, 3.8vw, 48px);
   display: flex;
   flex-direction: column;
-  gap: 28px;
-  min-height: 340px;
+  gap: 22px;
+  min-height: 320px;
   position: relative;
   overflow: hidden;
+  background: transparent;
 }
 
 .proc-stack__card-content::before {
@@ -64,7 +71,11 @@
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid var(--border, #E0DDD6);
-  padding-bottom: 18px;
+  padding-bottom: 16px;
+}
+
+:root[data-theme='dark'] .proc-stack__card-top {
+  border-bottom-color: rgba(255, 255, 255, 0.08);
 }
 
 .proc-stack__num-badge {
@@ -75,7 +86,7 @@
 
 .proc-stack__num {
   font-family: 'Instrument Serif', Georgia, serif;
-  font-size: clamp(38px, 4.5vw, 54px);
+  font-size: clamp(34px, 4vw, 48px);
   font-style: italic;
   line-height: 0.9;
   color: var(--blue, #2D5BE3);
@@ -83,7 +94,7 @@
 
 .proc-stack__week {
   font-family: 'JetBrains Mono', monospace, sans-serif;
-  font-size: 11px;
+  font-size: 10.5px;
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -110,19 +121,19 @@
 
 .proc-stack__content {
   display: grid;
-  grid-template-columns: 1fr minmax(240px, 320px);
-  gap: clamp(24px, 4vw, 56px);
-  align-items: flex-start;
+  grid-template-columns: 1fr minmax(220px, 280px);
+  gap: clamp(20px, 3.5vw, 48px);
+  align-items: center;
 }
 
 .proc-stack__main-col {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
 }
 
 .proc-stack__title {
-  font-size: clamp(26px, 3vw, 38px);
+  font-size: clamp(24px, 2.8vw, 34px);
   font-weight: 600;
   letter-spacing: -0.025em;
   color: var(--ink, #1A1A1A);
@@ -130,21 +141,47 @@
   line-height: 1.15;
 }
 
+:root[data-theme='dark'] .proc-stack__title {
+  color: #FFFFFF;
+}
+
 .proc-stack__thesis {
   font-family: 'Instrument Serif', Georgia, serif;
   font-style: italic;
-  font-size: clamp(18px, 1.8vw, 24px);
+  font-size: clamp(17px, 1.6vw, 22px);
   color: var(--blue, #2D5BE3);
   line-height: 1.35;
   margin: 0;
   letter-spacing: -0.01em;
 }
 
-.proc-stack__body {
-  font-size: 15px;
+/* Minimalist Bullet Points */
+.proc-stack__points {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 6px 0 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.proc-stack__point {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
   color: var(--muted, #6E6E6E);
-  line-height: 1.65;
-  margin: 4px 0 0 0;
+  line-height: 1.4;
+}
+
+:root[data-theme='dark'] .proc-stack__point {
+  color: rgba(245, 245, 243, 0.7);
+}
+
+.proc-stack__point-bullet {
+  color: var(--blue, #2D5BE3);
+  font-size: 11px;
 }
 
 .proc-stack__artifact-col {
@@ -155,17 +192,22 @@
 .proc-stack__artifact-box {
   background: var(--paper, #F5F5F3);
   border: 1px solid var(--border, #E0DDD6);
-  border-radius: 10px;
-  padding: 22px 24px;
+  border-radius: 12px;
+  padding: 20px 22px;
   display: flex;
   flex-direction: column;
   gap: 6px;
   width: 100%;
 }
 
+:root[data-theme='dark'] .proc-stack__artifact-box {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
 .proc-stack__artifact-label {
   font-family: 'JetBrains Mono', monospace, sans-serif;
-  font-size: 9.5px;
+  font-size: 9px;
   font-weight: 600;
   letter-spacing: 0.15em;
   text-transform: uppercase;
@@ -173,10 +215,14 @@
 }
 
 .proc-stack__artifact-title {
-  font-size: 14px;
+  font-size: 14.5px;
   font-weight: 600;
   color: var(--ink, #1A1A1A);
   line-height: 1.3;
+}
+
+:root[data-theme='dark'] .proc-stack__artifact-title {
+  color: #FFFFFF;
 }
 
 .proc-stack__artifact-format {
@@ -188,13 +234,13 @@
 .proc-stack__footer {
   display: flex;
   justify-content: center;
-  margin-top: 48px;
+  margin-top: 40px;
 }
 
 @media (max-width: 1024px) {
   .proc-stack__content {
     grid-template-columns: 1fr;
-    gap: 24px;
+    gap: 20px;
   }
 
   .proc-stack__artifact-col {
@@ -202,13 +248,13 @@
   }
 
   .proc-stack__artifact-box {
-    max-width: 360px;
+    max-width: 340px;
   }
 }
 
 @media (max-width: 640px) {
   .proc-stack__card-content {
-    padding: 24px 20px;
-    gap: 20px;
+    padding: 22px 18px;
+    gap: 16px;
   }
 }

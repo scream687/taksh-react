@@ -7,42 +7,54 @@ import ScrollStack, { ScrollStackItem } from '@/components/motion/ScrollStack';
 export const SPRINT_PHASES = [
   {
     num: '01',
-    phase: 'PHASE 01',
     week: 'WEEK 01 · DIAGNOSTICS',
     name: 'Interrogate & Diagnose',
-    thesis: 'We extract the unvarnished truth before writing a single word of positioning.',
-    body: 'Most agency briefs are polite fictions. We bypass the marketing assumptions and go straight to the tension: 1-on-1 interviews with your founders, churn analysis, sales-call teardowns, and deep competitive scanning to locate where category messages currently fail.',
-    artifact: 'The Tension Matrix & Founder Thesis',
+    thesis: 'Uncovering the tension before writing a single word.',
+    points: [
+      '1-on-1 Founder & Customer Deep-Dives',
+      'Competitor Blindspot & Churn Teardowns',
+      'Category Failure Vector Analysis',
+    ],
+    artifact: 'The Tension Matrix',
     format: '30-Page Analytical Dossier',
   },
   {
     num: '02',
-    phase: 'PHASE 02',
     week: 'WEEK 02 · POSITIONING',
     name: 'Carve & Articulate',
-    thesis: 'The single sentence that holds your entire commercial strategy together.',
-    body: 'We strip away category jargon and build your core narrative pillars. Who are you exclusively built for? What category orthodoxy do you reject? Why is choosing your competitor an active compromise? We establish the sharp commercial conviction that makes every next hire and product decision obvious.',
-    artifact: 'Category Doctrine & Messaging Pillars',
+    thesis: 'The single sentence that defends your entire category.',
+    points: [
+      'Singular Category Point of View',
+      'Defensible Messaging Architecture',
+      'Anti-Orthodoxy Category Manifesto',
+    ],
+    artifact: 'Category Doctrine',
     format: 'Core Narrative Framework',
   },
   {
     num: '03',
-    phase: 'PHASE 03',
     week: 'WEEK 03 · IDENTITY SYSTEM',
     name: 'Shape & Systemize',
-    thesis: 'A living design language engineered for instant category recognition.',
-    body: 'Strategy without visual authority is invisible. We translate the narrative into a production identity system: bespoke typographic scale, calibrated color tokens, layout geometry, and high-impact digital collateral designed to stand out against monochromatic competitors.',
-    artifact: 'Tokenized Identity & Design Tokens',
-    format: 'Production Figma & Asset Library',
+    thesis: 'A living design language engineered for instant recognition.',
+    points: [
+      'Bespoke Typographic & Layout Scale',
+      'Calibrated Color & Token Architecture',
+      'Digital Collateral & Visual Standards',
+    ],
+    artifact: 'Tokenized Identity',
+    format: 'Production Asset Library',
   },
   {
     num: '04',
-    phase: 'PHASE 04',
     week: 'WEEK 04 · EXECUTION',
     name: 'Ship & Calibrate',
-    thesis: 'Handover with zero ambiguity and 90 days of commercial momentum.',
-    body: 'We do not deliver decks that gather dust. We build live marketing assets, walk through every asset with your executive and engineering teams, calibrate initial market feedback, and provide a 90-day roadmap so the team executes with relentless clarity.',
-    artifact: 'GTM War-Chest & 90-Day Execution Plan',
+    thesis: 'Handover with zero ambiguity and immediate commercial momentum.',
+    points: [
+      'Production-Ready Launch Kit',
+      'Executive & Team Delivery Walkthrough',
+      '90-Day Go-to-Market Execution Plan',
+    ],
+    artifact: 'GTM War-Chest',
     format: 'Market-Ready Launch Kit',
   },
 ];
@@ -80,10 +92,10 @@ export function ProcessSection() {
         {/* Precision Hardware ScrollStack */}
         <div style={{ marginTop: '48px', marginBottom: '40px' }}>
           <ScrollStack
-            itemScale={0.03}
-            baseScale={0.88}
-            rotationAmount={0.8}
-            blurAmount={2.5}
+            itemScale={0.02}
+            baseScale={0.92}
+            rotationAmount={0.6}
+            blurAmount={1.5}
           >
             {SPRINT_PHASES.map((phase) => (
               <ScrollStackItem key={phase.num} itemClassName="proc-stack-item">
@@ -100,14 +112,23 @@ export function ProcessSection() {
                     </div>
                   </div>
 
-                  {/* Center Content: Headline & Thesis */}
+                  {/* Center Content: Headline, Thesis & 3 Bullet Deliverables */}
                   <div className="proc-stack__content">
                     <div className="proc-stack__main-col">
                       <h3 className="proc-stack__title">{phase.name}</h3>
-                      <blockquote className="proc-stack__thesis">
+                      <p className="proc-stack__thesis">
                         &ldquo;{phase.thesis}&rdquo;
-                      </blockquote>
-                      <p className="proc-stack__body">{phase.body}</p>
+                      </p>
+
+                      {/* 3 Ultra-Clean Key Deliverables */}
+                      <ul className="proc-stack__points">
+                        {phase.points.map((point, i) => (
+                          <li key={i} className="proc-stack__point">
+                            <span className="proc-stack__point-bullet">✦</span>
+                            <span>{point}</span>
+                          </li>
+                        ))}
+                      </ul>
                     </div>
 
                     {/* Right Artifact Capsule */}
