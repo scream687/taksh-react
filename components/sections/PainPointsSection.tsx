@@ -65,7 +65,7 @@ export function PainPointsSection() {
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
         >
-          <span className="label label--paper">Sound familiar? · 02</span>
+          <span className="label label--paper">Sound familiar? · 01</span>
           <h2 className="section__title" style={{ color: '#F5F5F3' }}>
             The problem isn&apos;t
             <br />
@@ -167,7 +167,7 @@ export function PainPointsSection() {
         <div className="tension-footer">
           <div className="proc-mono__footer-pill" style={{ background: '#141414', borderColor: 'var(--border-dark)', color: 'var(--on-dark)' }}>
             <span className="proc-mono__footer-dot" />
-            <span>SOLVED IN A FIXED 28-DAY POSITIONING SPRINT · NO RETAINERS · DIRECT FOUNDER DELIVERY</span>
+            <span>EVERY BOTTLENECK ABOVE IS DIAGNOSED INSIDE ONE FIXED 28-DAY SPRINT</span>
           </div>
         </div>
       </div>

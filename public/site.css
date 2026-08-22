@@ -386,9 +386,9 @@ p {
   overflow: hidden;
   pointer-events: none;
   z-index: -2;
-  background: linear-gradient(135deg, var(--paper), var(--white), var(--blue-light), var(--paper));
-  background-size: 400% 400%;
-  animation: ambientTheme 20s ease infinite;
+  /* Static. A perpetually animating full-viewport gradient is atmosphere
+     without information, and it composites on every frame for the whole session. */
+  background: linear-gradient(135deg, var(--paper) 0%, var(--white) 40%, var(--blue-light) 70%, var(--paper) 100%);
 }
 
 @keyframes ambientTheme {
@@ -493,7 +493,8 @@ p {
   transition: transform .25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.nav__links a:hover::after,
+/* Hover is the injected SVG squiggle (effects.css); this hairline is reserved
+   for the active section so the two states stay distinguishable. */
 .nav__links a.is-active::after {
   transform: scaleX(1);
 }

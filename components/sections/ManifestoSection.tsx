@@ -54,7 +54,7 @@ export function ManifestoSection() {
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
         >
-          <span className="label label--paper">Manifesto · 06</span>
+          <span className="label label--paper">Manifesto · 02</span>
           <h2 className="section__title">
             The brand is not a veneer.
             <br />
@@ -103,7 +103,7 @@ export function ManifestoSection() {
         <div className="manifesto-footer">
           <div className="proc-mono__footer-pill" style={{ background: '#141414', borderColor: 'var(--border-dark)', color: 'var(--on-dark)' }}>
             <span className="proc-mono__footer-dot" />
-            <span>UNCOMPROMISING COMMERCIAL RIGOR · PRODUCTION FIGMA DELIVERABLES · FIXED 28-DAY SPRINT</span>
+            <span>SIX PRINCIPLES · APPLIED TO THE WORK, NOT JUST THE PITCH</span>
           </div>
         </div>
       </div>

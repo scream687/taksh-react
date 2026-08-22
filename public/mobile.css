@@ -43,7 +43,9 @@ html, body {
     left: 0;
     right: 0;
     z-index: 1000;
-    background: var(--void);
+    /* Follows the theme. Hard-coding --void put an ink logo and #1A1A1A
+       burger bars on a near-black bar (1.06:1). */
+    background: var(--paper);
     border-bottom: 1px solid var(--border);
     padding-top: env(safe-area-inset-top, 0);
   }
@@ -64,11 +66,14 @@ html, body {
     max-width: 100%;
   }
 
-  .nav__cta {
-    padding: 8px 14px;
-    font-size: 12px;
-    white-space: nowrap;
-    flex-shrink: 0;
+  /* The drawer carries the primary CTA on mobile; duplicating it here left
+     no room for the logo, theme toggle and menu button. */
+  .nav__cta { display: none; }
+
+  #theme-toggle {
+    width: 40px;
+    height: 40px;
+    margin-left: auto;
   }
 }
 
@@ -674,10 +679,34 @@ html, body {
 
 /* ── 17. REDUCED MOTION ─────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
+  /* Kill ambient/decorative motion outright — it carries no information. */
+  .liquid-bg,
+  .liquid-bg__blob,
+  .ambient-mesh,
+  .orb,
+  .streak,
+  .pulse-dot,
+  .animate-marquee,
+  .marquee__track {
+    animation: none !important;
+  }
+
+  /* Keep state-change feedback, just make it immediate rather than animated.
+     A blanket 0.01ms on every transition erases hover/focus/open affordances. */
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
-    transition-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
     scroll-behavior: auto !important;
+  }
+
+  *:not(a):not(button):not([role="button"]):not(input):not(textarea):not(select),
+  *::before, *::after {
+    transition-duration: 0.01ms !important;
+  }
+
+  /* Interactive elements keep a short, non-vestibular transition. */
+  a, button, [role="button"], input, textarea, select {
+    transition-duration: 80ms !important;
   }
 }
 

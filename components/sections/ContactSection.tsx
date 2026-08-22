@@ -5,12 +5,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { MagnetButton } from '@/components/motion/MagnetButton';
 import { BlurText } from '@/components/motion/BlurText';
 
-const SOCIAL_LINKS = [
-  { name: 'Instagram', url: 'https://instagram.com/' },
-  { name: 'LinkedIn', url: 'https://linkedin.com/' },
-  { name: 'Read.cv', url: 'https://read.cv/' },
-  { name: 'Twitter', url: 'https://x.com/' },
-];
+// Socials are intentionally absent until real profile URLs exist.
+// Add { name, url } entries here and the column renders itself.
+const SOCIAL_LINKS: { name: string; url: string }[] = [];
 
 const ROTATING_WORDS = ['brand.', 'thesis.', 'narrative.', 'category.', 'vision.', 'future.'];
 
@@ -44,7 +41,7 @@ export function ContactSection() {
       />
 
       <div className="container" style={{ position: 'relative', zIndex: 1 }}>
-        <span className="label label--paper">Let&apos;s talk · 07</span>
+        <span className="label label--paper">Let&apos;s talk · 09</span>
         <h2 className="contact-cta__title" style={{ display: 'flex', flexDirection: 'column' }}>
           <div>
             <BlurText text="Let's talk about" delay={0.05} />
@@ -118,6 +115,7 @@ export function ContactSection() {
             </div>
 
             {/* Socials Column */}
+            {SOCIAL_LINKS.length > 0 && (
             <div>
               <div className="label label--paper" style={{ marginBottom: '8px', color: 'rgba(245, 245, 243, 0.55)' }}>
                 Socials
@@ -147,6 +145,7 @@ export function ContactSection() {
                 ))}
               </div>
             </div>
+            )}
           </div>
 
           {/* CTA Magnet Button */}

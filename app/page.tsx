@@ -2,12 +2,12 @@
 
 import React, { useState } from 'react';
 import Script from 'next/script';
+import { MotionConfig } from 'framer-motion';
 import { SmoothScroll } from '@/components/layout/SmoothScroll';
 import { Preloader } from '@/components/layout/Preloader';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { WaitlistDrawer } from '@/components/layout/WaitlistDrawer';
-import { ThemeToggle } from '@/components/layout/ThemeToggle';
 import { HeroSection } from '@/components/sections/HeroSection';
 import { StatsStrip } from '@/components/sections/StatsStrip';
 import { PainPointsSection } from '@/components/sections/PainPointsSection';
@@ -24,10 +24,10 @@ export default function Home() {
   const [isWaitlistOpen, setIsWaitlistOpen] = useState(false);
 
   return (
-    <>
+    <MotionConfig reducedMotion="user">
       {/* Skip to Content for Accessibility */}
       <a
-        href="#services"
+        href="#main-content"
         style={{
           position: 'absolute',
           top: '-100%',
@@ -54,23 +54,8 @@ export default function Home() {
       {/* Preloader & Ambient Liquid Canvas */}
       <Preloader />
 
-      <div className="liquid-bg" aria-hidden="true">
-        <div className="liquid-bg__blob liquid-bg__blob--1" />
-        <div className="liquid-bg__blob liquid-bg__blob--2" />
-        <div className="liquid-bg__blob liquid-bg__blob--3" />
-      </div>
-
-      <div className="ambient-mesh">
-        <div className="orb orb-1" />
-        <div className="orb orb-2 orb-v" />
-        <div className="orb orb-3" />
-        <div className="streak" style={{ left: '20%', animationDelay: '0s' }} />
-        <div className="streak" style={{ left: '50%', animationDelay: '-5s' }} />
-        <div className="streak" style={{ left: '80%', animationDelay: '-10s' }} />
-      </div>
-
-      {/* Interactive Theme Switcher */}
-      <ThemeToggle />
+      {/* One static canvas. Blue stays a signal, not an ambient wash. */}
+      <div className="ambient-mesh" aria-hidden="true" />
 
       {/* Custom Context Cursor */}
       <div className="cursor" id="cursor" />
@@ -107,7 +92,6 @@ export default function Home() {
       {/* Client Motion & Interactive Scripts */}
       <Script src="/site-init.js" strategy="afterInteractive" />
       <Script src="/effects.js" strategy="afterInteractive" />
-      <Script src="/taksh.js" strategy="lazyOnload" />
-    </>
+    </MotionConfig>
   );
 }

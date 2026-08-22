@@ -63,7 +63,7 @@ export function TeamSection() {
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
         >
-          <span className="label label--paper">The studio · 05</span>
+          <span className="label label--paper">The studio · 07</span>
           <h2 className="team-roster__title">
             <BlurText text="The people behind the" delay={0.05} /> <em>point of view.</em>
           </h2>

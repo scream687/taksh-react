@@ -169,7 +169,7 @@ export function ProcessSection() {
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
         >
-          <span className="label">Method · 03</span>
+          <span className="label">Method · 04</span>
           <h2 className="section__title">
             The architecture of a<br />
             four-week <em>sprint.</em>
@@ -226,7 +226,7 @@ export function ProcessSection() {
         <div className="proc-stack__footer">
           <div className="proc-mono__footer-pill">
             <span className="proc-mono__footer-dot" />
-            <span>TWO ENGAGEMENTS PER SPRINT CADENCE · NO JUNIOR LAYERS · FIXED 28-DAY SCOPE</span>
+            <span>FIXED PRICE · FIXED TIMELINE · NO JUNIOR LAYERS</span>
           </div>
         </div>
       </div>

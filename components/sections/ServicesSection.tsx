@@ -67,7 +67,7 @@ export function ServicesSection() {
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
         >
-          <span className="label">Services · 02</span>
+          <span className="label">Services · 03</span>
           <h2 className="section__title">
             <BlurText text="Six services." delay={0.05} />
             <br />

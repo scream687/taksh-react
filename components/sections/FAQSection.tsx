@@ -69,7 +69,7 @@ export function FAQSection() {
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
         >
-          <span className="label">Questions · 06</span>
+          <span className="label">Questions · 08</span>
           <h2 className="section__title">
             <BlurText text="Things people ask" delay={0.05} />
             <br />

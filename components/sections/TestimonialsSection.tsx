@@ -81,7 +81,7 @@ export function TestimonialsSection() {
       <div className="container">
         {/* Section Head */}
         <div className="section__head">
-          <span className="label">Founder Endorsements · 04.5</span>
+          <span className="label">Founder Endorsements · 06</span>
           <h2 className="section__title">
             <BlurText text="What happens when the" delay={0.05} />
             <br />
